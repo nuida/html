@@ -1,0 +1,307 @@
+﻿\documentclass{ltjsarticle}
+\usepackage{amssymb,amsmath,amsthm,url}
+\theoremstyle{definition}
+\newtheorem{lemma}{補題}
+\newtheorem{theorem}{定理}
+\def\proofname{証明}
+\title{超限帰納法抜きで選択公理からZornの補題を証明してみた}
+\author{縫田 光司}
+\date{2011年11月13日（初版）、\today （第6版）}
+\begin{document}
+\maketitle
+\vspace*{-2em}
+
+\begin{abstract}
+    このノートでは、超限帰納法を使わずに選択公理からZornの補題を導く証明を与える（なお、このノートの初版での証明のアイデアは\cite[Theorem 4.19]{RubRub85}と同じであったが、現在の証明は\cite{Lewin91}の改良である）。
+    この証明の特徴として、\cite{Lewin91}の証明などで用いられていた整列順序の概念すら必要とせず、Zornの補題の主張が理解できる程度の半順序集合に関する知識（と、選択公理が何であるかの知識）があれば理解可能である。
+\end{abstract}
+
+このノートを通して、$(X,\leq)$は空でない半順序集合で、どの鎖（全順序部分集合のこと）も$X$における上界をもつものとする。
+\textbf{Zornの補題}とは、この$X$が常に極大元をもつという主張である。
+選択公理からZornの補題を（集合論のZermelo--Fraenkel公理系の下で）証明する際、「自然な」方針では通常は超限帰納法のお世話になるのだが、ここでは超限帰納法を使わない証明（筆者のプレプリント\cite{Nuida23}と同じもの）を紹介する。
+
+\begin{proof}
+    $X$が極大元をもたないと仮定して矛盾を導く。
+    $\mathcal{T} := \{ C \subseteq X \mid \mbox{$C$は鎖} \}$と定める。
+    $C \in \mathcal{T}$について$U_C := \{ x \in X \mid y \in C \mbox{ であれば } y < x \}$と定める。
+    このとき$U_C \cap C = \emptyset$であり、また、仮定より$C$の上界$x \in X$が存在してさらに極大でないことから$\emptyset \neq U_{\{x\}} \subseteq U_C$、したがって$U_C \neq \emptyset$である。
+    $\{ S \subseteq X \mid S = U_C \mbox{ を満たす } C \in \mathcal{T} \mbox{ が存在する} \}$は非空集合からなる集合族であり、\underline{選択公理により}その選択関数$f$が得られる。
+    すなわち$C \in \mathcal{T}$のとき$f(U_C) \in U_C$である。
+    $\mathcal{T}$の元$C$で条件 (i-$C$) 「$S \subseteq C$, $U_S \not\subseteq U_C$のとき$f(U_S) \in C$」を満たすもの全体の集合を$\mathcal{C}_0$で表す。
+    また、$\mathcal{C}_0$の元$C$で条件 (ii-$C$) 「$C' \in \mathcal{C}_0$のとき$C \setminus C' \subseteq U_{C'}$」を満たすもの全体の集合を$\mathcal{C}$で表す。
+    $C^* := \bigcup_{C \in \mathcal{C}} C$と定め、$C^* \in \mathcal{C}$であることを示す。
+
+    $C' \in \mathcal{C}_0$のとき$C^* \setminus C' \subseteq \bigcup_{C \in \mathcal{C}} C \setminus C' \subseteq U_{C'}$（各$C \in \mathcal{C}$での (ii-$C$) より）となり、(ii-$C^*$) が成り立つ。
+    また、$x,y \in C^*$とすると、ある$C \in \mathcal{C}$について$x \in C$である。
+    すると、$y \in C$であれば$C \in \mathcal{T}$より$x \leq y$または$y \leq x$が成り立ち、一方で$y \not\in C$であれば (ii-$C^*$) より$y \in C^* \setminus C \subseteq U_C$、したがって$x < y$が成り立つ。
+    よっていずれにしても$x \leq y$または$y \leq x$が成り立ち、$C^* \in \mathcal{T}$である。
+    さらに、$S \subseteq C^*$かつ$U_S \not\subseteq U_{C^*} = \bigcap_{C \in \mathcal{C}} U_C$のとき、ある$C \in \mathcal{C}$について$U_S \not\subseteq U_C$であり、さらにある$x \in U_S$について$x \not\in U_C$である。
+    すると$y \in S$について$y < x$より$y \not\in U_C$である。
+    すなわち$S \cap U_C = \emptyset$である。
+    (ii-$C^*$) より$S \setminus C \subseteq C^* \setminus C \subseteq U_C$であるから、$S \subseteq C$が成り立つ。
+    よって (i-$C$) より$f(U_S) \in C \subseteq C^*$となり、(i-$C^*$) が成り立つ。
+    よって$C^* \in \mathcal{C}$である。
+    $u := f(U_{C^*})$, $C^{**} := C^* \cup \{u\}$と定める。
+
+    $u$は$C^{**}$の最大元であるから、$C^*$と同様に$C^{**}$も鎖である。
+    $S \subseteq C^{**}$かつ$U_S \not\subseteq U_{C^{**}}$のとき、$u \not\in S$（さもなくば$U_S = U_{\{u\}} = U_{C^{**}}$である）より$S \subseteq C^*$、したがって$U_{C^*} \subseteq U_S$である。
+    ここで$U_S \subseteq U_{C^*}$であれば$U_S = U_{C^*}$となり、$f(U_S) = f(U_{C^*}) = u \in C^{**}$となる。
+    一方$U_S \not\subseteq U_{C^*}$であれば、(i-$C^*$) より$f(U_S) \in C^* \subseteq C^{**}$となる。
+    いずれにしても$f(U_S) \in C^{**}$となり、$C^{**} \in \mathcal{C}_0$である。
+    $C^{**} \not\subseteq C^*$より$C^{**} \not\in \mathcal{C}$であり、したがってある$C' \in \mathcal{C}_0$について$C^{**} \setminus C' \not\subseteq U_{C'}$である。
+    (ii-$C^*$) より$C^* \setminus C' \subseteq U_{C'}$であるので、$u \not\in C'$かつ$u \not\in U_{C'}$である（さもなくば$\emptyset \neq (C^{**} \setminus C') \setminus U_{C'} = (C^* \setminus C') \setminus U_{C'} = \emptyset$となり矛盾する）。
+    これと$u \in U_{C^*}$より$U_{C^*} \not\subseteq U_{C'}$かつ$C^* \cap U_{C'} = \emptyset$、したがって$C^* \subseteq C'$となる。
+    すると (i-$C'$) を$C^* \subseteq C'$に適用して、$u \in C'$となるが、これは矛盾である。
+    以上でZornの補題が証明された。
+\end{proof}
+
+
+\section*{おまけ1：大幅に詳しく書いた証明}
+
+上記の証明は筆者の普段の感覚で書いた証明であるが、初学者のために、この証明をより詳しくしてみる。
+
+\begin{enumerate}
+    \item \label{item:proof:contraposition} 背理法により、$X$が極大元をもたないと仮定して矛盾を導けばよい。
+    \item \label{item:proof:subset_of_chain} まず、鎖$C \subseteq X$と部分集合$S \subseteq C$について、$S$も鎖である。証明は下記の通り：
+    \begin{enumerate}
+        \item 鎖の定義より、これを示すには、$x,y \in S$と仮定して、$x \leq y$と$y \leq x$の少なくとも一方が成り立つことを示せばよい。
+        \item \ref{item:proof:subset_of_chain}.の仮定より$S \subseteq C$であるから、$x,y \in C$である。
+        \item これと$C$が鎖であること（\ref{item:proof:subset_of_chain}.の仮定）から、確かに$x \leq y$と$y \leq x$の少なくとも一方が成り立つ。
+    \end{enumerate}
+    \item \label{item:proof:definition_of_U} 鎖$C \subseteq X$について、$U_C := \{ x \in X \mid y \in C \mbox{ であれば } y < x \}$と定める。このとき$U_C \cap C = \emptyset$である。証明は下記の通り：
+    \begin{enumerate}
+        \item もし$x \in U_C \cap C$であるとすると、$U_C$の定義より、どの$y \in C$についても$y < x$である。
+        \item これを$y := x \in C$に適用すると、$x < x$となる。これは矛盾である。
+    \end{enumerate}
+    \item \label{item:proof:U_is_decreasing} この集合$U_C$の性質をいくつか調べておく。まず、$C_1$と$C_2$が$X$の鎖であり$C_1 \subseteq C_2$であれば、$U_{C_2} \subseteq U_{C_1}$である。証明は下記の通り：
+    \begin{enumerate}
+        \item \label{item:proof:U_is_decreasing:goal} これを示すには、$x \in U_{C_2}$と仮定して、$x \in U_{C_1}$を示せばよい。これを示すには、$y \in C_1$と仮定して、$y < x$を示せばよい。証明は下記の通り：
+        \begin{enumerate}
+            \item \label{item:proof:U_is_decreasing:C_1_is_in_C_2} $C_1 \subseteq C_2$（\ref{item:proof:U_is_decreasing}.の仮定）と$y \in C_1$（\ref{item:proof:U_is_decreasing:goal}.の仮定）より、$y \in C_2$である。
+            \item これと$x \in U_{C_2}$（\ref{item:proof:U_is_decreasing:goal}.の仮定）および$U_{C_2}$の定義より、確かに$y < x$である。
+        \end{enumerate}
+    \end{enumerate}
+    \item \label{item:proof:U_for_singleton} $x,y \in X$について、$U_{\{x\}}$の定義より、$x < y$と$y \in U_{\{x\}}$は同値である（1元集合$\{x\}$は$X$の鎖であることを注意しておく）。
+    \item \label{item:proof:U_for_upper_bound} 鎖$C \subseteq X$と$C$の上界$x \in X$について、$U_{\{x\}} \subseteq U_C$である。証明は下記の通り：
+    \begin{enumerate}
+        \item \label{item:proof:U_for_upper_bound:goal} これを示すには、$y \in U_{\{x\}}$と仮定して、$y \in U_C$を示せばよい。これを示すには、$z \in C$と仮定して、$z < y$を示せばよい。証明は下記の通り：
+        \begin{enumerate}
+            \item \label{item:proof:U_for_upper_bound:x<y} $y \in U_{\{x\}}$（\ref{item:proof:U_for_upper_bound:goal}.の仮定）と\ref{item:proof:U_for_singleton}.より、$x < y$である。
+            \item $z \in C$（\ref{item:proof:U_for_upper_bound:goal}.の仮定）と、$x$が$C$の上界であること（\ref{item:proof:U_for_upper_bound}.の仮定）より、$z \leq x$である。
+            \item これと\ref{item:proof:U_for_upper_bound:x<y}.より、$z \leq x < y$であり、したがって確かに$z < y$である。
+        \end{enumerate}
+    \end{enumerate}
+    \item \label{item:proof:U_is_filter} 鎖$C \subseteq X$について、$x \in U_C$, $y \in X$, $x \leq y$のとき$y \in U_C$である。証明は下記の通り：
+    \begin{enumerate}
+        \item これを示すには、$z \in C$と仮定して、$z < y$を示せばよい。証明は下記の通り：
+        \begin{enumerate}
+            \item この仮定$z \in C$および$x \in U_C$（\ref{item:proof:U_is_filter}.の仮定）より、$z < x$である。
+            \item これと$x \leq y$（\ref{item:proof:U_is_filter}.の仮定）より、確かに$z < y$である。
+        \end{enumerate}
+    \end{enumerate}
+    \item \label{item:proof:C_cap_U_C'_is_empty} $C_1$と$C_2$が$X$の鎖であり$U_{C_1} \not\subseteq U_{C_2}$であれば、$C_1 \cap U_{C_2} = \emptyset$である。証明は下記の通り：
+    \begin{enumerate}
+        \item \label{item:proof:C_cap_U_C'_is_empty:y_not_in_C_2} この仮定$U_{C_1} \not\subseteq U_{C_2}$より、ある$y \in U_{C_1}$について$y \not\in U_{C_2}$となる。
+        \item \label{item:proof:C_cap_U_C'_is_empty:x<y} ここで、もし$x \in C_1 \cap U_{C_2}$であるとすると、$y \in U_{C_1}$（\ref{item:proof:C_cap_U_C'_is_empty:y_not_in_C_2}.）より、$x < y$である。
+        \item これと$x \in U_{C_2}$（\ref{item:proof:C_cap_U_C'_is_empty:x<y}.の仮定）および\ref{item:proof:U_is_filter}.より、$y \in U_{C_2}$となるが、これは\ref{item:proof:C_cap_U_C'_is_empty:y_not_in_C_2}.と矛盾する。
+    \end{enumerate}
+    \item \label{item:proof:U_is_nonempty} 鎖$C \subseteq X$について、$U_C \neq \emptyset$である。証明は下記の通り：
+    \begin{enumerate}
+        \item Zornの補題の仮定より、鎖$C$は上界$x \in X$をもつ。
+        \item \label{item:proof:U_is_nonempty:inclusion} \ref{item:proof:U_for_upper_bound}.より、$U_{\{x\}} \subseteq U_C$である。
+        \item 背理法（\ref{item:proof:contraposition}.）の仮定より、$x$は$X$の極大元ではない。つまり、ある$y \in X$について$x < y$が成り立つ。
+        \item これと\ref{item:proof:U_for_singleton}.より、$y \in U_{\{x\}}$である。
+        \item これと\ref{item:proof:U_is_nonempty:inclusion}.より、$y \in U_C$であり、したがって確かに$U_C \neq \emptyset$である。
+    \end{enumerate}
+    \item \label{item:proof:AC} \ref{item:proof:U_is_nonempty}.より、$\{ S \subseteq X \mid \mbox{ある鎖$C \subseteq X$について$S = U_C$} \}$は非空集合からなる集合族であるから、\underline{選択公理により}その選択関数$f$が得られる。すなわち、鎖$C \subseteq X$について$f(U_C)$は$U_C$の元である。
+    \item \label{item:proof:f(C)_not_in_C} これと\ref{item:proof:definition_of_U}.より、鎖$C \subseteq X$について$f(U_C) \not\in C$である。
+    \item \label{item:proof:definition_of_C_0} 鎖$C \subseteq X$のうち、条件\[ \mbox{(i-$C$) \quad $S \subseteq C$, $U_S \not\subseteq U_C$のとき$f(U_S) \in C$} \]を満たすもの全体の集合を$\mathcal{C}_0$で表す。（なお、\ref{item:proof:subset_of_chain}.より、条件に現れる$S$も鎖であり、$U_S$や$f(U_S)$が定義されることを注意しておく。）
+    \item \label{item:proof:definition_of_C} 鎖$C \subseteq X$のうち、条件 (i-$C$) を満たし（つまり$C \in \mathcal{C}_0$であり）、さらに条件\[ \mbox{(ii-$C$) \quad $C' \in \mathcal{C}_0$のとき$C \setminus C' \subseteq U_{C'}$} \]を満たすもの全体の集合を$\mathcal{C}$で表す。
+    \item \label{item:proof:definition_of_C^*} $C^* := \bigcup_{C \in \mathcal{C}} C \subseteq X$と定義する。この定義より、$C \in \mathcal{C}$のとき$C \subseteq C^*$が成り立つ。
+    \item \label{item:proof:C^*_is_in_C} $C^* \in \mathcal{C}$を示す。それには、$C^*$が鎖であることと、条件 (i-$C^*$) と、条件 (ii-$C^*$) を示せばよい。
+    \begin{enumerate}
+        \item \label{item:proof:ii-C^*} 条件 (ii-$C^*$)、つまり、$C' \in \mathcal{C}_0$のとき$C^* \setminus C' \subseteq U_{C'}$であることを示す。それには、$x \in C^*$かつ$x \not\in C'$と仮定して、$x \in U_{C'}$を示せばよい。証明は下記の通り：
+        \begin{enumerate}
+            \item \label{item:proof:ii-C^*:x_in_C} $x \in C^*$（\ref{item:proof:ii-C^*}.の仮定）と$C^*$の定義（\ref{item:proof:definition_of_C^*}.）より、ある$C \in \mathcal{C}$について$x \in C$が成り立つ。
+            \item \label{item:proof:ii-C^*:x_in_C_minus_C'} これと$x \not\in C'$（\ref{item:proof:ii-C^*}.の仮定）より、$x \in C \setminus C'$である。
+            \item $C \in \mathcal{C}$（\ref{item:proof:ii-C^*:x_in_C}.）より条件 (ii-$C$) が成り立つ。
+            \item この条件 (ii-$C$) を$C' \in \mathcal{C}_0$（\ref{item:proof:ii-C^*}.）に適用して、$C \setminus C' \subseteq U_{C'}$となる。
+            \item これと\ref{item:proof:ii-C^*:x_in_C_minus_C'}.より、確かに$x \in U_{C'}$が成り立つ。
+        \end{enumerate}
+        \item \label{item:proof:C^*_is_chain} $C^*$が鎖であることを示す。それには、$x,y \in C^*$と仮定して、$x \leq y$または$y \leq x$が成り立つことを示せばよい。証明は下記の通り：
+        \begin{enumerate}
+            \item \label{item:proof:C^*_is_chain:x} $C^*$の定義（\ref{item:proof:definition_of_C^*}.）より、ある$C \in \mathcal{C}$について$x \in C$が成り立つ。
+            \item \label{item:proof:C^*_is_chain:C_in_C_0} $\mathcal{C}$の定義（\ref{item:proof:definition_of_C}.）より、$C$は鎖であり、また$C \in \mathcal{C}_0$である。
+            \item $y \in C$または$y \not\in C$の場合分けを行う。まず、$y \in C$と仮定する。
+            \begin{enumerate}
+                \item \label{item:proof:C^*_is_chain:y_in_C:x_and_y} この仮定と\ref{item:proof:C^*_is_chain:x}.より、$x,y \in C$である。
+                \item これと$C$が鎖であること（\ref{item:proof:C^*_is_chain:C_in_C_0}.）より、$x \leq y$または$y \leq x$が成り立つ。
+            \end{enumerate}
+            \item \label{item:proof:C^*_is_chain:y_not_in_C} 次に、$y \not\in C$と仮定する。
+            \begin{enumerate}
+                \item この仮定と$y \in C^*$（\ref{item:proof:C^*_is_chain}.）より、$y \in C^* \setminus C$である。
+                \item すると、条件 (ii-$C^*$)（\ref{item:proof:ii-C^*}.）を$C \in \mathcal{C}_0$（\ref{item:proof:C^*_is_chain:C_in_C_0}.）に適用して、$y \in U_{C}$となる。
+                \item これと$U_C$の定義（\ref{item:proof:definition_of_U}.）および$x \in C$（\ref{item:proof:C^*_is_chain:x}.）より、$x < y$、したがって$x \leq y$が成り立つ。
+            \end{enumerate}
+            \item よって、どちらの場合にも、$x \leq y$または$y \leq x$が確かに成り立つ。
+        \end{enumerate}
+        \item \label{item:proof:i-C^*} 条件 (i-$C^*$)、つまり、$S \subseteq C^*$, $U_S \not\subseteq U_{C^*}$のとき$f(U_S) \in C^*$であることを示す。証明は下記の通り：
+        \begin{enumerate}
+            \item \label{item:proof:i-C^*:x} $U_S \not\subseteq U_{C^*}$（\ref{item:proof:i-C^*}.の仮定）より、ある$x \in U_S$について$x \not\in U_{C^*}$が成り立つ。
+            \item \label{item:proof:i-C^*:y_not_<x} これと$U_{C^*}$の定義（\ref{item:proof:definition_of_U}.）より、ある$y \in C^*$について$y \not< x$が成り立つ。
+            \item \label{item:proof:i-C^*:y_in_C} $C^*$の定義（\ref{item:proof:definition_of_C^*}.）より、ある$C \in \mathcal{C}$について$y \in C$が成り立つ。
+            \item \label{item:proof:i-C^*:x_not_in_U_C} これと$y \not< x$（\ref{item:proof:i-C^*:y_not_<x}.）より、$x \not\in U_C$である。
+            \item \label{item:proof:i-C^*:U_S_not_in_U_C} これと$x \in U_S$（\ref{item:proof:i-C^*:x}.）より、$U_S \not\subseteq U_C$である。
+            \item \label{item:proof:i-C^*:S_and_U_C_are_disjoint} これと\ref{item:proof:C_cap_U_C'_is_empty}.より、$S \cap U_C = \emptyset$である。
+            \item \label{item:proof:i-C^*:C_in_C_0} $C \in \mathcal{C}$（\ref{item:proof:i-C^*:y_in_C}.）および$\mathcal{C}$の定義（\ref{item:proof:definition_of_C}.）より、$C \in \mathcal{C}_0$である。
+            \item \label{item:proof:i-C^*:S_in_C} $S \subseteq C$を示す。それには、$z \in S$かつ$z \not\in C$と仮定して矛盾を導けばよい。証明は下記の通り：
+            \begin{enumerate}
+                \item \label{item:proof:i-C^*:S_in_C:z} この仮定と$S \subseteq C^*$（\ref{item:proof:i-C^*}.の仮定）より$z \in C^*$、したがって$z \in C^* \setminus C$となる。
+                \item すると、条件 (ii-$C^*$)（\ref{item:proof:ii-C^*}.）を$C \in \mathcal{C}_0$（\ref{item:proof:i-C^*:C_in_C_0}.）に適用して、$z \in U_C$となる。
+                \item これと$z \in S$（\ref{item:proof:i-C^*:S_in_C}.の仮定）より$z \in S \cap U_C$となるが、これは\ref{item:proof:i-C^*:S_and_U_C_are_disjoint}.と矛盾する。
+            \end{enumerate}
+            \item \label{item:proof:i-C^*:f(U_S)_in_C} $C \in \mathcal{C}_0$（\ref{item:proof:i-C^*:C_in_C_0}.）と$S \subseteq C$（\ref{item:proof:i-C^*:S_in_C}.）と$U_S \not\subseteq U_C$（\ref{item:proof:i-C^*:U_S_not_in_U_C}.）より、条件 (i-$C$) を$S$に適用して、$f(U_S) \in C$となる。
+            \item $C \in \mathcal{C}$（\ref{item:proof:i-C^*:y_in_C}.）と\ref{item:proof:definition_of_C^*}.より、$C \subseteq C^*$である。
+            \item これと\ref{item:proof:i-C^*:f(U_S)_in_C}.より、確かに$f(U_S) \in C^*$が成り立つ。
+            \end{enumerate}
+        \end{enumerate}
+    \item \label{item:proof:definition_of_C^**} $u := f(U_{C^*})$, $C^{**} := C^* \cup \{u\}$と定める。
+    \item \label{item:proof:u_is_maximum} 選択関数$f$の選び方（\ref{item:proof:AC}.）より、$u \in U_{C^*}$であるので、$u$は$C^{**}$の最大元である。
+    \item これと$u = f(U_{C^*}) \not\in C^*$（\ref{item:proof:f(C)_not_in_C}.）より、$C^{**} \not\subseteq C^*$である。
+    \item \label{item:proof:C^**_not_in_C} これと\ref{item:proof:definition_of_C^*}.より、$C^{**} \not\in \mathcal{C}$である。
+    \item \label{item:proof:C^**_is_chain} $C^{**}$が鎖であることを示す。それには、$x,y \in C^{**}$と仮定して、$x \leq y$または$y \leq x$が成り立つことを示せばよい。証明は下記の通り：
+    \begin{enumerate}
+        \item $x = u$であれば、$u$が$C^{**}$の最大元であること（\ref{item:proof:u_is_maximum}.）から、$y \leq x$となる。
+        \item 対称性より、$y = u$の場合も同様に、$x \leq y$となる。よってこれらの場合には確かに、$x \leq y$または$y \leq x$が成り立つ。
+        \item 残る場合である$x \neq u$かつ$y \neq u$の場合には、$C^{**}$の定義（\ref{item:proof:definition_of_C^**}.）より$x,y \in C^*$である。
+        \item これと$C^*$が鎖であること（\ref{item:proof:C^*_is_chain}.）から確かに、$x \leq y$または$y \leq x$が成り立つ。
+    \end{enumerate}
+    \item \label{item:proof:i-C^**} 条件 (i-$C^{**}$)、つまり、$S \subseteq C^{**}$, $U_S \not\subseteq U_{C^{**}}$のとき$f(U_S) \in C^{**}$であることを示す。証明は下記の通り：
+    \begin{enumerate}
+        \item \label{item:proof:i-C^**:u_not_in_S} $u \not\in S$を示す。証明は下記の通り：
+        \begin{enumerate}
+            \item \label{item:proof:i-C^**:u_not_in_S:U_S_in_U_x} もし$u \in S$であるとすると、$\{u\} \subseteq S$であり、\ref{item:proof:U_is_decreasing}.より$U_S \subseteq U_{\{u\}}$である。
+            \item \ref{item:proof:u_is_maximum}.より$u$は$C^{**}$の上界である。
+            \item これと\ref{item:proof:U_for_upper_bound}.より$U_{\{u\}} \subseteq U_{C^{**}}$である。
+            \item これと\ref{item:proof:i-C^**:u_not_in_S:U_S_in_U_x}.より$U_S \subseteq U_{C^{**}}$となるが、これは\ref{item:proof:i-C^**}.の仮定$U_S \not\subseteq U_{C^{**}}$と矛盾する。
+        \end{enumerate}
+        \item \label{item:proof:i-C^**:S_in_C^*} $S \subseteq C^{**}$（\ref{item:proof:i-C^**}.の仮定）と\ref{item:proof:i-C^**:u_not_in_S}.より、$S \subseteq C^*$となる。
+        \item \label{item:proof:i-C^**:U_C^*_in_U_S} これと\ref{item:proof:U_is_decreasing}.より、$U_{C^*} \subseteq U_S$となる。
+        \item $U_S \subseteq U_{C^*}$または$U_S \not\subseteq U_{C^*}$の場合分けを行う。まず、$U_S \subseteq U_{C^*}$と仮定する。
+        \begin{enumerate}
+            \item この仮定と\ref{item:proof:i-C^**:U_C^*_in_U_S}.より、$U_S = U_{C^*}$であり、したがって$f(U_S) = f(U_{C^*}) = u \in C^{**}$である。
+        \end{enumerate}
+        \item 次に、$U_S \not\subseteq U_{C^*}$と仮定する。
+        \begin{enumerate}
+            \item この仮定と$S \subseteq C^*$（\ref{item:proof:i-C^**:S_in_C^*}.）、および条件 (i-$C^*$) （\ref{item:proof:i-C^*}.）より、$f(U_S) \in C^*$となる。
+            \item これと、$C^{**}$の定義（\ref{item:proof:definition_of_C^**}.）より$C^* \subseteq C^{**}$であることから、$f(U_S) \in C^{**}$となる。
+        \end{enumerate}
+        \item よって、どちらの場合にも、$f(U_S) \in C^{**}$が確かに成り立つ。
+    \end{enumerate}
+    \item \label{item:proof:ii-C^**_fails} \ref{item:proof:C^**_not_in_C}.と\ref{item:proof:C^**_is_chain}.と\ref{item:proof:i-C^**}.、および$\mathcal{C}$の定義（\ref{item:proof:definition_of_C}.）より、条件 (ii-$C^{**}$) は成り立たない。したがって、ある$C' \in \mathcal{C}_0$について$C^{**} \setminus C' \not\subseteq U_{C'}$となり、ある$x \in C^{**} \setminus C'$について$x \not\in U_{C'}$となる。
+    \item \label{item:proof:C^*_minus_C'_in_U_C'} 条件 (ii-$C^*$)（\ref{item:proof:ii-C^*}.）をこの$C' \in \mathcal{C}_0$（\ref{item:proof:ii-C^**_fails}.）に適用して、$C^* \setminus C' \subseteq U_{C'}$となる。
+    \item \label{item:proof:x_not_in_C^*} $x \not\in C^*$を示す。証明は下記の通り：
+    \begin{enumerate}
+        \item もし$x \in C^*$であるとすると、$x \not\in C'$（\ref{item:proof:ii-C^**_fails}.）より$x \in C^* \setminus C'$である。
+        \item これと\ref{item:proof:C^*_minus_C'_in_U_C'}.より、$x \in U_{C'}$となるが、これは\ref{item:proof:ii-C^**_fails}.と矛盾する。
+    \end{enumerate}
+    \item \ref{item:proof:ii-C^**_fails}.より$x \in C^{**}$であり、これと\ref{item:proof:x_not_in_C^*}.より$x = u$となる。
+    \item \label{item:proof:u_is_not_in_C'} これと\ref{item:proof:ii-C^**_fails}.より、$u \not\in C'$かつ$u \not\in U_{C'}$となる。
+    \item \label{item:proof:U_C^*_is_not_in_U_C'} これと$u = f(U_{C^*}) \in U_{C^*}$（\ref{item:proof:AC}.）より、$U_{C^*} \not\subseteq U_{C'}$である。
+    \item \label{item:proof:C^*_and_U_C'_are_disjoint} これと\ref{item:proof:C_cap_U_C'_is_empty}.より、$C^* \cap U_{C'} = \emptyset$である。
+    \item \label{item:proof:C^*_in_C'} $C^* \subseteq C'$を示す。証明は下記の通り：
+    \begin{enumerate}
+        \item もし$y \in C^*$かつ$y \not\in C'$、つまり$y \in C^* \setminus C'$であるとすると、\ref{item:proof:C^*_minus_C'_in_U_C'}.より$y \in U_{C'}$、したがって$y \in C^* \cap U_{C'}$となるが、これは\ref{item:proof:C^*_and_U_C'_are_disjoint}.と矛盾する。
+    \end{enumerate}
+    \item $C' \in \mathcal{C}_0$（\ref{item:proof:ii-C^**_fails}.）と$C^* \subseteq C'$（\ref{item:proof:C^*_in_C'}.）と$U_{C^*} \not\subseteq U_{C'}$（\ref{item:proof:U_C^*_is_not_in_U_C'}.）より、条件 (i-$C'$) を$C^* \subseteq C'$に適用して、$f(U_{C^*}) \in C'$となる。
+    \item しかし、\ref{item:proof:u_is_not_in_C'}.より$u = f(U_{C^*}) \not\in C'$である。これは矛盾である。
+    \item 以上でZornの補題が証明された。
+\end{enumerate}
+
+
+
+\section*{おまけ2：超限帰納法を用いた証明}
+
+このおまけでは、比較のために、超限帰納法を用いて選択公理からZornの補題を導く証明を与える。
+最初に、超限再帰的定義に関する原理を述べておく（例えば\cite[第I章定理9.3]{Kunen}を参照）。
+
+\begin{theorem}
+    \label{thm:transfinite_induction}
+    $\varphi(x,y)$を（Zermelo--Fraenkel集合論における）式で自由変数$x$と$y$をもち、$\forall x \exists! y \varphi(x,y)$を満たすものとする。
+    このとき、自由変数$x$と$y$をもつ式$\Phi(x,y)$で以下の二つの条件を満たすものが存在する。
+    \begin{enumerate}
+        \item $\forall x ( (x \in \mathbf{ON} \to \exists! y \Phi(x,y)) \land (\neg x \in \mathbf{ON} \to \neg\exists y \varphi(x,y) ) )$
+        \item $\forall x ( x \in \mathbf{ON} \to \forall y,z ( y = \Phi\!\upharpoonright_x \land \varphi(y,z) \to \Phi(x,z) ) )$
+    \end{enumerate}
+    ただし、「$x \in \mathbf{ON}$」は「$x$は順序数」の略記とし、「$\Phi\!\upharpoonright_x$」は集合$\{\langle a,b \rangle \mid a \in x \land \Phi(a,b)\}$（$\langle a,b \rangle$は$a$と$b$の順序対）の略記とする。
+\end{theorem}
+
+この定理の直感的な意味は以下の通りである：順序数全体（これは集合をなさないのであるが）で定義される「関数」$\Phi$を得たいとき、順序数$\alpha$における値を$\alpha$より小さな順序数における値から定める方法を指定すれば、その条件を満たす「関数」$\Phi$が確かに存在する。
+この定理はZF集合論における定理であり、選択公理は用いていないことを注意しておく。
+
+定理\ref{thm:transfinite_induction}（と超限帰納法）を用いて、選択公理からZornの補題を証明する。
+$X \neq 0$（$= \emptyset$）を、Zornの補題の主張に現れる半順序集合とする。
+背理法の仮定として、$X$は極大元をもたないと仮定する。
+すると、$X$の空でない部分集合$C$のうち、ある順序数と同型な（特に全順序集合である）ものの各々について、\underline{選択公理を用いて}$C$の上界$b_C \in X \setminus C$を一つずつ選ぶことができる。
+
+定理\ref{thm:transfinite_induction}を適用すべく、まず$X$の元$a$を一つ固定しておき、式$\varphi(x,y)$を以下の要領で定義する。
+\begin{itemize}
+    \item $x = 0$のとき、$\varphi(x,y)$は$y = a$を意味するように定める。
+    \item $x$がある順序数$\alpha > 0$から$X$への関数であって像$\mathrm{Im}(x)$への（半順序集合としての）同型写像であるとき、$\varphi(x,y)$は$y = b_{\mathrm{Im}(x)}$を意味するように定める（$\mathrm{Im}(x)$は空でない順序数$\alpha$と同型なので、$b_{\mathrm{Im}(x)}$が確かに定義されることを注意しておく）。
+    \item それ以外のとき、$\varphi(x,y)$は$y = 0$を意味するように定める。
+\end{itemize}
+この式$\varphi(x,y)$は定理\ref{thm:transfinite_induction}の前提を満たすので、定理の主張にあるような式$\Phi(x,y)$が存在する。
+ここで以下の補題が成り立つ。
+
+\begin{lemma}
+    \label{lem:appendix_property_of_Phi}
+    $x$を順序数とし、$x'$を$\Phi(x,x')$が成り立つ唯一の元とする。
+    このとき、
+    \begin{enumerate}
+        \item $x' \in X$である。
+        \item $y < x$かつ$\Phi(y,y')$が成り立つならば、$X$において$y' < x'$である。
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    $x$に関する超限帰納法を用いて証明する。
+    まず、$x = 0$のときは、$\varphi$の定義より$x' = a$となるので、件の条件が成り立つ。
+    次に$x > 0$のときを考える。
+    超限帰納法の仮定より、定理\ref{thm:transfinite_induction}の主張に現れる集合$\Phi\!\upharpoonright_x$は$x$から$X$のある部分集合$C$への同型写像となる（$x$は全順序集合であることを注意しておく）。
+    このとき$\Phi$と$\varphi$の定義より$x' = b_C$となり、したがって件の条件は$x$に関しても成り立つ（二つ目の条件については、$b_C \in X \setminus C$が$C$の上界であることから導かれる）。
+    以上より主張が成り立つ。
+\end{proof}
+
+補題\ref{lem:appendix_property_of_Phi}の二つ目の性質より、各$v \in X$について、$\Phi(x,v)$を満たす順序数$x$は高々一つしか存在しない。
+$X$の部分集合$X'$を、ある（一意に定まる）順序数$x$について$\Phi(x,v)$が成り立つような$v \in X$全体の集合として定める。
+置換公理を集合$X'$と式$\Phi'(x,y) := \Phi(y,x)$に適用すると、順序数$y$のうち、$\Phi(y,y')$を満たす唯一の$y'$が$X'$に属するような$y$をすべて要素にもつ集合$Y$の存在が示される。
+ここで補題\ref{lem:appendix_property_of_Phi}の一つ目の性質より、この集合$Y$はすべての順序数を要素にもつことになる。
+しかし、これはBurali--Fortiの逆理（すなわち、すべての順序数を要素にもつ集合は存在しない、という定理）に矛盾する。
+したがって背理法により、$X$は極大元をもつ。
+以上でZornの補題が証明された。
+
+\begin{thebibliography}{9}
+
+    \bibitem{Kunen}
+    ケネス・キューネン（著）、藤田博司（訳）、
+    『集合論　独立性証明への案内』、
+    日本評論社、2008年
+
+    \bibitem{Lewin91}
+    J.~Lewin,
+    \lq\lq A Simple Proof of Zorn's Lemma\rq\rq,
+    Amer.\ Math.\ Monthly \textbf{98}(4) (1991),
+    353--354
+
+    \bibitem{Nuida23}
+    K.~Nuida,
+    \lq\lq A Simple and Elementary Proof of Zorn's Lemma\rq\rq,
+    arXiv:2305.10258v1 (\url{https://arxiv.org/abs/2305.10258}), 2023
+
+    \bibitem{RubRub85}
+    H.~Rubin, J.~E.~Rubin, 
+    \lq\lq Equivalents of the Axiom of Choice, II\rq\rq, Second Edition, 
+    Studies in Logic and the Foundations of Mathematics vol.116, North-Holland, 1985
+
+\end{thebibliography}
+
+\end{document}

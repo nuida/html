@@ -1,0 +1,207 @@
+\documentclass{article}
+\usepackage{amssymb,amsmath,amsthm}
+\usepackage{fullpage}
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
+\title{A note on a proof of Zorn's Lemma from Axiom of Choice without transfinite induction}
+\author{Koji Nuida}
+\date{November 13, 2011 (1st ed.), \today{} (3rd ed.)}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+In this note, we give a proof of Zorn's Lemma from Axiom of Choice without transfinite induction (whose essential idea is the same as the proof of Theorem 4.19 in the book [H.~Rubin and J.~E.~Rubin, \lq\lq Equivalents of the Axiom of Choice, II\rq\rq, Second Edition, Studies in Logic and the Foundations of Mathematics vol.116, North-Holland, 1985], as I noticed after writing the first version of this note ...).
+For the sake of comparison, we also include as an appendix a proof of the claim using transfinite induction.
+\end{abstract}
+
+Throughout this note, let $(X,\leq)$ denote an arbitrary non-empty partially ordered set in which every chain\footnote{totally (or linearly) ordered subset} $C$ has an upper bound\footnote{that is, an element $x \in X$ satisfying that $c \leq x$ for every $c \in C$}.
+Then Zorn's Lemma states that such an $X$ always has a maximal element\footnote{that is, an element $x \in X$ satisfying that there exist no elements $y \in X$ with $x < y$}.
+In this note, we give a proof of Zorn's Lemma from Axiom of Choice (in Zermelo--Fraenkel set theory), without transfinite induction which would be used in a \lq\lq natural'' proof of the claim.
+
+Assume, for the contrary, that some $X$ satisfying the hypothesis has no maximal elements.
+We will derive a contradiction from this assumption.
+
+We prepare some definitions and terminology.
+For any chain $C$ in $X$, let $U_C$ denote the set of upper bounds for $C$ belonging to $X \setminus C$.
+For any chain $C$ in $X$ and any $x \in X$, we define $s_C(x) := \{ y \in C \mid y < x \}$.
+Let $\mathcal{C}$ denote the set of non-empty and well-ordered\footnote{that is, any non-empty subset has the minimum element} chains of $X$.
+We note that when $C \in \mathcal{C}$, any non-empty subset of $C$ also belongs to $\mathcal{C}$.
+Now we have the following property.
+
+\begin{lemma}
+    \label{lem:Zorn:chain_has_proper_upper_bound}
+    We have $U_C \neq \emptyset$ for any $C \in \mathcal{C}$.
+\end{lemma}
+\begin{proof}
+    By the hypothesis of Zorn's Lemma, $C$ has an upper bound $x \in X$.
+    As we have assumed that $X$ has no maximal elements, there is an $y \in X$ with $x < y$.
+    For this $y$, we have $y \not\leq x$, therefore $y \not\in C$ by the choice of $x$.
+    Moreover, $y$ (as well as $x$) is an upper bound for $C$.
+    Hence we have $y \in U_C$, therefore $U_C \neq \emptyset$.
+\end{proof}
+
+We define $\mathcal{U} := \{ S \subseteq X \mid \mbox{$S = U_C$ for some $C \in \mathcal{C}$} \}$.
+By Lemma \ref{lem:Zorn:chain_has_proper_upper_bound}, the family $\mathcal{U}$ consists of non-empty sets, therefore \underline{Axiom of Choice} yields its choice function $f$.
+That is, $f(U_C) \in U_C$ for any $C \in \mathcal{C}$.
+We write the element $f(U_C)$ simply as $f(C)$.
+
+Note that $X \neq \emptyset$ by the hypothesis of Zorn's Lemma.
+Fix an element $x_0 \in X$.
+We introduce the following definition:
+\begin{itemize}
+    \item 
+    We say that a chain $C \in \mathcal{C}$ is \emph{$f$-consecutive} if $x_0 = \min C$ and for any $c \in C \setminus \{x_0\}$ we have $f(s_C(c)) = c$ (note that now $x_0 < c$ and hence $s_C(c) \neq \emptyset$, therefore $s_C(c) \in \mathcal{C}$).
+    Let $\mathcal{C}_f$ denote the set of $f$-consecutive elements of $\mathcal{C}$.
+\end{itemize}
+We note that, in the definition above, if $c = x_0$, then we have $s_C(c) = \emptyset$.
+By defining $f(\emptyset) := x_0$, it will hold that for any $C \in \mathcal{C}_f$ and any $c \in C$, we always have $f(s_C(c)) = c$.
+
+Define $C^* := \bigcup_{C \in \mathcal{C}_f} C$.
+As $\{x_0\} \in \mathcal{C}_f$, it follows that $C^* \neq \emptyset$ and $x_0 = \min C^*$.
+
+\begin{lemma}
+    \label{lem:Zorn:2}
+    If $C_1,C_2 \in \mathcal{C}_f$, $x \in C_1$, and $y = \min(C_2 \setminus s_{C_1}(x))$, then $y \in C_1$.
+\end{lemma}
+\begin{proof}
+    By the minimality of $y$, we have
+    \begin{equation}
+        \label{eq:lem:Zorn:2:minimality_of_y}
+        s_{C_2}(y) \subseteq s_{C_1}(x) \enspace,
+    \end{equation}
+    therefore $x \in C_1 \setminus s_{C_2}(y)$.
+    As $C_1$ is well-ordered, the element $z := \min(C_1 \setminus s_{C_2}(y))$ exists and satisfies that $z \leq x$.
+    The definition of $y$ implies that $y \not\in s_{C_1}(x)$, therefore $y \in C_2 \setminus s_{C_1}(z)$.
+    As $C_2$ is well-ordered, the element $w := \min(C_2 \setminus s_{C_1}(z))$ exists and satisfies that
+    \begin{equation}
+        \label{eq:lem:Zorn:2:w<y}
+        w \leq y \enspace.
+    \end{equation}
+    The minimality of $w$ implies that $s_{C_2}(w) \subseteq s_{C_1}(z)$.
+    Conversely, when $u \in s_{C_1}(z)$, the minimality of $z$ implies that
+    \begin{equation}
+        \label{eq:lem:Zorn:2:minimality_of_z}
+        u \in s_{C_2}(y) \enspace.
+    \end{equation}
+    Now if we assume that $u \not\in s_{C_2}(w)$, then as $C_2$ is a chain, we have
+    \begin{equation}
+        \label{eq:lem:Zorn:2:w<u}
+        w \leq u \enspace,
+    \end{equation}
+    therefore we have $w \in s_{C_2}(y)$ by Eq.\eqref{eq:lem:Zorn:2:minimality_of_z}.
+    By this and Eq.\eqref{eq:lem:Zorn:2:minimality_of_y}, we have $w \in C_1$, while the definition of $w$ implies that $w \not\in s_{C_1}(z)$.
+    As $C_1$ is a chain, it follows that $z \leq w$, therefore we have $z \leq u$ by Eq.\eqref{eq:lem:Zorn:2:w<u}; while $u \in s_{C_1}(z)$ by the choice of $u$.
+    This is a contradiction.
+    Hence we have $u \in s_{C_2}(w)$.
+    As a result, we have $s_{C_2}(w) = s_{C_1}(z)$.
+    As both $C_1$ and $C_2$ are $f$-consecutive, we have
+    \[
+        w = f(s_{C_2}(w)) = f(s_{C_1}(z)) = z \in C_1 \cap C_2 \enspace.
+    \]
+    Now the definition of $z$ implies that $z \not\in s_{C_2}(y)$.
+    As $C_2$ is a chain, we have $y \leq z = w$.
+    Combining this and Eq.\eqref{eq:lem:Zorn:2:w<y}, it follows that $y = w \in C_1$.
+    Hence the claim holds.
+\end{proof}
+
+\begin{lemma}
+    \label{lem:Zorn:3}
+    If $C_1,C_2 \in \mathcal{C}_f$, then $C_2 \setminus C_1 \subseteq U_{C_1}$.
+    Hence any element of $C_1$ and any element of $C_2$ are comparable.
+\end{lemma}
+\begin{proof}
+    Let $x_2 \in C_2 \setminus C_1$ and $x_1 \in C_1$.
+    Then we have $x_2 \in C_2 \setminus s_{C_1}(x_1)$.
+    As $C_2$ is well-ordered, the element $y := \min(C_2 \setminus s_{C_1}(x_1))$ exists and satisfies that $y \leq x_2$.
+    Now Lemma \ref{lem:Zorn:2} implies that $y \in C_1$.
+    On the other hand, by the definition of $y$, we have $y \not\in s_{C_1}(x_1)$.
+    As $C_1$ is a chain, it follows that $x_1 \leq y \leq x_2$.
+    Hence the claim holds.
+\end{proof}
+
+By Lemma \ref{lem:Zorn:3}, $C^*$ is a chain.
+
+\begin{lemma}
+    \label{lem:Zorn:5}
+    If $C \in \mathcal{C}_f$ and $x \in C$, then $s_{C^*}(x) = s_C(x)$.
+\end{lemma}
+\begin{proof}
+    The definition of $C^*$ implies that $C \subseteq C^*$; therefore it suffices to prove that $s_{C^*}(x) \subseteq C$.
+    For this goal, it suffices to deduce a contradiction by assuming that $y \in s_{C^*}(x) \setminus C$.
+    By the definition of $C^*$, we have $y \in C'$ for some $C' \in \mathcal{C}_f$.
+    Now Lemma \ref{lem:Zorn:3} implies that $y \in U_C$, therefore we have $x \leq y$, contradicting the property $y \in s_{C^*}(x)$ in the assumption.
+    Hence the claim holds.
+\end{proof}
+
+To prove that $C^*$ is well-ordered, we let $S$ be a non-empty subset of $C^*$ and prove that $S$ has the minimum element.
+Fix an $x \in S$.
+The claim already holds when $x = \min S$; we consider the other case from now.
+As $C^*$ is a chain, we have $y < x$ for some $y \in S$.
+Hence $s_{C^*}(x) \cap S \neq \emptyset$.
+By Lemma \ref{lem:Zorn:5}, $s_{C^*}(x) \cap S$ is a non-empty subset of some $C \in \mathcal{C}_f$; as $C$ is well-ordered, $s_{C^*}(x) \cap S$ has the minimum element, say $y$.
+Now for any $z \in S$, if $z < x$, then we have $z \in s_{C^*}(x) \cap S$ and therefore $y \leq z$ by the choice of $y$.
+On the other hand, if $x \leq z$, then the choice of $y$ implies that $y < x$, therefore $y < z$.
+Hence we have $y \leq z$ in any case, therefore $y$ is the minimum element of $S$.
+Hence $C^*$ is well-ordered, therefore $C^* \in \mathcal{C}$.
+Moreover, for any $x \in C^* \setminus \{x_0\}$, we take a chain $C \in \mathcal{C}_f$ with $x \in C$; then Lemma \ref{lem:Zorn:5} implies that $s_{C^*}(x) = s_C(x)$.
+As $C$ is $f$-consecutive, we have $f(s_{C^*}(x)) = f(s_C(x)) = x$.
+Hence $C^*$ is $f$-consecutive as well.
+Summarizing, we have $C^* \in \mathcal{C}_f$.
+Now as $f(C^*) \in U_{C^*}$, the set $C^{**} := C^* \cup \{f(C^*)\}$ is also an element of $\mathcal{C}_f$, while $f(C^*) \not\in C^*$ implies that $C^{**} \not\subseteq C^*$.
+This contradicts the definition of $C^*$.
+This completes the proof of Zorn's Lemma.
+
+
+\section*{Appendix: A proof using transfinite induction}
+
+In this appendix, for the sake of comparison, we describe a proof of Zorn's Lemma from Axiom of Choice using transfinite induction.
+First we clarify the statement of the principle for \lq\lq definition by transfinite recursion\rq\rq{} (see e.g., Theorem 9.3 in Chapter I of [K.~Kunen, \lq\lq SET THEORY, An Introduction to Independence Proofs'',  Elsevier, 1980]):
+\begin{theorem}
+\label{thm:transfinite_induction}
+Let $\varphi(x,y)$ be a formula (in Zermelo--Fraenkel set theory) with free variables $x,y$ satisfying $\forall x \exists! y \varphi(x,y)$.
+Then there exists a formula $\Phi(x,y)$ with free variables $x,y$ satisfying the following two conditions;
+\begin{enumerate}
+\item $\forall x ( (x \in \mathbf{ON} \to \exists! y \Phi(x,y)) \land (\neg x \in \mathbf{ON} \to \neg\exists y \varphi(x,y) ) )$;
+\item $\forall x ( x \in \mathbf{ON} \to \forall y,z ( y = \Phi\!\upharpoonright_x \land \varphi(y,z) \to \Phi(x,z) ) )$,
+\end{enumerate}
+where \lq\lq $x \in \mathbf{ON}$'' is an abbreviation of \lq\lq $x$ is an ordinal number'' and \lq\lq $\Phi\!\upharpoonright_x$'' is an abbreviation of the set $\{\langle a,b \rangle \mid a \in x \land \Phi(a,b)\}$ (with $\langle a,b \rangle$ denoting the ordered pair of $a$ and $b$).
+\end{theorem}
+Intuitively, the theorem means that, if we would like to define a \lq\lq function'' $\Phi$ with domain consisting of all ordinal numbers (the whole of which is never a set) in such a way that the value of $\Phi$ at each ordinal number $\alpha$ is determined by a given rule from the values of $\Phi$ at ordinal numbers less than $\alpha$, then there indeed exists such a \lq\lq function'' $\Phi$.
+Note that this is a theorem of ZF set theory and does not depend on Axiom of Choice.
+
+Now we give a proof of Zorn's Lemma from Axiom of Choice using Theorem \ref{thm:transfinite_induction} (as well as transfinite induction).
+Let $X \neq 0$ be a partially ordered set appeared in the statement of Zorn's Lemma.
+Assume, for the contrary, that $X$ has no maximal elements.
+Then, for each non-empty subset $C$ of $X$ which is isomorphic to an ordinal number (hence a chain), it follows \underline{from Axiom of Choice} that there exists a distinguished upper bound $b_C$ of $C$ with $b_C \in X \setminus C$.
+
+To apply Theorem \ref{thm:transfinite_induction}, first we define a formula $\varphi(x,y)$ in the following manner, where we fix an element $a \in X$ throughout the proof:
+\begin{itemize}
+\item If $x = 0$ ($= \emptyset$), then let $\varphi(x,y)$ mean that $y = a$.
+\item If $x$ is a function from an ordinal number $\alpha > 0$ to $X$ which is an isomorphism (between partially ordered sets) onto the image $\mathrm{Im}(x)$ of $x$, then let $\varphi(x,y)$ mean that $y = b_{\mathrm{Im}(x)}$ (note that $\mathrm{Im}(x)$ is isomorphic to the non-empty ordinal number $\alpha$, therefore $b_{\mathrm{Im}(x)}$ is indeed defined).
+\item Otherwise, let $\varphi(x,y)$ mean that $y = 0$.
+\end{itemize}
+This formula $\varphi(x,y)$ satisfies the hypothesis of Theorem \ref{thm:transfinite_induction}, therefore a formula $\Phi(x,y)$ as in the theorem exists.
+Now we have the following lemma:
+\begin{lemma}
+\label{lem:appendix_property_of_Phi}
+Let $x$ be an ordinal number, and let $x'$ be the unique element satisfying $\Phi(x,x')$.
+\begin{enumerate}
+\item We have $x' \in X$.
+\item If $y < x$ and $\Phi(y,y')$, then $y' < x'$ in $X$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+We prove the claim by transfinite induction on $x$.
+First, if $x = 0$, then it follows from the definition of the formula $\varphi$ that $x' = a$, therefore the specified conditions are satisfied.
+Secondly, suppose that $x > 0$.
+Then, by the hypothesis of the transfinite induction, the set $\Phi\!\upharpoonright_x$ in the statement of Theorem \ref{thm:transfinite_induction} is an isomorphism from $x$ to a subset of $X$, say, $C$ (note that $x$ is totally ordered).
+Now by the definitions of $\Phi$ and $\varphi$, it follows that $x' = b_C$, therefore the specified conditions are satisfied for $x$ (the second condition follows from the property that $b_C \in X \setminus C$ is an upper bound of $C$).
+Hence the claim holds.
+\end{proof}
+By the second property shown in Lemma \ref{lem:appendix_property_of_Phi}, for each element $v \in X$, there exists at most one ordinal number $x$ satisfying $\Phi(x,v)$.
+Let $X'$ denote the subset of $X$ defined in such a way that $v \in X'$ if and only if $v \in X$ and $\Phi(x,v)$ for some (or equivalently, a unique) ordinal number $x$.
+By the Axiom Schema of Replacement applied to the set $X'$ and the formula $\Phi'(x,y) := \Phi(y,x)$, there exists a set $Y$ for which we have $y \in Y$ if $y$ is an ordinal number and the unique element $y'$ satisfying $\Phi(y,y')$ belongs to $X'$.
+Now by the first property shown in Lemma \ref{lem:appendix_property_of_Phi}, the set $Y$ contains every ordinal number.
+However, this contradicts Burali--Forti Paradox (which states that there exist no sets containing all ordinal numbers).
+Hence $X$ should have a maximal element, concluding the proof of Zorn's Lemma.
+\end{document}

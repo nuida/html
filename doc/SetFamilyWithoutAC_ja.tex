@@ -1,0 +1,427 @@
+\documentclass{jarticle}
+
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{url}
+\newtheorem{proposition}{命題}
+\newtheorem{lemma}[proposition]{補題}
+\newtheorem{definition}{定義}
+\newtheorem{corollary}[proposition]{系}
+\def\proofname{\textbf{\underline{証明}}}
+
+\newcommand{\WithIndex}[1]{$\textrm{#1}{}^{\,\textrm{\scriptsize Ind}}$}
+\newcommand{\WithoutIndex}[1]{$\textrm{#1}{}^{\,\textrm{\scriptsize unInd}}$}
+
+\title{添字つき集合族と添字なし集合族と\\ 選択公理に関する覚書}
+\author{縫田 光司}
+\date{\today}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+数学で「集合族」を取り扱うとき、添字つきの集合族（つまり、添字集合を定義域として、何らかの集合たちを値とする写像）を先に思い浮かべる人と添字なしの集合族（つまり、集合を要素とする集合）を先に思い浮かべる人がいるらしく、選択公理を仮定すればどちらでもあまり差はないけれども選択公理を仮定しない場合にはそれなりに差が生じたりするようなので、その辺りの事情について少々考察してみた。
+\end{abstract}
+
+大まかに言うと、「集合族」とは何らかの形で集合たちを集めてできたものである。
+この概念を厳密に取り扱う際、筆者の知る限りでは少なくとも以下の二通りの定式化が存在している。
+本稿ではこれらを区別するために、それぞれ「添字つき集合族」「添字なし集合族」と呼び分けることにする。
+\begin{definition}
+[添字つき集合族]
+\label{defn:indexed_set_family}
+添字つき集合族とは、何らかの集合（例えば$I$と記す）を定義域とする写像であって、各要素（添字）$i \in I$の像（例えば$X_i$と記す）がどれも集合であるものを指す\footnote{集合論のZF(C)公理系ではあらゆる対象が集合であるという立場を採っているので、形式的にはあらゆる写像が（添字つき）集合族であることになるが、ひとまず気にしないでおく。}。
+本稿ではこの添字つき集合族を$(X_i)_{i \in I}$と表し、$I$をその添字集合と呼ぶ。
+$(X_i)_{i \in I}$の合併を$\bigcup_{i \in I} X_i = \{a \mid \mbox{ $a \in X_i$を満たす$i \in I$が存在する}\}$で定める。
+また、$(X_i)_{i \in I}$の部分族とは、$I$のある部分集合（例えば$J$と記す）への写像の制限、つまり$(X_i)_{i \in J}$のことを指す。
+\end{definition}
+\begin{definition}
+[添字なし集合族]
+\label{defn:unindexed_set_family}
+添字なし集合族とは、その要素がどれも集合であるような何らかの集合（例えば$\mathcal{F}$と記す）を指す\footnote{先程と同様に、集合論のZF(C)公理系ではあらゆる集合が（添字なし）集合族であることになるが、ひとまず気にしないでおく。}。
+$\mathcal{F}$の合併を$\bigcup \mathcal{F} = \{a \mid \mbox{ $a \in X$を満たす$X \in \mathcal{F}$が存在する}\}$で定める。
+また、$\mathcal{F}$の部分族とは、$\mathcal{F}$の部分集合のことを指す。
+\end{definition}
+
+定義\ref{defn:indexed_set_family}と定義\ref{defn:unindexed_set_family}の主な違いは、定義\ref{defn:indexed_set_family}においては同一の集合が集合族の別個の要素として区別され得る（つまり、$i \neq j$かつ$X_i = X_j$という場合があり得る）のに対して、定義\ref{defn:unindexed_set_family}においては単一の集合族の要素はどれも互いに異なる集合である（換言すると、集合として同一であるような要素は集合族の中で同一視される）という点である。
+選択公理を仮定すれば、（少なくとも個々の集合族の性質に着目している限りは\footnote{この条件を付けているのは、例えば「集合$X$の部分集合からなる集合族全体」を考える際、添字なし集合族の場合はその全体が常に集合となる（具体的には$\mathcal{P}(\mathcal{P}(X))$である）のに対し、添字つき集合族の場合はその全体が真のクラスとなる、といった差異が生じることによる。}）二つの定義には殆ど違いはないと考えられる。
+というのも、添字つき集合族$(X_i)_{i \in I}$が与えられたとき、選択公理により、$(X_i)_{i \in I}$と同じ合併を持つ部分族$(X_i)_{i \in J}$で写像$i \mapsto X_i$が$J$上で単射となるものが存在し、後者の添字つき集合族は添字なし集合族$\{X_i \mid i \in J\}$と自然に同一視できるからである。
+
+一方、選択公理を仮定しない（ZF集合論で考える）状況では定義\ref{defn:indexed_set_family}と定義\ref{defn:unindexed_set_family}にどのような差異が生じ得るのか、またそうした差異が選択公理（あるいはその弱い亜種）とどのような関係にあるのか、を考えるのがこの覚書の目的である。
+以下では、集合族に関連する何らかの概念$\mathsf{NOTION}$について、それが添字つき集合族を用いて定義されていることを明示する場合には\WithIndex{$\mathsf{NOTION}$}と書き、添字なし集合族を用いて定義されていることを明示する場合には\WithoutIndex{$\mathsf{NOTION}$}と書くことにする。
+まず、そもそも選択公理（$\mathsf{AC}$と書く）自体が集合族に関する主張なので、以下のような二通りの定式化が考えられるが、後述する通りこれらの定式化はZF公理系において等価なので、どちらの定式化をするかは特に気にせずに単に「選択公理」（ないし\lq\lq $\mathsf{AC}$''）と書くことにする。
+\begin{definition}
+[選択公理]
+\WithIndex{$\mathsf{AC}$}とは、空でない集合からなる添字つき集合族$(X_i)_{i \in I}$が与えられたとき、写像$\varphi \colon I \to \bigcup_{i \in I} X_i$で、どの$i \in I$についても$\varphi(i) \in X_i$が成り立つものが存在する、という主張である。
+また、\WithoutIndex{$\mathsf{AC}$}とは、空でない集合からなる添字なし集合族$\mathcal{F}$が与えられたとき、写像$\varphi \colon \mathcal{F} \to \bigcup \mathcal{F}$で、どの$X \in \mathcal{F}$についても$\varphi(X) \in X$が成り立つものが存在する、という主張である。
+（いずれの場合も、このような写像$\varphi$を選択関数と呼ぶ。）
+\end{definition}
+
+\begin{proposition}
+\label{prop:two_AC_are_equivalent}
+ZF公理系において、\WithIndex{$\mathsf{AC}$}と\WithoutIndex{$\mathsf{AC}$}は同値である。
+\end{proposition}
+\begin{proof}
+添字なし集合族はそれ自身を添字集合とする添字つき集合族ともみなせるので、\WithIndex{$\mathsf{AC}$}が成り立てば\WithoutIndex{$\mathsf{AC}$}も成り立つ。
+
+一方、\WithoutIndex{$\mathsf{AC}$}が成り立つと仮定して、空でない集合からなる添字つき集合族$(X_i)_{i \in I}$が与えられているとする。
+空でない集合からなる添字なし集合族$\mathcal{F}$を$\mathcal{F} := \{X_i \mid i \in I\}$で定めて、\WithoutIndex{$\mathsf{AC}$}により与えられる選択関数$\varphi \colon \mathcal{F} \to \bigcup \mathcal{F}$を取る。
+ここで写像$\varphi^{\dagger} \colon I \to \bigcup_{i \in I} X_i$を、$i \in I$について$\varphi^{\dagger}(i) := \varphi(X_i)$で定めると、$\varphi^{\dagger}(i) = \varphi(X_i) \in X_i$なので$\varphi^{\dagger}$も選択関数となる。
+よって\WithIndex{$\mathsf{AC}$}が成り立つ。
+\end{proof}
+
+前述の通り、選択公理を仮定した状況では、添字つき集合族の部分族として添字なし集合族と同一視可能なものをいつでも取ることができるので、集合族の二通りの定式化にはあまり違いがないと考えられるのであったが、このこと自体が選択公理と以下のように関係している。
+
+\begin{proposition}
+\label{prop:AC_is_equiv_to_identification_of_two_formulations}
+ZF公理系において以下は同値である。
+\begin{enumerate}
+\item
+$\mathsf{AC}$
+\item
+添字つき集合族$(X_i)_{i \in I}$が与えられたとき、$(X_i)_{i \in I}$と同じ合併を持つ部分族$(X_i)_{i \in J}$で、写像$i \mapsto X_i$が$J$上で単射となるものが存在する
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+\underline{(1) $\Rightarrow$ (2)}
+集合$\mathcal{Z}$を$\mathcal{Z} := \{X_i \mid i \in I\}$で定義し、各$Z \in \mathcal{Z}$について$I_Z := \{i \in I \mid X_i = Z\}$と定義する。
+このとき$I_Z$たちはどれも非空なので、選択公理により添字つき集合族$(I_Z)_{Z \in \mathcal{Z}}$の選択関数$\varphi$が存在する。
+この$\varphi$の像を$J$（$\subset I$）と書く。
+ここで、$Z,Z' \in \mathcal{Z}$が$\varphi(Z) \neq \varphi(Z')$を満たすならば、$X_{\varphi(Z)} = Z \neq Z' = X_{\varphi(Z')}$となるので、写像$i \mapsto X_i$は$J$上で単射である。
+$\bigcup_{i \in J} X_i \subset \bigcup_{i \in I} X_i$は定義より明らかである。
+逆に$a \in \bigcup_{i \in I} X_i$と仮定し、$a \in X_i$を満たす$i \in I$を取ると、$X_i \in \mathcal{Z}$であり$\varphi(X_i) \in I_{X_i}$なので$X_{\varphi(X_i)} = X_i$が成り立ち、$a \in X_{\varphi(X_i)} \subset \bigcup_{j \in J} X_j$となる。
+これより$\bigcup_{i \in I} X_i \subset \bigcup_{i \in J} X_i$も成り立つので、$\bigcup_{i \in I} X_i = \bigcup_{i \in J} X_i$となる。
+よって(2)が成り立つ。
+
+\underline{(2) $\Rightarrow$ (1)}
+$(X_i)_{i \in I}$を非空集合からなる添字つき集合族とする。
+$\mathcal{Z} := \{(x,i) \mid i \in I, x \in X_i\}$と定義し、$(x,i) \in \mathcal{Z}$について$K_{(x,i)} := \{i\}$と定義する。
+前提(2)を添字つき集合族$(K_{(x,i)})_{(x,i) \in \mathcal{Z}}$に適用して、同じ合併を持つ部分族$(K_{(x,i)})_{(x,i) \in \mathcal{Z}'}$であって$(x,i) \mapsto K_{(x,i)}$が$\mathcal{Z}'$上単射であるものを取る。
+ここで各$j \in I$について、$X_j \neq \emptyset$より$j \in \bigcup_{(x,i) \in \mathcal{Z}} K_{(x,i)} = \bigcup_{(x,i) \in \mathcal{Z}'} K_{(x,i)}$が成り立つので、$j \in K_{(y,i)} = \{i\}$すなわち$i = j$を満たす$(y,i) \in \mathcal{Z}'$が存在する。
+また、写像$(x,i) \mapsto K_{(x,i)} = \{i\}$が$\mathcal{Z}'$上単射なことから、$(x,j) \in \mathcal{Z}'$を満たす$x$は一つしか存在しない。
+この$x \in X_j$を$\varphi(j)$と定義することで$I$を定義域とする写像$\varphi$が定まり、その構成より$i \in I$ならば$\varphi(i) \in X_i$が常に成り立つ。
+よって選択公理が成り立つ。
+\end{proof}
+
+以下では位相空間論における集合族と関連する概念を取り扱うが、それらの集合族にはその濃度などに関する制限が付いたものが多い。
+そこで、選択公理についても集合族の濃度などに制限を付けた亜種を導入しておく。
+選択公理を仮定しない状況で一般の集合の濃度を取り扱うのは色々と厄介なのであるが、整列順序付けが可能（以下、整列可能）な集合の濃度に限定すれば、そうした濃度は順序数を用いて表すことができるため比較的扱いやすい。
+（順序数については公理的集合論の手頃な教科書、例えば\cite{Kunen}を参照されたい。）
+本稿では、順序数であって、それ未満のどの順序数よりも（集合として）大きな濃度を持つものを基数と呼ぶ\footnote{文献によって、「基数」を単に「集合の濃度」の意味に用いている場合もあるので注意されたい（なお、筆者はどちらの用法が標準的であるかは把握していない）。}。
+すると、整列可能な集合$X$については、$X$と等しい濃度を持つ基数がちょうど一つだけ存在するため、$X$の濃度$|X|$をその基数と同一視することができる。
+特に、集合$X$と基数$\kappa$が$|X| \leq \kappa$を満たす、つまり$X$から$\kappa$への単射が存在するならば、$X$も整列可能であり、したがって$|X|$も基数であることを注意しておく。
+なお、$\kappa$を基数とすると、$\kappa$より大きな基数が存在し\footnote{選択公理を仮定している状況であればこれはCantorの定理$|X| < |\mathcal{P}(X)|$より直ちに導かれるが、選択公理を仮定しない場合は$\mathcal{P}(\kappa)$が整列可能とは限らないためもう少し凝った議論が必要である。例えば\cite{alg-d_ord}の命題12を参照されたい。}、したがって$\kappa$より大きな最小の基数が定まる。
+これを$\kappa$の後続基数と呼び、$\kappa^{+}$で表す。
+
+\begin{definition}
+[制限つき選択公理]
+$\kappa$を基数とする。
+\WithIndex{$\mathsf{AC}_{\kappa}$}（あるいは、\WithoutIndex{$\mathsf{AC}_{\kappa}$}）とは、空でない集合からなる添字つき集合族$(X_i)_{i \in I}$（あるいは、添字なし集合族$\mathcal{F}$）で、その濃度$|I|$（あるいは、$|\mathcal{F}|$）が$\kappa$未満であるものは常に選択関数を持つという主張である。
+さらにその集合族に属する集合たちがすべて特定の集合$W$の部分集合である場合に制限した主張を\WithIndex{$\mathsf{AC}_{\kappa}(W)$}（あるいは、\WithoutIndex{$\mathsf{AC}_{\kappa}(W)$}）で表す。
+また、空でない集合からなる添字つき集合族$(X_i)_{i \in I}$（あるいは、添字なし集合族$\mathcal{F}$）で、その添字集合$I$（あるいは、集合族$\mathcal{F}$自身）が整列可能であるものは常に選択関数を持つという主張を\WithIndex{$\mathsf{AC}_{\mathsf{WO}}$}（あるいは、\WithoutIndex{$\mathsf{AC}_{\mathsf{WO}}$}）で表す。
+\end{definition}
+
+例えば、最小の無限基数$\omega = \omega_0$に関する$\mathsf{AC}_{\omega}$はいわゆる有限選択公理のことであり、また可算選択公理は$\omega$の後続基数$\omega_1 = \omega_0{}^{+}$に関する$\mathsf{AC}_{\omega_1}$として表される。
+以下の関係は定義より直ちに成り立つ。
+\begin{itemize}
+\item
+\WithIndex{$\mathsf{AC}_{\kappa}$}が成り立つならば\WithoutIndex{$\mathsf{AC}_{\kappa}$}も成り立ち、\WithIndex{$\mathsf{AC}_{\kappa}(W)$}が成り立つならば\WithoutIndex{$\mathsf{AC}_{\kappa}(W)$}も成り立つ。
+また\WithIndex{$\mathsf{AC}_{\mathsf{WO}}$}が成り立つならば\WithoutIndex{$\mathsf{AC}_{\mathsf{WO}}$}も成り立つ。
+\item
+基数$\lambda \leq \kappa$と集合$W$について、\WithIndex{$\mathsf{AC}_{\kappa}$}が成り立つならば\WithIndex{$\mathsf{AC}_{\lambda}$}および\WithIndex{$\mathsf{AC}_{\kappa}(W)$}が成り立ち、\WithoutIndex{$\mathsf{AC}_{\kappa}$}が成り立つならば\WithoutIndex{$\mathsf{AC}_{\lambda}$}および\WithoutIndex{$\mathsf{AC}_{\kappa}(W)$}が成り立つ。
+\item
+\WithIndex{$\mathsf{AC}_{\mathsf{WO}}$}が成り立つことは、あらゆる基数$\kappa$について\WithIndex{$\mathsf{AC}_{\kappa}$}が成り立つことと同値である。
+また\WithoutIndex{$\mathsf{AC}_{\mathsf{WO}}$}が成り立つことは、あらゆる基数$\kappa$について\WithoutIndex{$\mathsf{AC}_{\kappa}$}が成り立つことと同値である。
+\end{itemize}
+議論を進める前に、念のため以下の性質を確認しておく。
+
+\begin{proposition}
+\label{prop:finite-AC}
+ZF公理系において有限選択公理\WithIndex{$\mathsf{AC}_{\omega}$}が成り立つ。
+\end{proposition}
+\begin{proof}
+空でない集合からなる添字つき集合族$(X_i)_{i \in I}$で、$|I| < \omega$、すなわち$I$が有限集合であるものが与えられたとする。
+素朴に考えれば、選択関数の値を$X_i$から一つ選ぶ、という操作を有限回（$|I|$回）繰り返せば選択関数が構成できると思われるが、有限であるとはいえ$I$の要素数$|I|$がわからない状況で「$|I|$回の選択」を行ってよいか心配になるかもしれないので、より詳しく考察する。
+まず、$|I| < \omega$であることから、ある非負整数$n$と、集合$\{0,1,\dots,n-1\}$から$I$への全単射$\varphi$が存在する\footnote{集合$\{0,1,\dots,n-1\}$は順序数としての$n$そのものなのであるが、順序数にあまり慣れていない人に対する可読性を考慮してこのような「冗長な」記法を採用している。以下でも同様な措置を何度か取っている。}。
+ここで、$m \leq n$であって$(X_{\varphi(k)})_{k=0}^{m-1}$が選択関数を持たないものが存在すると仮定すると、そうした$m$のうち最小のものが存在する。
+$m = 0$のときは上記の集合族は（自明な）選択関数を持つので、$m \geq 1$である。
+$m$の最小性より、$(X_{\varphi(k)})_{k=0}^{m-2}$の選択関数$\psi$が存在する。
+この$\psi$について、$X_{\varphi(m-1)}$の要素$x^{\dagger}$を一つ選び、$\psi(m-1) := x^{\dagger}$として$\psi$を$\{0,1,\dots,m-1\}$上へと拡張すると、$(X_{\varphi(k)})_{k=0}^{m-1}$の選択関数が得られるが、これは$m$についての仮定に反する。
+このことから、$n$以下の$m$については常に$(X_{\varphi(k)})_{k=0}^{m-1}$が選択関数を持つことがわかり、特に$m = n$の場合を考えると、$(X_{\varphi(k)})_{k=0}^{n-1}$が選択関数$\psi$を持つことになる。
+すると、各$i \in I$について、$\psi^{\dagger}(i) := \psi(\varphi^{-1}(i))$として$(X_i)_{i \in I}$の選択関数$\psi^{\dagger}$を定めることができる。
+以上の議論における「選択」の回数は、有限回であり$I$の要素数に依存しない。
+\end{proof}
+
+制限のない選択公理の場合（命題\ref{prop:two_AC_are_equivalent}）と同様に、制限つきの選択公理についても以下が成り立つ。
+
+\begin{proposition}
+\label{prop:two_ACC_are_equivalent}
+ZF公理系において、$\kappa$を基数、$W$を集合とすると、\WithIndex{$\mathsf{AC}_{\kappa}$}と\WithoutIndex{$\mathsf{AC}_{\kappa}$}は同値であり、\WithIndex{$\mathsf{AC}_{\kappa}(W)$}と\WithoutIndex{$\mathsf{AC}_{\kappa}(W)$}は同値である。
+また\WithIndex{$\mathsf{AC}_{\mathsf{WO}}$}と\WithoutIndex{$\mathsf{AC}_{\mathsf{WO}}$}は同値である。
+\end{proposition}
+\begin{proof}
+証明は命題\ref{prop:two_AC_are_equivalent}の証明とほぼ同じであるが、唯一注意すべきは、添字つき集合族$(X_i)_{i \in I}$を基に添字なし集合族$\mathcal{F} = \{X_i \mid i \in I\}$を構成した箇所で、$|I| < \kappa$であれば$|\mathcal{F}| < \kappa$である、という点である。
+実際、$|I| < \kappa$より$I$は整列可能であり、$I$の整列順序を定めると写像$\mathcal{F} \ni Z \mapsto \min\{i \in I \mid X_i = Z\} \in I$が定まる。
+これは定義より単射なので、$|\mathcal{F}| \leq |I| < \kappa$が成り立つ。
+\end{proof}
+
+位相空間$(X,\mathcal{O})$（単に$X$とも書く）の開集合からなる（添字つきあるいは添字なし）集合族でその合併が$X$と一致するものを$X$の（添字つきあるいは添字なし）開被覆と呼び、その部分族でそれ自身がまた$X$の開被覆となっているものを部分被覆と呼ぶ。
+$\kappa$が基数のとき、位相空間$X$についての性質$\mathsf{CPT}_{\kappa}$を、$X$の開被覆が常に濃度$\kappa$未満の部分被覆を持つことと定める。
+例えば、$\mathsf{CPT}_{\omega}$および$\mathsf{CPT}_{\omega_1}$はそれぞれコンパクト性およびLindel\"{o}f性を意味する。
+また、位相空間$X$についての性質$\mathsf{CPT}_{\mathsf{WO}}$を、$X$の開被覆が常に整列可能な部分被覆を持つことと定める（ここで、添字つき集合族が整列可能であるとはその添字集合が整列可能であることと定める）。
+これらの概念は開被覆、ひいては集合族の概念に基づいているので、上述のように「添字つき」と「添字なし」の二通りの定義が考えられることに注意されたい。
+これら二通りの定義について以下が成り立つ（添字なし開被覆は自然に添字つき開被覆ともみなせるので、位相空間が\WithIndex{$\mathsf{CPT}_{\kappa}$}ならば\WithoutIndex{$\mathsf{CPT}_{\kappa}$}でもあり、また\WithIndex{$\mathsf{CPT}_{\mathsf{WO}}$}ならば\WithoutIndex{$\mathsf{CPT}_{\mathsf{WO}}$}でもあることを注意されたい）。
+
+\begin{proposition}
+\label{prop:relation_of_two_compactness}
+ZF公理系において、$\kappa$を基数とするとき、以下は同値である。
+\begin{enumerate}
+\item
+$\mathsf{AC}_{\kappa}$
+\item
+位相空間$X$と基数$\kappa' \leq \kappa$について、$X$が\WithoutIndex{$\mathsf{CPT}_{\kappa'}$}ならば\WithIndex{$\mathsf{CPT}_{\kappa'}$}でもある
+\item
+位相空間$X$と基数$\kappa' \leq \kappa$について、$X$が\WithoutIndex{$\mathsf{CPT}_{\kappa'}$}ならば\WithIndex{$\mathsf{CPT}_{\mathsf{WO}}$}でもある
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+\underline{(1) $\Rightarrow$ (2)}
+$X$が\WithoutIndex{$\mathsf{CPT}_{\kappa'}$}であると仮定して、$X$の添字つき開被覆$(U_i)_{i \in I}$が与えられたとする。
+このとき$\mathcal{W} := \{U_i \mid i \in I\}$は$X$の添字なし開被覆なので、仮定よりその部分被覆$\mathcal{W}^{\dagger}$で$|\mathcal{W}^{\dagger}| < \kappa'$を満たすものが存在する。
+各$W \in \mathcal{W}^{\dagger}$について$I_W := \{i \in I \mid U_i = W\}$と定めると$I_W \neq \emptyset$である。
+前提より$\mathsf{AC}_{\kappa}$が成り立ち、また$|\mathcal{W}^{\dagger}| < \kappa' \leq \kappa$なので、集合族$(I_W)_{W \in \mathcal{W}^{\dagger}}$の選択関数$\iota$が存在する。
+$\iota$の像を$J \subset I$と定める。
+ここで定義より$W \neq W'$ならば$I_W \cap I_{W'} = \emptyset$であるから、$\iota \colon \mathcal{W}^{\dagger} \to J$は全単射である。
+したがって$|J| = |\mathcal{W}^{\dagger}| < \kappa'$であり、またその構成より$\bigcup_{i \in J} U_i = \bigcup \mathcal{W}^{\dagger} = X$が成り立つ。
+よって$(U_i)_{i \in J}$は$(U_i)_{i \in I}$の部分被覆であり、上述の通り$|J| < \kappa'$が成り立つ。
+以上より$X$は\WithIndex{$\mathsf{CPT}_{\kappa'}$}でもある。
+
+\underline{(2) $\Rightarrow$ (3)}
+$\kappa'$を基数とするとき、\WithIndex{$\mathsf{CPT}_{\kappa'}$}ならば常に\WithIndex{$\mathsf{CPT}_{\mathsf{WO}}$}が成り立つことから主張が導かれる。
+
+\underline{(3) $\Rightarrow$ (1)}
+$\mathsf{AC}_{\kappa}$が成り立たないと仮定して矛盾を導く。
+このとき、$\mathsf{AC}_{\kappa'}$が成り立たないような基数$\kappa' \leq \kappa$のうち最小のものが存在するのでその$\kappa'$を取る。
+$\kappa'$は無限基数であることを注意しておく。
+すると基数$\lambda < \kappa'$について常に$\mathsf{AC}_{\lambda}$が成り立つが、もし$\kappa'$が極限基数であるとするとこの性質から$\mathsf{AC}_{\kappa'}$が導かれ矛盾するので、$\kappa'$は後続型基数である。
+つまりある（無限）基数$\lambda$について$\kappa' = \lambda^{+}$と表せる。
+以下、空でない集合からなる添字つき集合族$(X_i)_{i \in I}$で$|I| < \kappa'$を満たすものは常に選択関数を持つことを示す。
+そうすれば、$\mathsf{AC}_{\kappa'}$が成り立たないように$\kappa'$を選んだことと矛盾するので、背理法により証明が完了する。
+
+$|I| < \kappa' = \lambda^{+}$なので$|I| \leq \lambda$が成り立つ。
+$\kappa'$の選び方より$\mathsf{AC}_{\lambda}$が成り立つので、$|I| < \lambda$のときには所望の選択関数が確かに存在する。
+そこで、以下では$|I| = \lambda$の場合を考える。
+このとき$I$から$\lambda$への全単射が存在するので、$I = \lambda$と仮定しても一般性を失わない。
+そこで、記号の簡略化のために以下では$I = \lambda$として議論する。
+
+整列順序集合$\lambda$上の右半開区間$[0,\mu)$（$\mu \leq \lambda$）たちの集合を$\lambda$の開集合系として$\lambda$に位相を定める。
+この位相空間にはそもそも$\lambda < \kappa'$個しか開集合がないので、\WithoutIndex{$\mathsf{CPT}_{\kappa'}$}性が成り立つ。
+よって前提より$\lambda$はこの位相に関して\WithIndex{$\mathsf{CPT}_{\mathsf{WO}}$}でもある。
+さて、各$1 \leq \mu < \lambda$について$\mathcal{Z}_{\mu} := \prod_{\nu < \mu} X_{\nu}$と定めると、$\mathsf{AC}_{\lambda}$が成り立つ（$\kappa'$の選び方より）ことから$\mathcal{Z}_{\mu} \neq \emptyset$である。
+これらの$\mathcal{Z}_{\mu}$たちの非交和$\bigsqcup_{1 \leq \mu < \lambda} \mathcal{Z}_{\mu}$を$\mathcal{Z}$と記し、$g \in \mathcal{Z}_{\mu}$に対して$\mu_g := \mu$かつ$U_g := [0,\mu) = [0,\mu_g) \neq \emptyset$として開集合族$(U_g)_{g \in \mathcal{Z}}$を定義する。
+各$\mu$について$\mathcal{Z}_{\mu} \neq \emptyset$であったから、この集合族は$\lambda$の添字つき開被覆である。
+今$\lambda$は\WithIndex{$\mathsf{CPT}_{\mathsf{WO}}$}なので、その部分被覆$(U_g)_{g \in \mathcal{Z}'}$で$\mathcal{Z}'$が整列可能なものが存在する。
+この$\mathcal{Z}'$の整列順序を一つ固定して考える。
+ここで、各$\eta < \lambda$について、$(U_g)_{g \in \mathcal{Z}'}$が$\lambda$の被覆であることから$\{g \in \mathcal{Z}' \mid \eta < \mu_g\}$は空でない。
+するとこの集合の最小元が定まるので、それを$g_{\eta}$と記す。
+定義より$g_{\eta} \in \mathcal{Z}_{\mu_{g_{\eta}}} = \prod_{\nu < \mu_{g_{\eta}}} X_{\nu}$であり、また$\eta < \mu_{g_{\eta}}$でもあるので、$\eta$は写像$g_{\eta}$の定義域に属しており、$g_{\eta}(\eta) \in X_{\eta}$が定まる。
+こうして$(X_i)_{i \in \lambda}$の選択関数$i \mapsto g_i(i)$が得られたので、証明が完了する。
+\end{proof}
+
+\begin{corollary}
+\label{cor:relation_of_two_compactness}
+ZF公理系において以下が成り立つ。
+\begin{itemize}
+\item
+位相空間が\WithIndex{コンパクト}であることと\WithoutIndex{コンパクト}であることは同値である。
+\item
+以下は互いに同値である。
+\begin{enumerate}
+\item
+可算選択公理
+\item
+位相空間が\WithIndex{Lindel\"{o}f}であることと\WithoutIndex{Lindel\"{o}f}であることは同値である
+\end{enumerate}
+\end{itemize}
+\end{corollary}
+\begin{proof}
+命題\ref{prop:relation_of_two_compactness}と命題\ref{prop:finite-AC}を組み合わせればよい。
+\end{proof}
+
+位相空間の\WithoutIndex{Lindel\"{o}f}性については以下の事実が知られている（文献\cite{HS97}には他にも様々な同値命題が挙げられているが、ここでは一部のみ抜粋した\footnote{\cite{HS97}にはLindel\"{o}f性の定義が添字つきと添字なしのどちらであるか陽に記されてはいないが、証明から添字なしの開被覆に基づく定義を採用していることが読み取れる。}）。
+なお、位相空間$X$の開集合系$\mathcal{O}$の部分集合$\mathcal{B}$で、条件「$U$が$X$の開集合ならば、ある$\mathcal{B}' \subset \mathcal{B}$について$U = \bigcup \mathcal{B}'$が成り立つ」を満たすものを位相空間$(X,\mathcal{O})$の開基と呼ぶ。
+
+\begin{proposition}
+[{\cite{HS97}}]
+\label{prop:equivalence_from_HS97}
+ZF公理系において以下は同値である。
+\begin{enumerate}
+\item
+実数集合上の可算選択公理$\mathsf{AC}_{\omega_1}(\mathbb{R})$
+\item
+$\omega$は離散位相に関して\WithoutIndex{Lindel\"{o}f}性を持つ
+\item
+高々可算な開基を持つ位相空間は\WithoutIndex{Lindel\"{o}f}性を持つ
+\end{enumerate}
+\end{proposition}
+
+\WithIndex{Lindel\"{o}f}性について上記の命題の類似物を考えると、以下の性質が得られる。
+
+\begin{proposition}
+\label{prop:indexed_version_of_HS97}
+ZF公理系において以下は同値である。
+\begin{enumerate}
+\item
+可算選択公理
+\item
+$\omega$は離散位相に関して\WithIndex{Lindel\"{o}f}性を持つ
+\item
+高々可算な開基を持つ位相空間は\WithIndex{Lindel\"{o}f}性を持つ
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+\underline{(1) $\Rightarrow$ (3)}
+命題\ref{prop:equivalence_from_HS97}を経由した証明も可能であるがここでは直接証明を与える。
+位相空間$X$が高々可算な開基$\mathcal{B}$を持つと仮定する。
+$(U_i)_{i \in I}$を$X$の開被覆とする。
+$\mathcal{B}' := \{B \in \mathcal{B} \mid \mbox{ある$i \in I$について$B \subset U_i$}\}$と定義すると$\mathcal{B}'$は$X$の（添字なし）開被覆である。
+なぜなら、$x \in X$について、$(U_i)_{i \in I}$は$X$の開被覆なので$x \in U_i$を満たす$i \in I$が存在し、また$\mathcal{B}$は$X$の開基なので$U_i = \bigcup \mathcal{A}$を満たす$\mathcal{A} \subset \mathcal{B}$が存在するが、するとある$B \in \mathcal{A}$について$x \in B$となり、この$B$が$\mathcal{B}'$に属するからである。
+さて、$B \in \mathcal{B}'$について$I_B := \{i \in I \mid B \subset U_i\}$は空でなく、$\mathcal{B}' \subset \mathcal{B}$が高々可算なことと可算選択公理により集合族$(I_B)_{B \in \mathcal{B}'}$の選択関数$\varphi$が存在する。
+この$\varphi$の像を$J$（$\subset I$）と記すと、$\varphi \colon \mathcal{B}' \to J$は全射であり、$\mathcal{B}'$が高々可算（特に整列可能）なことから単射$J \to \mathcal{B}'$が存在して、したがって$J$も高々可算となる。
+この$J$について、$(U_i)_{i \in J}$は$(U_i)_{i \in I}$の部分被覆である。
+なぜなら、上述の通り$\mathcal{B}'$は$X$の被覆であり、また$B \in \mathcal{B}'$について$\varphi(B) \in I_B$なので$\varphi(B) \in J$かつ$B \subset U_{\varphi(B)}$となるからである。
+よって$X$は\WithIndex{Lindel\"{o}f}性を持つ。
+
+\underline{(3) $\Rightarrow$ (2)}
+$\omega$が可算な開基$\{\{n\} \mid n \in \omega\}$を持つため主張が成り立つ。
+
+\underline{(2) $\Rightarrow$ (1)}
+有限選択公理は常に成り立つので、$\omega$を添字集合とする空でない集合からなる集合族$(X_n)_{n \in \omega}$が選択関数を持つことを示せばよい。
+各$x \in X_n$について$n_x := n$および$U_x := \{n\} = \{n_x\}$と定義し、$X_n$たちの非交和$X := \bigsqcup_{n \in \omega} X_n$を添字集合とする$\omega$の開被覆$(U_x)_{x \in X}$を考える。
+仮定より$\omega$は\WithIndex{Lindel\"{o}f}性を持つので、この開被覆は高々可算な部分被覆$(U_x)_{x \in X'}$を持つ。
+特に$X'$は整列可能なので、各$i \in \omega$について$i \in U_x$を満たす最小の$x = x_i \in X'$が定まり、$i \in U_{x_i} = \{n_{x_i}\}$より$n_{x_i} = i$したがって$x_i \in X_{n_{x_i}} = X_i$が成り立つ。
+こうして$(X_i)_{i \in \omega}$の選択関数$i \mapsto x_i$が得られるので、主張が成り立つ。
+\end{proof}
+
+以下では、位相空間の中でも特に距離空間や擬距離空間について考察する。
+擬距離空間は、距離空間$(X,d)$の公理のうち「$x,y \in X$が$d(x,y) = 0$を満たせば$x = y$」という条件を除いたものであり、異なる$2$点が距離$0$を持つことを許した一般化である。
+擬距離空間における諸性質と選択公理との関係については例えば以下が知られている\footnote{\cite{BH98}でもやはりLindel\"{o}f性の定義が添字つきと添字なしのどちらであるか陽に記されてはいないが、証明から添字なしの開被覆に基づく定義を採用していることが読み取れる。}。
+
+\begin{proposition}
+[{\cite{BH98}}]
+\label{prop:equivalence_from_BH98}
+ZF公理系において以下は同値である。
+\begin{enumerate}
+\item
+可算選択公理
+\item
+擬距離空間が高々可算な開基を持つならば可分である（すなわち高々可算な稠密部分集合が存在する）
+\item
+擬距離空間が\WithoutIndex{Lindel\"{o}f}性を持つなら可分である
+\end{enumerate}
+\end{proposition}
+
+以下では擬距離空間の全有界性やその一般化について考える。
+擬距離空間$(X,d)$が全有界であるとは、どの実数$\varepsilon > 0$についても、それに応じた有限部分集合$Y \subset X$が存在して、$X$が$\varepsilon$-開球たちの和$\bigcup_{x \in Y} B(x;\varepsilon)$となることを指す。
+少なくとも選択公理を仮定した状況であれば、コンパクト性と「完備かつ全有界」が同値であることが知られているので、特に擬距離空間がコンパクトであれば全有界でもあるのだが、後述（命題\ref{prop:totally-bounded_and_Ind-compact}で$\kappa = \omega$とした場合\footnote{系\ref{cor:relation_of_two_compactness}により、コンパクト性については添字つきと添字なしの二つの定義が同値であることに注意されたい。}）の通りこのこと自体はZF公理系においても同様に成立する。
+では、前述したコンパクト性のより大きな基数への一般化と、全有界性のより大きな基数への一般化との関係性についてはどうであろうか。
+本稿では、全有界性の一般化として以下の定義を導入する。
+\begin{definition}
+[$\kappa$-全有界]
+$\kappa$を基数とする。
+擬距離空間$(X,d)$が$\kappa$-全有界であるとは、どの実数$\varepsilon > 0$についても、それに応じた濃度$\kappa$未満の部分集合$Y \subset X$が存在して、$X$が$\varepsilon$-開球たちの和$\bigcup_{x \in Y} B(x;\varepsilon)$となることと定める。
+\end{definition}
+
+例えば、$\omega$-全有界性は通常の意味での全有界性と一致する。
+この$\kappa$-全有界性と一般化したコンパクト性との関係について以下の性質が成り立つ。
+
+\begin{proposition}
+\label{prop:totally-bounded_and_Ind-compact}
+ZF公理系において、$\kappa$を基数とすると、擬距離空間$(X,d)$が\WithIndex{$\mathsf{CPT}_{\kappa}$}性を持つならば$\kappa$-全有界である。
+\end{proposition}
+\begin{proof}
+$\epsilon$を正の実数とする。
+$(B(x;\varepsilon))_{x \in X}$は$X$の添字つき開被覆なので、前提より濃度$\kappa$未満の部分被覆$(B(x;\varepsilon))_{x \in Y}$を持つ。
+この$Y \subset X$が$\kappa$-全有界性の条件を満たす。
+\end{proof}
+
+\begin{proposition}
+\label{prop:totally-bounded_and_unInd-compact}
+ZF公理系において、$\kappa$を基数とする。
+\begin{enumerate}
+\item
+$\mathsf{AC}_{\kappa}$を仮定する。
+このとき基数$\kappa' \leq \kappa$について、擬距離空間$(X,d)$が\WithoutIndex{$\mathsf{CPT}_{\kappa'}$}性を持つならば$\kappa'$-全有界である。
+\item
+あらゆる基数$\kappa' \leq \kappa$について、擬距離空間$(X,d)$が\WithoutIndex{$\mathsf{CPT}_{\kappa'}$}性を持つならば$\kappa'$-全有界であると仮定する。
+さらに$\mathsf{AC}_{\kappa}(\mathcal{P}(\kappa))$を仮定する。
+このとき$\mathsf{AC}_{\kappa}$が成り立つ。
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+\underline{(1)}
+仮定より$\mathsf{AC}_{\kappa'}$が成り立っているので、命題\ref{prop:relation_of_two_compactness}によりこの$(X,d)$は\WithIndex{$\mathsf{CPT}_{\kappa'}$}でもある。
+よって命題\ref{prop:totally-bounded_and_Ind-compact}により主張が成り立つ。
+
+\underline{(2)}
+空でない集合からなる添字つき集合族$(X_i)_{i \in I}$で$|I| < \kappa$を満たすものは選択関数を持つことを示せばよい。
+ある基数$\lambda < \kappa$について$I$から$\lambda$への全単射が存在するので、以下では簡略化のため$I = \lambda$と仮定する（こうしても一般性を失わない）。
+非交和$X := \bigsqcup_{i \in \lambda} X_i$の擬距離$d$を、$x,y \in X_i$ならば$d(x,y) := 0$、また$i \neq j$、$x \in X_i$、$y \in X_j$ならば$d(x,y) := 1$と定める。
+
+この擬距離空間$(X,d)$が\WithoutIndex{$\mathsf{CPT}_{\lambda^{+}}$}性を持つことを示す。
+$\mathcal{U}$を$X$の添字なし開被覆とする。
+まず、$U \in \mathcal{U}$について$A_U := \{i \in \lambda \mid X_i \cap U \neq \emptyset\}$と定めると、$U = \bigcup_{i \in A_U} X_i$であることを示す。
+包含関係$\subset$は$A_U$の定義より直ちに成り立つ。
+逆向きの包含関係について、$i \in A_U$、$x \in X_i$とする。
+$A_U$の定義より$X_i \cap U$の要素$y$が存在する。
+$U$は$(X,d)$の開集合なので、$y \in B(z;\varepsilon) \subset U$を満たす$z \in X$と$\varepsilon > 0$が存在する。
+ここで擬距離$d$の定義より$d(x,z) = d(y,z)$なので、$d(x,z) = d(y,z) < \varepsilon$すなわち$x \in B(z;\varepsilon)$が成り立つ。
+$B(z;\varepsilon) \subset U$であったから$x \in U$となる。
+よって確かに$U = \bigcup_{i \in A_U} X_i$が成り立つ。
+
+$i \in \lambda$について$\mathcal{I}_i := \{A_U \mid U \in \mathcal{U}, i \in A_U\}$と定めると、$\mathcal{U}$が$X$の被覆であることから$\mathcal{I}_i \neq \emptyset$である。
+また$|\lambda| < \kappa$であり、各$i \in \lambda$について$\mathcal{I}_i \subset \mathcal{P}(\lambda) \subset \mathcal{P}(\kappa)$である。
+すると、前提より$\mathsf{AC}_{\kappa}(\mathcal{P}(\kappa))$が成り立つので、集合族$(\mathcal{I}_i)_{i \in \lambda}$は選択関数$\varphi$を持つ。
+ここで$i \in \lambda$について、$\varphi(i) \in \mathcal{I}_i$よりある$U \in \mathcal{U}$について$\varphi(i) = A_U$と表せるが、一方で前段落の結果より写像$V \mapsto A_V$は単射なので、このような$U$はちょうど一つに定まる。
+この$U$を$U_i$と書くと、$A_{U_i} \in \mathcal{I}_i$より$i \in A_{U_i}$となり、再び前段落の結果より$X_i \subset U_i$が成り立つ。
+すると$\{U_i \mid i \in \lambda\}$は$\mathcal{U}$の部分被覆となり、その濃度は高々$\lambda < \lambda^{+}$である。
+よって$(X,d)$は\WithoutIndex{$\mathsf{CPT}_{\lambda^{+}}$}性を持つ。
+
+すると、$\lambda^{+} \leq \kappa$なので、前提より$(X,d)$は$\lambda^{+}$-全有界でもある。
+特に、部分集合$Y \subset X$で、$|Y| < \lambda^{+}$かつ$X = \bigcup_{x \in Y} B(x;1/2)$を満たすものが存在する。
+特に$Y$は整列可能なので、その整列順序を一つ固定する。
+ここで、擬距離$d$の定義より、$x \in X_i$ならば$B(x;1/2) = X_i$である。
+よって、各$i \in \lambda$について$Y \cap X_i \neq \emptyset$であり、写像$i \mapsto \min (Y \cap X_i)$が集合族$(X_i)_{i \in \lambda}$の選択関数となる。
+以上より主張が成り立つ。
+\end{proof}
+
+命題\ref{prop:totally-bounded_and_Ind-compact}により、添字つきの$\mathsf{CPT}_{\kappa}$性から$\kappa$-全有界性を導くことは選択公理抜きで（ZF公理系で）可能である。
+一方、添字なしの$\mathsf{CPT}_{\kappa}$性から$\kappa$-全有界性を導くことについては、少なくとも$\mathsf{AC}_{\kappa}$を仮定すれば命題\ref{prop:totally-bounded_and_unInd-compact}のように可能なのであるが、では（ZF公理系に加えて）どの程度強い公理が必要充分なのだろうか\footnote{命題\ref{prop:totally-bounded_and_Ind-compact}の証明を添字なし開被覆の場合に真似るとどこで困るかというと、濃度$\kappa$未満の添字なし部分被覆$\mathcal{U}$が取れたとして、$U \in \mathcal{U}$について$U = B(x;\varepsilon)$を満たす$x \in X$が複数存在する、ということが無限個の$U$について起こるかもしれない（$U$ごとにその「中心」$x$を選べないかもしれない）、という点である。}？
+また、命題\ref{prop:totally-bounded_and_unInd-compact}の(2)の証明で構成した擬距離空間$(X,d)$は一般に距離空間ではないので、命題\ref{prop:totally-bounded_and_unInd-compact}(2)の主張で「擬距離空間」を「距離空間」に替えた命題に同じ証明を直ちに適用することはできないが、この命題（あるいはその何らかの類似物）は「距離空間」の場合にも成り立つのだろうか？
+少なくとも筆者は現時点でこれらの答えを持ち合わせていない。
+（単に「筆者が知らない」というだけであり、筆者はこうした分野の専門家ではないので、実は簡単だったりよく知られた事実だったりする可能性もあるので注意されたい。）
+
+\paragraph{謝辞}
+本稿を書くきっかけとなったのは、命題\ref{prop:equivalence_from_HS97}や命題\ref{prop:indexed_version_of_HS97}に関連する内容についてTwitterで\url{@marx_saul}氏がつぶやいていたのをたまたま目にしたことであった。
+というわけで、\url{@marx_saul}氏と、文献\cite{HS97}を教えてくださった\url{@alg_d}氏、またリプライまたはエアリプでコメントをくださった\url{@y_bonten}氏、\url{@kagamihr}氏、\url{@ta_shim_at_nhn}氏に対して、誠に勝手ながらここで感謝の意を表する。
+
+\begin{thebibliography}{9}
+
+\bibitem{alg-d_ord}
+「順序数・濃度の簡単なまとめ」（『選択公理 | 壱大整域』）、\url{http://alg-d.com/math/ord.html} （2017年1月29日現在）
+
+\bibitem{BH98}
+H.~L.~Bentley, H.~Herrlich,
+Countable Choice and Pseudometric Spaces,
+Topology and Its Applications, vol.85 (1998) 153--164
+
+\bibitem{HS97}
+H.~Herrlich, G.~E.~Strecker,
+When is $\mathbb{N}$ Lindel\"{o}f?,
+Commentationes Mathematicae Universitatis Carolinae, vol.38, no.3 (1997) 553--556
+
+\bibitem{Kunen}
+Kenneth Kunen（藤田 博司 訳）、『集合論　独立性証明への案内』、日本評論社、2008年
+
+
+\end{thebibliography}
+
+\end{document}

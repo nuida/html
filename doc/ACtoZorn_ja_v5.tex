@@ -1,0 +1,134 @@
+﻿\documentclass{ltjsarticle}
+\usepackage{amssymb,amsmath,amsthm}
+\theoremstyle{definition}
+\newtheorem{lemma}{補題}
+\newtheorem{theorem}{定理}
+\def\proofname{証明}
+\title{超限帰納法抜きで選択公理からZornの補題を証明してみた}
+\author{縫田 光司}
+\date{2011年11月13日（初版）、\today （第5版）}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+このノートでは、超限帰納法を使わずに選択公理からZornの補題を導く証明を与える（なお、このノートの初版での証明のアイデアは\cite[Theorem 4.19]{RubRub85}と同じであったが、現在の証明は\cite{Lewin91}の改良である）。
+\end{abstract}
+
+このノートを通して、$(X,\leq)$は空でない半順序集合で、どの全順序部分集合も$X$における上界をもつものとする。
+\textbf{Zornの補題}とは、このような$X$が常に極大元をもつという主張である。
+選択公理からZornの補題を（集合論のZermelo--Fraenkel公理系の下で）証明する際、「自然な」方針を採ろうとすると通常は超限帰納法のお世話になるのだが、このノートでは超限帰納法を使わない証明を紹介する。
+
+$X$が極大元をもたないと仮定して矛盾を導く。
+$X$の全順序部分集合全体の集合を$\mathcal{T}$で表す。
+$C \in \mathcal{T}$について$U_C := \{ x \in X \mid y \in C \mbox{ であれば } y < x \}$と定める。
+このとき$U_C \cap C = \emptyset$であり、また、$C$の上界$x \in X$が存在してさらに極大でないことから$\emptyset \neq U_{\{x\}} \subseteq U_C$、したがって$U_C \neq \emptyset$である。
+$\mathcal{U} := \{ S \subseteq X \mid S = U_C \mbox{ を満たす } C \in \mathcal{T} \mbox{ が存在する} \}$は非空集合からなる集合族であり、\underline{選択公理により}その選択関数$f$が得られる。
+すなわち$C \in \mathcal{T}$のとき$f(U_C) \in U_C$が成り立つ。
+$\mathcal{T}$の元$C$で条件 (i-$C$) 「$S \subseteq C$, $U_S \not\subseteq U_C$のとき$f(U_S) \in C$」を満たすもの全体の集合を$\mathcal{C}_0$で表す。
+また、$\mathcal{C}_0$の元$C$で条件 (ii-$C$) 「$C' \in \mathcal{C}_0$のとき$C \setminus C' \subseteq U_{C'}$」を満たすもの全体の集合を$\mathcal{C}$で表す。
+
+$C^* := \bigcup_{C \in \mathcal{C}} C$と定める。
+$C' \in \mathcal{C}_0$のとき$C^* \setminus C' \subseteq \bigcup_{C \in \mathcal{C}} C \setminus C' \subseteq U_{C'}$（各$C \in \mathcal{C}$での (ii-$C$) より）となり、(ii-$C^*$) が成り立つ。
+また、$x,y \in C^*$とすると、ある$C \in \mathcal{C}$について$x \in C$である。
+すると、$y \in C$であれば$C \in \mathcal{T}$より$x \leq y$または$y \leq x$が成り立ち、一方で$y \not\in C$であれば (ii-$C^*$) より$y \in C^* \setminus C \subseteq U_C$、したがって$x < y$が成り立つ。
+よっていずれにしても$x \leq y$または$y \leq x$が成り立ち、$C^* \in \mathcal{T}$である。
+さらに、$S \subseteq C^*$かつ$U_S \not\subseteq U_{C^*} = \bigcap_{C \in \mathcal{C}} U_C$のとき、ある$C \in \mathcal{C}$について$U_S \not\subseteq U_C$であり、さらにある$x \in U_S$について$x \not\in U_C$である。
+すると$y \in S$について$y < x$より$y \not\in U_C$である。
+すなわち$S \cap U_C = \emptyset$である。
+(ii-$C^*$) より$S \setminus C \subseteq C^* \setminus C \subseteq U_C$であるから、$S \subseteq C$が成り立つ。
+よって (i-$C$) より$f(U_S) \in C \subseteq C^*$となり、(i-$C^*$) が成り立つ。
+よって$C^* \in \mathcal{C}$である。
+$u := f(U_{C^*})$, $C^{**} := C^* \cup \{u\}$と定める。
+
+$u = \max C^{**}$と$C^* \in \mathcal{T}$より$C^{**} \in \mathcal{T}$である。
+$S \subseteq C^{**}$かつ$U_S \not\subseteq U_{C^{**}}$のとき、$u \not\in S$（さもなくば$U_S = U_{\{u\}} = U_{C^{**}}$である）より$S \subseteq C^*$、したがって$U_{C^*} \subseteq U_S$である。
+ここで$U_S \subseteq U_{C^*}$の場合には$U_S = U_{C^*}$となり、$f(U_S) = f(U_{C^*}) = u \in C^{**}$となる。
+一方$U_S \not\subseteq U_{C^*}$の場合には、(i-$C^*$) より$f(U_S) \in C^* \subseteq C^{**}$となる。
+いずれにしても$f(U_S) \in C^{**}$となるので、$C^{**} \in \mathcal{C}_0$である。
+$C^{**} \not\subseteq C^*$より$C^{**} \not\in \mathcal{C}$であり、したがってある$C' \in \mathcal{C}_0$について$C^{**} \setminus C' \not\subseteq U_{C'}$である。
+(ii-$C^*$) より$C^* \setminus C' \subseteq U_{C'}$であるので、$u \not\in C'$かつ$u \not\in U_{C'}$である（さもなくば$\emptyset \neq (C^{**} \setminus C') \setminus U_{C'} = (C^* \setminus C') \setminus U_{C'} = \emptyset$となり矛盾する）。
+これと$u \in U_{C^*}$より$U_{C^*} \not\subseteq U_{C'}$かつ$C^* \cap U_{C'} = \emptyset$、したがって$C^* \subseteq C'$となる。
+すると (i-$C'$) を$C^* \subseteq C'$に適用して、$u \in C'$となるが、これは矛盾である。
+以上でZornの補題が証明された。
+
+
+\section*{おまけ：超限帰納法を用いた証明}
+
+このおまけでは、比較のために、超限帰納法を用いて選択公理からZornの補題を導く証明を与える。
+最初に、超限再帰的定義に関する原理を述べておく（例えば\cite[第I章定理9.3]{Kunen}を参照）。
+
+\begin{theorem}
+    \label{thm:transfinite_induction}
+    $\varphi(x,y)$を（Zermelo--Fraenkel集合論における）式で自由変数$x$と$y$をもち、$\forall x \exists! y \varphi(x,y)$を満たすものとする。
+    このとき、自由変数$x$と$y$をもつ式$\Phi(x,y)$で以下の二つの条件を満たすものが存在する。
+    \begin{enumerate}
+        \item $\forall x ( (x \in \mathbf{ON} \to \exists! y \Phi(x,y)) \land (\neg x \in \mathbf{ON} \to \neg\exists y \varphi(x,y) ) )$
+        \item $\forall x ( x \in \mathbf{ON} \to \forall y,z ( y = \Phi\!\upharpoonright_x \land \varphi(y,z) \to \Phi(x,z) ) )$
+    \end{enumerate}
+    ただし、「$x \in \mathbf{ON}$」は「$x$は順序数」の略記とし、「$\Phi\!\upharpoonright_x$」は集合$\{\langle a,b \rangle \mid a \in x \land \Phi(a,b)\}$（$\langle a,b \rangle$は$a$と$b$の順序対）の略記とする。
+\end{theorem}
+
+この定理の直感的な意味は以下の通りである：順序数全体（これは集合をなさないのであるが）で定義される「関数」$\Phi$を得たいとき、順序数$\alpha$における値を$\alpha$より小さな順序数における値から定める方法を指定すれば、その条件を満たす「関数」$\Phi$が確かに存在する。
+この定理はZF集合論における定理であり、選択公理は用いていないことを注意しておく。
+
+定理\ref{thm:transfinite_induction}（と超限帰納法）を用いて、選択公理からZornの補題を証明する。
+$X \neq 0$（$= \emptyset$）を、Zornの補題の主張に現れる半順序集合とする。
+背理法の仮定として、$X$は極大元をもたないと仮定する。
+すると、$X$の空でない部分集合$C$のうち、ある順序数と同型な（特に全順序集合である）ものの各々について、\underline{選択公理を用いて}$C$の上界$b_C \in X \setminus C$を一つずつ選ぶことができる。
+
+定理\ref{thm:transfinite_induction}を適用すべく、まず$X$の元$a$を一つ固定しておき、式$\varphi(x,y)$を以下の要領で定義する。
+\begin{itemize}
+    \item $x = 0$のとき、$\varphi(x,y)$は$y = a$を意味するように定める。
+    \item $x$がある順序数$\alpha > 0$から$X$への関数であって像$\mathrm{Im}(x)$への（半順序集合としての）同型写像であるとき、$\varphi(x,y)$は$y = b_{\mathrm{Im}(x)}$を意味するように定める（$\mathrm{Im}(x)$は空でない順序数$\alpha$と同型なので、$b_{\mathrm{Im}(x)}$が確かに定義されることを注意しておく）。
+    \item それ以外のとき、$\varphi(x,y)$は$y = 0$を意味するように定める。
+\end{itemize}
+この式$\varphi(x,y)$は定理\ref{thm:transfinite_induction}の前提を満たすので、定理の主張にあるような式$\Phi(x,y)$が存在する。
+ここで以下の補題が成り立つ。
+
+\begin{lemma}
+    \label{lem:appendix_property_of_Phi}
+    $x$を順序数とし、$x'$を$\Phi(x,x')$が成り立つ唯一の元とする。
+    このとき、
+    \begin{enumerate}
+        \item $x' \in X$である。
+        \item $y < x$かつ$\Phi(y,y')$が成り立つならば、$X$において$y' < x'$である。
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    $x$に関する超限帰納法を用いて証明する。
+    まず、$x = 0$のときは、$\varphi$の定義より$x' = a$となるので、件の条件が成り立つ。
+    次に$x > 0$のときを考える。
+    超限帰納法の仮定より、定理\ref{thm:transfinite_induction}の主張に現れる集合$\Phi\!\upharpoonright_x$は$x$から$X$のある部分集合$C$への同型写像となる（$x$は全順序集合であることを注意しておく）。
+    このとき$\Phi$と$\varphi$の定義より$x' = b_C$となり、したがって件の条件は$x$に関しても成り立つ（二つ目の条件については、$b_C \in X \setminus C$が$C$の上界であることから導かれる）。
+    以上より主張が成り立つ。
+\end{proof}
+
+補題\ref{lem:appendix_property_of_Phi}の二つ目の性質より、各$v \in X$について、$\Phi(x,v)$を満たす順序数$x$は高々一つしか存在しない。
+$X$の部分集合$X'$を、ある（一意に定まる）順序数$x$について$\Phi(x,v)$が成り立つような$v \in X$全体の集合として定める。
+置換公理を集合$X'$と式$\Phi'(x,y) := \Phi(y,x)$に適用すると、順序数$y$のうち、$\Phi(y,y')$を満たす唯一の$y'$が$X'$に属するような$y$をすべて要素にもつ集合$Y$の存在が示される。
+ここで補題\ref{lem:appendix_property_of_Phi}の一つ目の性質より、この集合$Y$はすべての順序数を要素にもつことになる。
+しかし、これはBurali--Fortiの逆理（すなわち、すべての順序数を要素にもつ集合は存在しない、という定理）に矛盾する。
+したがって背理法により、$X$は極大元をもつ。
+以上でZornの補題が証明された。
+
+\begin{thebibliography}{9}
+
+    \bibitem{Kunen}
+    ケネス・キューネン（著）、藤田博司（訳）、
+    『集合論　独立性証明への案内』、
+    日本評論社、2008年
+
+    \bibitem{Lewin91}
+    J.~Lewin,
+    \lq\lq A Simple Proof of Zorn's Lemma\rq\rq,
+    Amer.\ Math.\ Monthly \textbf{98}(4) (1991),
+    353--354
+
+    \bibitem{RubRub85}
+    H.~Rubin, J.~E.~Rubin, 
+    \lq\lq Equivalents of the Axiom of Choice, II\rq\rq, Second Edition, 
+    Studies in Logic and the Foundations of Mathematics vol.116, North-Holland, 1985
+
+\end{thebibliography}
+
+\end{document}

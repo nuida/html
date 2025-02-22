@@ -1,0 +1,212 @@
+﻿\documentclass{ltjsarticle}
+\usepackage{amssymb,amsmath,amsthm}
+\theoremstyle{definition}
+\newtheorem{lemma}{補題}
+\newtheorem{theorem}{定理}
+\def\proofname{証明}
+\title{超限帰納法抜きで選択公理からZornの補題を証明してみた}
+\author{縫田 光司}
+\date{2011年11月13日（初版）、\today （第3版）}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+このノートでは、超限帰納法を使わずに選択公理からZornの補題を導く証明を与える（ただし、悲しいことにノートの初版を書いてから気が付いたのだが、証明の本質的なアイデアはH.~Rubin, J.~E.~Rubin, \lq\lq Equivalents of the Axiom of Choice, II\rq\rq, Second Edition, Studies in Logic and the Foundations of Mathematics vol.116, North-Holland, 1985の定理4.19の証明と同じであった）。
+\end{abstract}
+
+このノートを通して、$(X,\leq)$は空でない半順序集合で、どの鎖\footnote{全順序（もしくは線形順序）部分集合のこと。}$C$も$X$における上界\footnote{つまり、$x \in X$であって、どの$c \in C$についても$c \leq x$を満たすもの。}をもつものとする。
+\textbf{Zornの補題}とは、このような$X$が常に極大元\footnote{つまり、$x \in X$であって、$x < y$となる$y \in X$が存在しないもの。}をもつという主張である。
+選択公理からZornの補題を（集合論のZermelo--Fraenkel公理系の下で）証明する際、「自然な」方針を採ろうとすると通常は超限帰納法のお世話になるのだが、このノートでは超限帰納法を使わない証明を紹介する。
+
+背理法の仮定として、$X$は冒頭に述べた条件を満たす半順序集合であるが、極大元をもたないとする。
+この仮定から出発して矛盾を導く。
+
+まず定義や用語をいくつか準備しておく。
+$X$の鎖$C$について、$X \setminus C$に属する$C$の上界全体の集合を$U_C$で表す。
+また、$X$の鎖$C$と$x \in X$について、$s_C(x) := \{ y \in C \mid y < x \}$と定める。
+$X$の空でない、かつ整列されている\footnote{空でない部分集合が常に最小元をもつ、ということ。}鎖全体の集合を$\mathcal{C}$で表す。
+$C \in \mathcal{C}$のとき、$C$の空でない部分集合はどれも$\mathcal{C}$に属することを注意しておく。
+また以下の性質が成り立つ。
+
+\begin{lemma}
+    \label{lem:Zorn:chain_has_proper_upper_bound}
+    $C \in \mathcal{C}$のとき常に$U_C \neq \emptyset$が成り立つ。
+\end{lemma}
+\begin{proof}
+    Zornの補題の仮定より、$C$は上界$x \in X$をもつ。
+    また、$X$は極大元をもたないと仮定したので、$x < y$を満たす$y \in X$が存在する。
+    この$y$について、$y \not\leq x$となるので、$x$の選び方より$y \not\in C$である。
+    また、$x$と同様に$y$も$C$の上界である。
+    よって$y \in U_C$、したがって$U_C \neq \emptyset$である。
+\end{proof}
+
+$\mathcal{U} := \{ S \subseteq X \mid \mbox{ある$C \in \mathcal{C}$について$S = U_C$} \}$と定める。
+補題\ref{lem:Zorn:chain_has_proper_upper_bound}より$\mathcal{U}$は非空集合からなる集合族であり、\underline{選択公理により}その選択関数$f$が得られる。
+すなわち、$C \in \mathcal{C}$のとき$f(U_C) \in U_C$が成り立つ。
+この$f(U_C)$のことを単に$f(C)$で表す。
+
+Zornの補題の仮定より$X \neq \emptyset$である。
+$x_0 \in X$を一つ固定する。
+ここで以下の定義を導入する。
+\begin{itemize}
+    \item 
+    鎖$C \in \mathcal{C}$が\textbf{$f$-継続的}であるとは、$x_0 = \min C$であり、さらに$c \in C \setminus \{x_0\}$のとき常に$f(s_C(c)) = c$が成り立つことと定める（このとき$x_0 < c$より$s_C(c) \neq \emptyset$、したがって$s_C(c) \in \mathcal{C}$であることを注意しておく）。
+    $f$-継続的な$\mathcal{C}$の元全体の集合を$\mathcal{C}_f$で表す。
+\end{itemize}
+なお、上の定義において、$c = x_0$のときは$s_C(c) = \emptyset$である。
+すると、$f(\emptyset) := x_0$と定めることで、$C \in \mathcal{C}_f$のとき、どの$c \in C$についても$f(s_C(c)) = c$が成り立つようになる。
+
+$C^* := \bigcup_{C \in \mathcal{C}_f} C$と定める。
+$\{x_0\} \in \mathcal{C}_f$より$C^*$は空でなく、$x_0 = \min C^*$である。
+
+\begin{lemma}
+    \label{lem:Zorn:2}
+    $C_1,C_2 \in \mathcal{C}_f$, $x \in C_1$, $y = \min(C_2 \setminus s_{C_1}(x))$のとき、$y \in C_1$が成り立つ。
+\end{lemma}
+\begin{proof}
+    $y$の最小性より
+    \begin{equation}
+        \label{eq:lem:Zorn:2:minimality_of_y}
+        s_{C_2}(y) \subseteq s_{C_1}(x)
+    \end{equation}
+    であり、$x \in C_1 \setminus s_{C_2}(y)$となる。
+    $C_1$は整列されているので、$z := \min(C_1 \setminus s_{C_2}(y))$が存在し、また$z \leq x$である。
+    $y$の定義より$y \not\in s_{C_1}(x)$であるので、$y \in C_2 \setminus s_{C_1}(z)$となる。
+    $C_2$は整列されているので、$w := \min(C_2 \setminus s_{C_1}(z))$が存在し、また
+    \begin{equation}
+        \label{eq:lem:Zorn:2:w<y}
+        w \leq y
+    \end{equation}
+    である。
+    $w$の最小性より$s_{C_2}(w) \subseteq s_{C_1}(z)$である。
+    逆に$u \in s_{C_1}(z)$のとき、$z$の最小性より
+    \begin{equation}
+        \label{eq:lem:Zorn:2:minimality_of_z}
+        u \in s_{C_2}(y)
+    \end{equation}
+    である。
+    ここで、もし$u \not\in s_{C_2}(w)$であるとすると、$C_2$は鎖であるので
+    \begin{equation}
+        \label{eq:lem:Zorn:2:w<u}
+        w \leq u
+    \end{equation}
+    となり、式\eqref{eq:lem:Zorn:2:minimality_of_z}より$w \in s_{C_2}(y)$となる。
+    これと式\eqref{eq:lem:Zorn:2:minimality_of_y}より$w \in C_1$であり、また$w$の定義より$w \not\in s_{C_1}(z)$である。
+    $C_1$は鎖であるので、$z \leq w$となり、式\eqref{eq:lem:Zorn:2:w<u}より$z \leq u$となるが、一方で$u$の選び方より$u \in s_{C_1}(z)$であり、これは矛盾である。
+    よって$u \in s_{C_2}(w)$となる。
+    以上より$s_{C_2}(w) = s_{C_1}(z)$である。
+    $C_1$と$C_2$はともに$f$-継続的であるので、
+    \[
+        w = f(s_{C_2}(w)) = f(s_{C_1}(z)) = z \in C_1 \cap C_2
+    \]
+    となる。
+    $z$の定義より$z \not\in s_{C_2}(y)$であり、$C_2$は鎖であるので、$y \leq z = w$となる。
+    これと式\eqref{eq:lem:Zorn:2:w<y}より$y = w \in C_1$となる。
+    以上より主張が成り立つ。
+\end{proof}
+
+\begin{lemma}
+    \label{lem:Zorn:3}
+    $C_1,C_2 \in \mathcal{C}_f$のとき、$C_2 \setminus C_1 \subseteq U_{C_1}$である。
+    特に$C_1$の元と$C_2$の元は常に比較可能である。
+\end{lemma}
+\begin{proof}
+    $x_2 \in C_2 \setminus C_1$, $x_1 \in C_1$のとき、$x_2 \in C_2 \setminus s_{C_1}(x_1)$である。
+    $C_2$は整列されているので、$y := \min(C_2 \setminus s_{C_1}(x_1))$が存在し、また$y \leq x_2$である。
+    すると補題\ref{lem:Zorn:2}より$y \in C_1$である。
+    $y$の定義より$y \not\in s_{C_1}(x_1)$であり、$C_1$は鎖であるから、$x_1 \leq y \leq x_2$となる。
+    よって主張が成り立つ。
+\end{proof}
+
+補題\ref{lem:Zorn:3}より$C^*$は鎖である。
+
+\begin{lemma}
+    \label{lem:Zorn:5}
+    $C \in \mathcal{C}_f$, $x \in C$のとき、$s_{C^*}(x) = s_C(x)$が成り立つ。
+\end{lemma}
+\begin{proof}
+    $C^*$の定義より$C \subseteq C^*$であるから、$s_{C^*}(x) \subseteq C$を示せばよい。
+    それには、$y \in s_{C^*}(x) \setminus C$と仮定して矛盾を導けばよい。
+    $C^*$の定義より、$y \in C'$を満たす$C' \in \mathcal{C}_f$が存在する。
+    すると補題\ref{lem:Zorn:3}より$y \in U_C$、したがって$x \leq y$となるが、これは$y \in s_{C^*}(x)$と矛盾する。
+    以上より主張が成り立つ。
+\end{proof}
+
+$C^*$が整列されていることを示すために、$S$を$C^*$の空でない部分集合とし、$S$の最小元が存在することを示す。
+$x \in S$を一つ固定する。
+これが$S$の最小元であれば目的が達成できているので、そうでない場合を考える。
+すると、$C^*$は鎖であるから、$y < x$を満たす$y \in S$が存在する。
+つまり$s_{C^*}(x) \cap S \neq \emptyset$である。
+補題\ref{lem:Zorn:5}より、$s_{C^*}(x) \cap S$はある$C \in \mathcal{C}_f$の空でない部分集合であり、$C$が整列されていることから、$s_{C^*}(x) \cap S$は最小元$y$をもつ。
+ここで$z \in S$とすると、$z < x$であれば$z \in s_{C^*}(x) \cap S$であり、$y$の選び方より$y \leq z$となる。
+一方、$x \leq z$であれば、$y$の選び方より$y < x$であるため、$y < z$となる。
+いずれにしても$y \leq z$となるので、$y$は$S$の最小元である。
+よって$C^*$は整列されており、$C^* \in \mathcal{C}$となる。
+さらに、$x \in C^* \setminus \{x_0\}$のとき、$x \in C$を満たす$C \in \mathcal{C}_f$をとると、補題\ref{lem:Zorn:5}より$s_{C^*}(x) = s_C(x)$である。
+$C$は$f$-継続的であるので、$f(s_{C^*}(x)) = f(s_C(x)) = x$である。
+よって$C^*$も$f$-継続的である。
+以上より$C^* \in \mathcal{C}_f$である。
+すると$f(C^*) \in U_{C^*}$より$C^{**} := C^* \cup \{f(C^*)\}$も$\mathcal{C}_f$の元であり、$f(C^*) \not\in C^*$より$C^{**} \not\subseteq C^*$であるが、これは$C^*$の定義と矛盾する。
+以上でZornの補題が証明された。
+
+
+\section*{おまけ：超限帰納法を用いた証明}
+
+このおまけでは、比較のために、超限帰納法を用いて選択公理からZornの補題を導く証明を与える。
+最初に、超限再帰的定義に関する原理を述べておく（例えばケネス・キューネン著、藤田博司訳『集合論　独立性証明への案内』（日本評論社、2008年、原題：SET THEORY, An Introduction to Independence Proofs）第I章定理9.3を参照）。
+
+\begin{theorem}
+    \label{thm:transfinite_induction}
+    $\varphi(x,y)$を（Zermelo--Fraenkel集合論における）式で自由変数$x$と$y$をもち、$\forall x \exists! y \varphi(x,y)$を満たすものとする。
+    このとき、自由変数$x$と$y$をもつ式$\Phi(x,y)$で以下の二つの条件を満たすものが存在する。
+    \begin{enumerate}
+        \item $\forall x ( (x \in \mathbf{ON} \to \exists! y \Phi(x,y)) \land (\neg x \in \mathbf{ON} \to \neg\exists y \varphi(x,y) ) )$
+        \item $\forall x ( x \in \mathbf{ON} \to \forall y,z ( y = \Phi\!\upharpoonright_x \land \varphi(y,z) \to \Phi(x,z) ) )$
+    \end{enumerate}
+    ただし、「$x \in \mathbf{ON}$」は「$x$は順序数」の略記とし、「$\Phi\!\upharpoonright_x$」は集合$\{\langle a,b \rangle \mid a \in x \land \Phi(a,b)\}$（$\langle a,b \rangle$は$a$と$b$の順序対）の略記とする。
+\end{theorem}
+
+この定理の直感的な意味は以下の通りである：順序数全体（これは集合をなさないのであるが）で定義される「関数」$\Phi$を得たいとき、順序数$\alpha$における値を$\alpha$より小さな順序数における値から定める方法を指定すれば、その条件を満たす「関数」$\Phi$が確かに存在する。
+この定理はZF集合論における定理であり、選択公理は用いていないことを注意しておく。
+
+定理\ref{thm:transfinite_induction}（と超限帰納法）を用いて、選択公理からZornの補題を証明する。
+$X \neq 0$（$= \emptyset$）を、Zornの補題の主張に現れる半順序集合とする。
+背理法の仮定として、$X$は極大元をもたないと仮定する。
+すると、$X$の空でない部分集合$C$のうち、ある順序数と同型な（特に全順序集合である）ものの各々について、\underline{選択公理を用いて}$C$の上界$b_C \in X \setminus C$を一つずつ選ぶことができる。
+
+定理\ref{thm:transfinite_induction}を適用すべく、まず$X$の元$a$を一つ固定しておき、式$\varphi(x,y)$を以下の要領で定義する。
+\begin{itemize}
+    \item $x = 0$のとき、$\varphi(x,y)$は$y = a$を意味するように定める。
+    \item $x$がある順序数$\alpha > 0$から$X$への関数であって像$\mathrm{Im}(x)$への（半順序集合としての）同型写像であるとき、$\varphi(x,y)$は$y = b_{\mathrm{Im}(x)}$を意味するように定める（$\mathrm{Im}(x)$は空でない順序数$\alpha$と同型なので、$b_{\mathrm{Im}(x)}$が確かに定義されることを注意しておく）。
+    \item それ以外のとき、$\varphi(x,y)$は$y = 0$を意味するように定める。
+\end{itemize}
+この式$\varphi(x,y)$は定理\ref{thm:transfinite_induction}の前提を満たすので、定理の主張にあるような式$\Phi(x,y)$が存在する。
+ここで以下の補題が成り立つ。
+
+\begin{lemma}
+    \label{lem:appendix_property_of_Phi}
+    $x$を順序数とし、$x'$を$\Phi(x,x')$が成り立つ唯一の元とする。
+    このとき、
+    \begin{enumerate}
+        \item $x' \in X$である。
+        \item $y < x$かつ$\Phi(y,y')$が成り立つならば、$X$において$y' < x'$である。
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    $x$に関する超限帰納法を用いて証明する。
+    まず、$x = 0$のときは、$\varphi$の定義より$x' = a$となるので、件の条件が成り立つ。
+    次に$x > 0$のときを考える。
+    超限帰納法の仮定より、定理\ref{thm:transfinite_induction}の主張に現れる集合$\Phi\!\upharpoonright_x$は$x$から$X$のある部分集合$C$への同型写像となる（$x$は全順序集合であることを注意しておく）。
+    このとき$\Phi$と$\varphi$の定義より$x' = b_C$となり、したがって件の条件は$x$に関しても成り立つ（二つ目の条件については、$b_C \in X \setminus C$が$C$の上界であることから導かれる）。
+    以上より主張が成り立つ。
+\end{proof}
+
+補題\ref{lem:appendix_property_of_Phi}の二つ目の性質より、各$v \in X$について、$\Phi(x,v)$を満たす順序数$x$は高々一つしか存在しない。
+$X$の部分集合$X'$を、ある（一意に定まる）順序数$x$について$\Phi(x,v)$が成り立つような$v \in X$全体の集合として定める。
+置換公理を集合$X'$と式$\Phi'(x,y) := \Phi(y,x)$に適用すると、順序数$y$のうち、$\Phi(y,y')$を満たす唯一の$y'$が$X'$に属するような$y$をすべて要素にもつ集合$Y$の存在が示される。
+ここで補題\ref{lem:appendix_property_of_Phi}の一つ目の性質より、この集合$Y$はすべての順序数を要素にもつことになる。
+しかし、これはBurali--Fortiの逆理（すなわち、すべての順序数を要素にもつ集合は存在しない、という定理）に矛盾する。
+したがって背理法により、$X$は極大元をもつ。
+以上でZornの補題が証明された。
+
+\end{document}

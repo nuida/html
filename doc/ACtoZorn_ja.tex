@@ -1,0 +1,158 @@
+\documentclass{jarticle}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\newtheorem{lemma}{補題}
+\title{超限帰納法抜きで選択公理からZornの補題を証明してみた}
+\author{縫田 光司}
+\date{\today}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+このノートでは、超限帰納法を使わずに選択公理からZornの補題を導く証明を与える（ただし、悲しいことにノートを書いてから気が付いたのだが、証明の本質的なアイデアはH.~Rubin, J.~E.~Rubin, \lq\lq Equivalents of the Axiom of Choice, II'', Second Edition, Studies in Logic and the Foundations of Mathematics vol.116, North-Holland, 1985の定理4.19の証明と同じであった）。
+\end{abstract}
+
+このノートを通して、$(X,\leq)$は任意の空でない半順序集合であって、どの鎖（全順序部分集合もしくは線形順序部分集合と呼ばれる場合もある）$C$も（$\leq$に関する）$X$における上界（つまり、$x \in X$であって任意の$c \in C$について$c \leq x$を満たすもの）を持つという性質を持つものとする。
+このときZornの補題とは、このような$X$が常に（$\leq$に関する）極大元（つまり、$x \in X$であって、$x < y$となる$y \in X$が存在しないもの）を持つというものである。
+選択公理からZornの補題を（集合論のZermelo-Fraenkel公理系の下で）証明する際、「自然な」方針を採ろうとすると通常は超限帰納法のお世話になるのだが、このノートでは超限帰納法を使わない証明を紹介する。
+
+背理法の仮定として、$X$は冒頭に述べた条件を満たす半順序集合であるけれども、極大元を持たないものとする。
+この仮定から出発して矛盾を導く。
+
+まず定義や用語をいくつか準備しておく。
+\begin{itemize}
+\item $C \subset Y \subset X$かつ$C$が鎖であるときに、$C$が\emph{$Y$において有界である}とは、ある元$x \in Y \setminus C$が存在して、全ての$c \in C$について$c < x$が成り立つことを指すものとする。
+\item $X$の鎖$C$が\emph{整列されている}とは、$C$の任意の空でない部分集合が最小元を持つことを指すものとする。
+\item 鎖$C$と元$c \in C$について、部分集合$\{d \in C \mid d < c\}$を$c$による$C$の\emph{始切片}と呼び、$s_C(c)$と記す。
+\end{itemize}
+
+$X$の空でない鎖全体の集合を$\mathcal{C}$と記す。
+各$C \in \mathcal{C}$について、$U_C = \{x \in X \setminus C \mid \mbox{全ての} c \in C \mbox{について} c < x\}$と定義する。
+ここで以下の性質を注意しておく。
+\begin{lemma}
+\label{lem:chain_has_proper_upper_bound}
+全ての$C \in \mathcal{C}$について$U_C \neq \emptyset$が成り立つ。
+\end{lemma}
+\begin{proof}
+Zornの補題の前提より、$C$は上界$x \in X$を持つ。
+各$y \in U_{\{x\}}$について、$c \leq x < y$（従って$c < y$）が全ての$c \in C$で成り立つことから、$y \not\in C$、また$y \in U_C$となる。
+よって$U_{\{x\}} \subset U_C$であるが、一方で$X$が極大元を持たないという背理法の仮定から$U_{\{x\}} \neq \emptyset$となるので、結局$U_C \neq \emptyset$が成り立つ。
+\end{proof}
+集合族$\{U_C\}_{C \in \mathcal{C}}$の選択関数$f$であって、後の議論に都合の良い性質を備えているものを（選択公理を用いて）構成したい。
+
+各$C_1,C_2 \in \mathcal{C}$について、$C_1 \sim_{\mathrm{pre}} C_2$という関係を、鎖$C_1 \cap C_2$が$C_1$と$C_2$のいずれにおいても有界でないという関係として定義する。
+このとき$\sim_{\mathrm{pre}}$は$\mathcal{C}$上の対称な関係である。
+そして、$\mathcal{C}$上の同値関係$\sim$を$\sim_{\mathrm{pre}}$の推移閉包として定義する。
+即ち$C_1 \sim C_2$は、$\mathcal{C}$の要素の有限列$C_1 = C'_0,C'_1,\dots,C'_n = C_2$（$n \geq 0$）であって、各$0 \leq i \leq n-1$について$C'_i \sim_{\mathrm{pre}} C'_{i+1}$を満たすことと同値である。
+$C_1 \sim C_2$かつ$C_1$が最大元$c$を持つならば、$c \in C_2$であり$c$が$C_2$の最大元でもあることを注意しておく。
+ここで以下の補題が成り立つ。
+\begin{lemma}
+\label{lem:common_upper_bound_for_equivalent_chains}
+もし$C_1,C_2 \in \mathcal{C}$かつ$C_1 \sim C_2$であれば、$U_{C_1} = U_{C_2}$が成り立つ。
+\end{lemma}
+\begin{proof}
+$C_1 \sim_{\mathrm{pre}} C_2$のときに$U_{C_1} \subset U_{C_2}$が成り立つことを示せば充分である。
+$x \in U_{C_1}$とする。
+もし$x \in C_2$であるとすると、$x \in C_2 \setminus (C_1 \cap C_2)$であって$x$は$C_1$の、従って$C_1 \cap C_2$の上界であるため、$C_1 \cap C_2$が$C_2$において有界となり、$C_1 \sim_{\mathrm{pre}} C_2$という前提に矛盾する。
+よって$x \not\in C_2$が成り立つ。
+また、もしある$c \in C_2$について$c \nless x$であるとすると、$C_1 \cap C_2$が$C_2$において有界でないという前提から、$c \leq d \nless x$を満たすような元$d \in C_1 \cap C_2$が存在する。
+特に$d \in C_1$かつ$d \nless x$となるが、これは$x \in U_{C_1}$という$x$の選び方に矛盾する。
+以上より全ての$c \in C_2$について$c < x$となり、$x \in U_{C_2}$が成り立つ。
+\end{proof}
+同値関係$\sim$による同値類$\mathcal{E}$の各々について、$U_{\mathcal{E}} \subset X$を$U_{\mathcal{E}} = U_C$ただし$C \in \mathcal{E}$、と定義すると、補題\ref{lem:common_upper_bound_for_equivalent_chains}より$U_{\mathcal{E}}$は$C \in \mathcal{E}$の選び方に依らずきちんと定まる。
+\underline{選択公理を用いて}、集合族$\{U_{\mathcal{E}}\}_{\mathcal{E} \in X/{\sim}}$の選択関数$f$を得る。
+さらに、表記の簡略化のため、各$C \in \mathcal{C}$について$f(C) = f([C])$（ただし$[C]$は$C$の$\sim$-同値類）と記す。
+すると各$C \in \mathcal{C}$について$f(C) \in U_C$であり、また$C_1,C_2 \in \mathcal{C}$かつ$C_1 \sim C_2$であれば$f(C_1) = f(C_2)$が成り立つ。
+
+以下、元$x_0 \in X$を一つ固定する。
+ここで以下の定義を導入する。
+\begin{itemize}
+\item 鎖$C \in \mathcal{C}$が\emph{$f$-継続的}であるとは、$C$が整列されており、$x_0$が$C$の最小元であり、さらに全ての$c \in C \setminus \{x_0\}$について$f(s_C(c)) = c$が成り立つことを指すものとする。
+\end{itemize}
+$f$-継続的な鎖に関するいくつかの性質を述べる。
+\begin{lemma}
+\label{lem:saturated_then_closed}
+鎖$C \in \mathcal{C}$が$f$-継続的であり、$C$の空でない部分集合$C'$が$C$において有界であるとする。
+このとき、$C \setminus C'$に属する$C'$の上界全体の集合の最小元を$d$とすると、$f(C') = d$が成り立つ。
+\end{lemma}
+\begin{proof}
+$C' \in \mathcal{C}$であることを注意しておく。
+また、$C$が整列されており$C'$が$C$において有界であることから、主張にあるような元$d$は確かに存在することを注意しておく。
+ここで$s_C(d) \sim C'$を示すことができれば、$f$の定義と$C$が$f$-継続的であることから$f(C') = f(s_C(d)) = d$となるため、$s_C(d) \sim C'$を示せば充分である。
+まず、$C' \subset s_C(d)$であるから、$s_C(d) \cap C' = C'$は$C'$において有界でない。
+一方、$x \in s_C(d) \setminus C'$のとき、$d$の最小性より$x$は$C'$の上界ではあり得ない。
+よって$C'$は$s_C(d)$において有界でない。
+従って$s_C(d) \sim C'$が成り立つ。
+\end{proof}
+\begin{lemma}
+\label{lem:trichotomy}
+$C_1,C_2 \in \mathcal{C}$が$f$-継続的な鎖であるとき、以下の三つの条件のうちちょうど一つが成り立つ。
+\begin{enumerate}
+\item $C_1 = C_2$
+\item $C_1$は$C_2$の始切片である
+\item $C_2$は$C_1$の始切片である
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+二つ以上の条件が同時に成り立たないことは明らかである。
+
+まず、各$i \in \{1,2\}$について、$x \in C_1 \cap C_2$かつ$y \in s_{C_i}(x)$ならば$y \in C_1 \cap C_2$が成り立つことを示す。
+背理法を使うために、このようなある$x$について反例となる$y$が存在すると仮定して、最小の反例を$y$と記す（$C_i$は整列されているため、そのような$y$は確かに存在する）。
+$x_0 \in C_1 \cap C_2$なので$s_{C_i}(y) \neq \emptyset$である。
+$y$の選び方より、$s_{C_i}(y) \subset C_{3-i}$かつ$y \not\in C_{3-i}$が成り立つ。
+$C_i$は$f$-継続的なので$f(s_{C_i}(y)) = y$である。
+一方、$x \in C_1 \cap C_2$かつ$y < x$なので$C_{3-i}$の部分集合$s_{C_i}(y)$は$C_{3-i}$において有界であり、従って補題\ref{lem:saturated_then_closed}より$f(s_{C_i}(y)) \in C_{3-i}$が成り立つ。
+しかし、これは性質$y \not\in C_{3-i}$と矛盾する。
+従ってこの段落の冒頭の主張が成り立つ。
+さらに、$C_1$と$C_2$はともに整列されているため、上の事実は各$i \in \{1,2\}$について$C_1 \cap C_2$が$C_i$と一致するかもしくは$C_i$の始切片であることを導く（$C_1 \cap C_2 \neq C_i$のとき、$C_i \setminus (C_1 \cap C_2)$の最小元を考えればよい）。
+
+後は$C_1 \cap C_2$が$C_1$または$C_2$と一致することを示せば充分である。
+そうでないと仮定して矛盾を導く。
+このとき$C_1 \cap C_2$は$C_1$と$C_2$両方の始切片であり、$C_1$と$C_2$は$f$-継続的なので、$f(C_1 \cap C_2) \in C_1 \cap C_2$が成り立つ。
+しかし、一方で$f$の定義より$f(C_1 \cap C_2) \not\in C_1 \cap C_2$なので、矛盾である。
+以上より主張が成り立つ。
+\end{proof}
+
+$f$-継続的な鎖全ての和集合を$C_0$と記す（$\{x_0\} \in \mathcal{C}$が$f$-継続的なので、$f$-継続的な鎖が少なくとも一つ存在することを注意しておく）。
+このとき補題\ref{lem:trichotomy}より$C_0 \in \mathcal{C}$が成り立つ（$x,y \in C_0$のとき、$f$-継続的な鎖$C$と$C'$でそれぞれ$x$と$y$を含むものが存在し、件の補題より$x \in C \subset C'$もしくは$y \in C' \subset C$である）。
+ここで以下の補題を準備しておく。
+\begin{lemma}
+\label{lem:relation_of_initial_segments}
+各$c \in C_0$について、$C$が$c$を含む$f$-継続的な鎖ならば$s_{C_0}(c) = s_C(c)$が成り立つ。
+\end{lemma}
+\begin{proof}
+まず、$C_0$の定義より$C \subset C_0$なので$s_C(c) \subset s_{C_0}(c)$であることを注意しておく。
+後は各$d \in s_{C_0}(c)$について$d \in C$となることを示せばよい。
+$C_0$の定義より、$d \in C'$となる$f$-継続的な鎖$C'$が存在する。
+ここで、$C' = C'$もしくは$C'$が$C$の始切片である場合には$d \in C' \subset C$が成り立つ。
+また、$C$が$C'$の始切片である場合には、$c \in C$、$d \in C'$かつ$d < c$なので、やはり$d \in C$が成り立つ。
+従って補題\ref{lem:trichotomy}より$d \in C$が成り立つ。
+\end{proof}
+以下、$C_0$自体が$f$-継続的であることを証明していく。
+$x_0$が$C_0$の最小元であることは明らかである。
+\begin{lemma}
+\label{lem:union_is_well-ordered}
+$C_0$は整列されている。
+\end{lemma}
+\begin{proof}
+$A$を$C_0$の空でない任意の部分集合とする。
+$a \in A$を一つ選んでおき、$a$を含む$f$-継続的な鎖$C$を取る（これは$C_0$の定義より存在する）。
+$C$は整列されているため、$A \cap C$は最小元を持つ。
+それを$a_0$と記す。
+このとき、もし$a' \in A$かつ$a' < a_0$であるとすると、補題\ref{lem:relation_of_initial_segments}より$a' \in s_{C_0}(a_0) = s_C(a_0)$が成り立ち、即ち$a' \in A \cap C$かつ$a' < a_0$となるが、これは$a_0$の選び方に矛盾する。
+従って全ての$a' \in A$について$a' \geq a_0$となり、$a_0$は$A$の最小元である。
+\end{proof}
+\begin{lemma}
+\label{lem:union_is_closed}
+全ての$c \in C_0 \setminus \{x_0\}$について$f(s_{C_0}(c)) = c$が成り立つ。
+\end{lemma}
+\begin{proof}
+$c$を含む$f$-継続的な鎖$C$を取る（これは$C_0$の定義より存在する）。
+このとき補題\ref{lem:relation_of_initial_segments}より$s_{C_0}(c) = s_C(c)$が成り立つ。
+$C$は$f$-継続的なので、$f(s_{C_0}(c)) = f(s_C(c)) = c$となる。
+\end{proof}
+補題\ref{lem:union_is_well-ordered}と補題\ref{lem:union_is_closed}より、$C_0$は確かに$f$-継続的である。
+さて、このとき$C_0 \cup \{f(C_0)\}$もまた$f$-継続的な鎖となるが、これは$C_0$の部分集合ではないため、$C_0$の定義と矛盾する。
+従って背理法により、$X$は極大元を持つ。
+以上でZornの補題が証明された。
+\end{document}

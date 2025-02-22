@@ -1,0 +1,139 @@
+\documentclass{article}
+\usepackage{amssymb,amsmath,amsthm}
+\usepackage{fullpage}
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
+\title{A note on a proof of Zorn's Lemma from Axiom of Choice without transfinite induction}
+\author{Koji Nuida}
+\date{November 13, 2011 (1st ed.), \today{} (6th ed.)}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+In this note, we give a proof of Zorn's Lemma from Axiom of Choice without transfinite induction (the essential idea in the first version of this note was the same as \cite[Theorem 4.19]{RubRub85}, but the present proof is an improvement of the proof in \cite{Lewin91}).
+\end{abstract}
+
+\paragraph{Notice:}
+The peer-reviewed journal version of the proof (where the proof has been improved) is now available \cite{Nuida24}.
+Please officially refer to the journal version (while I keep this note for reference purpose).
+
+\ 
+
+Throughout this note, $(X,\leq)$ denotes an arbitrary non-empty partially ordered set in which every totally ordered subset has an upper bound.
+Then Zorn's Lemma states that such an $X$ always has a maximal element.
+In this note, we give a proof of Zorn's Lemma from Axiom of Choice (in Zermelo--Fraenkel set theory), without transfinite induction which would be used in a \lq\lq natural'' proof of the claim.
+
+Assume, for the contrary, that $X$ has no maximal elements.
+Let $\mathcal{T}$ denote the family of the totally ordered subsets of $X$.
+For any $C \in \mathcal{T}$, we define $U_C := \{ x \in X \mid y < x \mbox{ for any } y \in C \}$.
+Now $U_C \cap C = \emptyset$, and as an upper bound $x \in X$ for $C$ exists and is not maximal, we have $\emptyset \neq U_{\{x\}} \subseteq U_C$, therefore $U_C \neq \emptyset$.
+As $\mathcal{U} := \{ S \subseteq X \mid S = U_C \mbox{ for some } C \in \mathcal{T} \}$ is a family of non-empty sets, \underline{Axiom of Choice} yields its choice function $f$; that is, $f(U_C) \in U_C$ for every $C \in \mathcal{T}$.
+Let $\mathcal{C}_0$ denote the set of all $C \in \mathcal{T}$ satisfying the condition (i-$C$): $S \subseteq C$ and $U_S \not\subseteq U_C$ imply $f(U_S) \in C$.
+Let $\mathcal{C}$ denote the set of all $C \in \mathcal{C}_0$ satisfying the condition (ii-$C$): $C' \in \mathcal{C}_0$ implies $C \setminus C' \subseteq U_{C'}$.
+
+We show that $C^* := \bigcup_{C \in \mathcal{C}} C \in \mathcal{C}$.
+First, $C' \in \mathcal{C}_0$ implies that $C^* \setminus C' \subseteq \bigcup_{C \in \mathcal{C}} C \setminus C' \subseteq U_{C'}$ (from (ii-$C$) for each $C \in \mathcal{C}$); hence (ii-$C^*$) holds.
+Secondly, for any $x,y \in C^*$, we have $x \in C$ for some $C \in \mathcal{C}$.
+Now if $y \in C$, then we have $x \leq y$ or $y \leq x$ as $C \in \mathcal{T}$; while if $y \not\in C$, then we have $y \in C^* \setminus C \subseteq U_C$ from (ii-$C^*$) and therefore $x < y$.
+Hence we have $x \leq y$ or $y \leq x$ in any case, therefore $C^* \in \mathcal{T}$.
+Moreover, when $S \subseteq C^*$ and $U_S \not\subseteq U_{C^*} = \bigcap_{C \in \mathcal{C}} U_C$, we have $U_S \not\subseteq U_C$ for some $C \in \mathcal{C}$, therefore $x \not\in U_C$ for some $x \in U_S$.
+Now for any $y \in S$, we have $y < x$, therefore $y \not\in U_C$.
+Hence $S \cap U_C = \emptyset$.
+As $S \setminus C \subseteq C^* \setminus C \subseteq U_C$ from (ii-$C^*$), we have $S \subseteq C$.
+Now from (i-$C$), we have $f(U_S) \in C \subseteq C^*$.
+Hence (i-$C^*$) holds.
+Summarizing, we have $C^* \in \mathcal{C}$.
+Let $u := f(U_{C^*})$ and $C^{**} := C^* \cup \{u\}$.
+
+As $u = \max C^{**}$ and $C^* \in \mathcal{T}$, we have $C^{**} \in \mathcal{T}$.
+When $S \subseteq C^{**}$ and $U_S \not\subseteq U_{C^{**}}$, we have $u \not\in S$ (as otherwise we would have $U_S = U_{\{u\}} = U_{C^{**}}$) and hence $S \subseteq C^*$ and $U_{C^*} \subseteq U_S$.
+Now if $U_S \subseteq U_{C^*}$, then we have $U_S = U_{C^*}$ and $f(U_S) = f(U_{C^*}) = u \in C^{**}$.
+On the other hand, if $U_S \not\subseteq U_{C^*}$, then we have $f(U_S) \in C^* \subseteq C^{**}$ from (i-$C^*$).
+Hence we have $f(U_S) \in C^{**}$ in any case, therefore (i-$C^{**}$) holds and $C^{**} \in \mathcal{C}_0$.
+As $C^{**} \not\subseteq C^*$, we have $C^{**} \not\in \mathcal{C}$, therefore (ii-$C^{**}$) fails and $C^{**} \setminus C' \not\subseteq U_{C'}$ for some $C' \in \mathcal{C}_0$.
+From (ii-$C^*$), we have $C^* \setminus C' \subseteq U_{C'}$, therefore $u \not\in C'$ and $u \not\in U_{C'}$ (as otherwise $\emptyset \neq (C^{**} \setminus C') \setminus U_{C'} = (C^* \setminus C') \setminus U_{C'} = \emptyset$, a contradiction).
+This and the fact $u \in U_{C^*}$ imply that $U_{C^*} \not\subseteq U_{C'}$ and $C^* \cap U_{C'} = \emptyset$, therefore $C^* \subseteq C'$.
+Now by applying (i-$C'$) to $C^* \subseteq C'$, it follows that $u = f(U_{C^*}) \in C'$, a contradiction.
+
+This completes the proof of Zorn's Lemma.
+
+
+\section*{Appendix: A proof using transfinite induction}
+
+In this appendix, for the sake of comparison, we describe a proof of Zorn's Lemma from Axiom of Choice using transfinite induction.
+First we clarify the statement of the principle for \lq\lq definition by transfinite recursion\rq\rq{} (see e.g., \cite[Chapter I, Theorem 9,3]{Kunen}):
+\begin{theorem}
+\label{thm:transfinite_induction}
+Let $\varphi(x,y)$ be a formula (in Zermelo--Fraenkel set theory) with free variables $x,y$ satisfying $\forall x \exists! y \varphi(x,y)$.
+Then there exists a formula $\Phi(x,y)$ with free variables $x,y$ satisfying the following two conditions;
+\begin{enumerate}
+\item $\forall x ( (x \in \mathbf{ON} \to \exists! y \Phi(x,y)) \land (\neg x \in \mathbf{ON} \to \neg\exists y \varphi(x,y) ) )$;
+\item $\forall x ( x \in \mathbf{ON} \to \forall y,z ( y = \Phi\!\upharpoonright_x \land \varphi(y,z) \to \Phi(x,z) ) )$,
+\end{enumerate}
+where \lq\lq $x \in \mathbf{ON}$'' is an abbreviation of \lq\lq $x$ is an ordinal number'' and \lq\lq $\Phi\!\upharpoonright_x$'' is an abbreviation of the set $\{\langle a,b \rangle \mid a \in x \land \Phi(a,b)\}$ (with $\langle a,b \rangle$ denoting the ordered pair of $a$ and $b$).
+\end{theorem}
+Intuitively, the theorem means that, if we would like to define a \lq\lq function'' $\Phi$ with domain consisting of all ordinal numbers (the whole of which is never a set) in such a way that the value of $\Phi$ at each ordinal number $\alpha$ is determined by a given rule from the values of $\Phi$ at ordinal numbers less than $\alpha$, then there indeed exists such a \lq\lq function'' $\Phi$.
+Note that this is a theorem of ZF set theory and does not depend on Axiom of Choice.
+
+Now we give a proof of Zorn's Lemma from Axiom of Choice using Theorem \ref{thm:transfinite_induction} (as well as transfinite induction).
+Let $X \neq 0$ be a partially ordered set appeared in the statement of Zorn's Lemma.
+Assume, for the contrary, that $X$ has no maximal elements.
+Then, for each non-empty subset $C$ of $X$ which is isomorphic to an ordinal number (hence is totally ordered), it follows \underline{from Axiom of Choice} that there exists a distinguished upper bound $b_C$ of $C$ with $b_C \in X \setminus C$.
+
+To apply Theorem \ref{thm:transfinite_induction}, first we define a formula $\varphi(x,y)$ in the following manner, where we fix an element $a \in X$ throughout the proof:
+\begin{itemize}
+\item If $x = 0$ ($= \emptyset$), then let $\varphi(x,y)$ mean that $y = a$.
+\item If $x$ is a function from an ordinal number $\alpha > 0$ to $X$ which is an isomorphism (between partially ordered sets) onto the image $\mathrm{Im}(x)$ of $x$, then let $\varphi(x,y)$ mean that $y = b_{\mathrm{Im}(x)}$ (note that $\mathrm{Im}(x)$ is isomorphic to the non-empty ordinal number $\alpha$, therefore $b_{\mathrm{Im}(x)}$ is indeed defined).
+\item Otherwise, let $\varphi(x,y)$ mean that $y = 0$.
+\end{itemize}
+This formula $\varphi(x,y)$ satisfies the hypothesis of Theorem \ref{thm:transfinite_induction}, therefore a formula $\Phi(x,y)$ as in the theorem exists.
+Now we have the following lemma:
+\begin{lemma}
+\label{lem:appendix_property_of_Phi}
+Let $x$ be an ordinal number, and let $x'$ be the unique element satisfying $\Phi(x,x')$.
+\begin{enumerate}
+\item We have $x' \in X$.
+\item If $y < x$ and $\Phi(y,y')$, then $y' < x'$ in $X$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+We prove the claim by transfinite induction on $x$.
+First, if $x = 0$, then it follows from the definition of the formula $\varphi$ that $x' = a$, therefore the specified conditions are satisfied.
+Secondly, suppose that $x > 0$.
+Then, by the hypothesis of the transfinite induction, the set $\Phi\!\upharpoonright_x$ in the statement of Theorem \ref{thm:transfinite_induction} is an isomorphism from $x$ to a subset of $X$, say, $C$ (note that $x$ is totally ordered).
+Now by the definitions of $\Phi$ and $\varphi$, it follows that $x' = b_C$, therefore the specified conditions are satisfied for $x$ (the second condition follows from the property that $b_C \in X \setminus C$ is an upper bound of $C$).
+Hence the claim holds.
+\end{proof}
+By the second property shown in Lemma \ref{lem:appendix_property_of_Phi}, for each element $v \in X$, there exists at most one ordinal number $x$ satisfying $\Phi(x,v)$.
+Let $X'$ denote the subset of $X$ defined in such a way that $v \in X'$ if and only if $v \in X$ and $\Phi(x,v)$ for some (or equivalently, a unique) ordinal number $x$.
+By the Axiom Schema of Replacement applied to the set $X'$ and the formula $\Phi'(x,y) := \Phi(y,x)$, there exists a set $Y$ for which we have $y \in Y$ if $y$ is an ordinal number and the unique element $y'$ satisfying $\Phi(y,y')$ belongs to $X'$.
+Now by the first property shown in Lemma \ref{lem:appendix_property_of_Phi}, the set $Y$ contains every ordinal number.
+However, this contradicts Burali--Forti Paradox (which states that there exist no sets containing all ordinal numbers).
+Hence $X$ should have a maximal element, concluding the proof of Zorn's Lemma.
+
+\begin{thebibliography}{9}
+
+    \bibitem{Kunen}
+    K.~Kunen,
+    \lq\lq Set Theory: An Introduction to Independence Proofs\rq\rq,
+    Elsevier, 1980
+
+    \bibitem{Lewin91}
+    J.~Lewin,
+    \lq\lq A Simple Proof of Zorn's Lemma\rq\rq,
+    Amer.\ Math.\ Monthly \textbf{98}(4) (1991),
+    353--354
+
+    \bibitem{Nuida24}
+    K.~Nuida,
+    \lq\lq A Simple and Elementary Proof of Zorn's Lemma\rq\rq,
+    Discrete Math.\ Lett.\ \textbf{13} (2024), 108--110
+
+    \bibitem{RubRub85}
+    H.~Rubin, J.~E.~Rubin, 
+    \lq\lq Equivalents of the Axiom of Choice, II\rq\rq, Second Edition, 
+    Studies in Logic and the Foundations of Mathematics vol.116, North-Holland, 1985
+
+\end{thebibliography}
+
+\end{document}

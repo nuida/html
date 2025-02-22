@@ -1,0 +1,199 @@
+\documentclass{jarticle}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\newtheorem{lemma}{補題}
+\newtheorem{proposition}{命題}
+\newtheorem{theorem}{定理}
+\renewcommand{\proofname}{証明}
+\title{チコノフの定理と選択公理に関する覚書}
+\author{縫田 光司}
+\date{平成24年1月22日公開 \\ \today 最終更新}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+このノートでは、チコノフの定理から選択公理を導く標準的な証明について少々の考察を行う。
+\end{abstract}
+
+このノートでは、基本的に集合論の公理系$\mathrm{ZF}^-$、即ちツェルメロ＝フレンケルの公理系$\mathrm{ZF}$から基礎の公理
+\begin{displaymath}
+\forall x (\exists y (y \in x) \to \exists y (y \in x \land \exists z (z \in x \land z \in y)))
+\end{displaymath}
+を除いたものの下で議論を行う。
+
+このノートでは、集合からなるクラス$\mathcal{K}$が\emph{下向きに閉じている}ということを、$A \in \mathcal{K}$でありかつ集合$B$から$A$への単射が存在するならば常に$B \in \mathcal{K}$が成り立つことと定める。
+直感的には、基数からなるクラス$\mathcal{K}$であり、$|X| \leq |Y| \in \mathcal{K}$ならば常に$|X| \in \mathcal{K}$が成り立つようなものを考えていることになる。
+例として、全ての集合のクラス$\mathsf{Set}$、全ての有限集合のクラス$\mathsf{Finite}$、全ての可算集合（つまり、$\aleph_0$への単射が存在する集合）のクラス$\mathsf{Countable}$は全て下向きに閉じたクラスである。
+
+一方、位相空間からなるクラス$\mathcal{T}$が\emph{位相的性質}であるとは、$X \in \mathcal{T}$でありかつ位相空間$Y$が$X$と同相であれば常に$Y \in \mathcal{T}$が成り立つこととする。
+つまり、ある（通常の意味での）位相的性質と、その性質を備えた全ての位相空間からなるクラスを同一視している。
+例として、全ての位相空間のクラス$\mathsf{Top}$、全ての$T_1$空間のクラス$\mathsf{T}_1$、全てのハウスドルフ空間のクラス$\mathsf{Hausdorff}$は全て位相的性質である。
+位相的性質$\mathcal{T}$に属する位相空間のことを単に\emph{$\mathcal{T}$-空間}とも呼ぶ。
+
+以下では$\mathcal{K}$は集合からなる下向きに閉じたクラス、$\mathcal{T}$は位相的性質であるとする。
+ここで次のような命題を定義する。
+\begin{description}
+\item[$\mathrm{AC}(\mathcal{K})$]
+空でない集合の族$\mathcal{A}$で$\mathcal{A} \in \mathcal{K}$なるものについて、その選択関数、即ち関数$f \colon \mathcal{A} \to \bigcup \mathcal{A}$であって全ての$A \in \mathcal{A}$について$f(A) \in A$を満たすものが存在する。
+\item[$\mathrm{ACEq}(\mathcal{K})$]
+$\mathrm{AC}(\mathcal{K})$と同様であるが、集合族$\mathcal{A}$についてその要素は全て濃度が等しいという制限を課す。
+\item[$\mathrm{AMC}$]
+空でない集合の族$\mathcal{A}$について、その「多値選択関数%
+\footnote{まず間違いなく標準的な名称ではないので注意されたい。}%
+」、即ち関数$f \colon \mathcal{A} \to 2^{\bigcup \mathcal{A}}$であって全ての$A \in \mathcal{A}$について$f(A)$が$A$の空でない有限部分集合であるものが存在する。
+\item[$\mathrm{AMCEq}$]
+$\mathrm{AMC}$と同様であるが、集合族$\mathcal{A}$についてその要素は全て濃度が等しいという制限を課す。
+\item[$\mathrm{T}(\mathcal{T},\mathcal{K})$]
+コンパクトな$\mathcal{T}$-空間の族$\mathcal{A}$について、直積空間$\prod \mathcal{A}$の任意の開被覆$\mathcal{W}$は、$\mathcal{W}' \in \mathcal{K}$なる部分被覆$\mathcal{W}'$を持つ。
+\item[$\mathrm{THomeo}(\mathcal{T},\mathcal{K})$]
+$\mathrm{T}(\mathcal{T},\mathcal{K})$と同様であるが、位相空間の族$\mathcal{A}$について全ての要素が互いに同相であるという制限を課す。
+\end{description}
+例えば、$\mathrm{AC}(\mathsf{Set})$は選択公理（AC）を、$\mathrm{AC}(\mathsf{Countable})$は可算選択公理（ACC）を、$\mathrm{AMC}$はAxiom of Multiple Choice（多値選択公理%
+\footnote{まず間違いなく標準的な和名ではない。標準的な和名は何なのだろう？}%
+、AMC）を、$\mathrm{T}(\mathsf{Top},\mathsf{Finite})$はチコノフの定理を意味する。
+なお、$\mathrm{AC}(\mathsf{Finite})$は（従って$\mathrm{ACEq}(\mathsf{Finite})$も）$\mathrm{ZF}^-$において証明可能であることを注意しておく（つまり、有限回の選択であれば無条件に行えるということ）。
+また、上記の命題は全て$\mathrm{ZF}^-$において選択公理から導くことができる。
+これはチコノフの定理が$\mathrm{ZF}^- + \mathrm{AC}$で証明できる（下記「おまけ」を参照）ことに注意すればすぐに見て取れる。
+
+さて、ここで、チコノフの定理から選択公理を導くよくある証明を少し手直しして、「チコノフの定理っぽい」公理たちから選択公理を（$\mathrm{ZF}^-$において）導く証明の「鋳型」を記してみる。
+\begin{quotation}
+$\mathcal{A} = (A_i)_{i \in \Lambda}$を空でない集合の族とする。
+まず、どの$A_i$にも属さない集合$p$を取る（ラッセルの逆理より、和集合$\bigcup_{i \in \Lambda} A_i$に全ての集合が属することはない）。
+ここで以下の条件を仮定する。
+\begin{description}
+\item[(*)] 各$i \in \Lambda$ごとに集合$X_i := A_i \cup \{p\}$上の位相構造を与える対応であって、以下の条件を満たすものが存在する。
+(I) 各$X_i$はコンパクトな$\mathcal{T}$-空間である。
+(II) 各$i \in \Lambda$ごとに点$p$の$X_i$における$X_i$以外の開近傍$U_i$を与える対応が存在する。
+\end{description}
+上記のように位相空間$X_i$たちを構成する。
+各$i \in \Lambda$について、$U_i$と$i$以外の添字$j \in \Lambda$に対する$X_j$たちとの直積集合を$\widetilde{U}_i$と置く。
+このとき$\mathcal{W} := (\widetilde{U}_i)_{i \in \Lambda}$は$X := \prod_{i \in \Lambda} X_i$の開集合からなる族である。
+
+ここで命題$\mathrm{AC}(\mathcal{K})$を仮定すると、$\mathcal{W}$は$\Lambda' \in \mathcal{K}$でありかつ$\mathcal{W}'$が$X$の開被覆であるような部分族$\mathcal{W}' = (\widetilde{U}_i)_{i \in \Lambda'}$を持たない。
+実際、このような$\mathcal{W}'$があるとすると、$\mathrm{AC}(\mathcal{K})$より元$g \in \prod_{i \in \Lambda'} (X_i \smallsetminus U_i)$の存在が示され、そして$i \in \Lambda'$について$f(i) = g(i)$、$i \in \Lambda \smallsetminus \Lambda'$について$f(i) = p$として定義される$X$の元$f$は$\mathcal{W}'$のどの要素にも属さないことがわかるが、これは矛盾である。
+
+上の議論から、さらに命題$\mathrm{T}(\mathcal{T},\mathcal{K})$を仮定すると、$\mathcal{W}$が$X$の開被覆ではないことがわかる。
+つまり、$f \in X$であってどの$\widetilde{U}_i$（$i \in \Lambda$）にも属さないものが存在する.
+これは各$i \in \Lambda$について$f(i) \not\in U_i$、従って$f(i) \neq p$であることを意味する。
+すると$f$は求める$\prod_{i \in \Lambda} A_i$の元となるので、選択公理が成立する。
+\end{quotation}
+この議論から、$\mathrm{AC}(\mathcal{K})$、$\mathrm{T}(\mathcal{T},\mathcal{K})$と（必要であれば）上記(*)を可能とする何らかの条件を組み合わせることで、$\mathrm{ZF}^-$において選択公理を導くことができる。
+以下、いくつかの特別な場合を考える。
+\begin{itemize}
+\item $\mathcal{T} = \mathsf{Top}$のとき、(*)を可能とするためには、各$X_i$の開集合系が$\emptyset$と$X_i$と$\{p\}$からなるように位相を定めてやればよい。
+実際、このとき条件(I)を満たし、また$U_i = \{p\}$と開近傍を選ぶことで条件(II)も満たされる。
+というわけで、$\mathrm{AC}(\mathcal{K})$と$\mathrm{T}(\mathsf{Top},\mathcal{K})$を組み合わせると選択公理が導かれることがわかる。
+特に、$\mathrm{T}(\mathsf{Top},\mathsf{Finite})$（つまりチコノフの定理）は選択公理を導くし、$\mathrm{AC}(\mathsf{Countable})$（つまり可算選択公理）と$\mathrm{T}(\mathsf{Top},\mathsf{Countable})$（「コンパクト空間の直積はリンデレーフの性質を持つ」）の組もまた選択公理を導く。
+なお、この議論は実際にはより強い結果、例えば開集合をちょうど3個持つ位相空間に関するチコノフの定理が選択公理を導くことを示している。
+\item $\mathcal{T} = \mathsf{T}_1$のとき、(*)を可能とするためには、まず各集合$A_i$に補有限位相を導入し、そこに点$p$を孤立点として付け加えてやればよい。
+実際、補有限位相がコンパクトかつ$T_1$であることから、前項と同様に$U_i = \{p\}$と置くことで(*)が満たされる。
+というわけで、$\mathrm{AC}(\mathcal{K})$と$\mathrm{T}(\mathsf{T}_1,\mathcal{K})$を組み合わせると選択公理が導かれることがわかる。
+特に、$\mathrm{T}(\mathsf{T}_1,\mathsf{Finite})$（つまり$T_1$空間に関するチコノフの定理）は選択公理を導くし、$\mathrm{AC}(\mathsf{Countable})$（つまり可算選択公理）と$\mathrm{T}(\mathsf{T}_1,\mathsf{Countable})$（「コンパクト$T_1$空間の直積はリンデレーフの性質を持つ」）の組もまた選択公理を導く。
+なお、ここで用いた$X_i$の位相の定義は、色々な本においてチコノフの定理から選択公理を導く証明を与える際に用いられているのだが、実際にはこの位相を用いた議論はより強い言明である「$T_1$空間に関するチコノフの定理は選択公理を導く」を示していること（および、単にチコノフの定理から選択公理を導くだけであれば、前述の通り補有限位相の代わりにより簡単な密着位相を用いれば充分であること）を強調しておきたい。
+\item \textbf{【平成25年1月6日項目追加】}
+$\mathcal{T} = \mathsf{T}_4$（$T_4$空間全体）のときは、$\mathcal{T} = \mathsf{Top}$のときにやったのと同様に、各$X_i$の開集合系が$\emptyset$と$X_i$と$\{p\}$からなるように位相を定めてやればよい（この$X_i$には空でなく互いに交わらない二つの閉集合がそもそも存在しないので、$T_4$空間の定義が自動的に満たされる）。
+なお、$\mathcal{T} = \mathsf{Top}$の場合には$\mathcal{T} = \mathsf{T}_1$の場合と同じく補有限位相を利用しても議論が成立するが、$\mathcal{T} = \mathsf{T}_4$の場合には（補有限位相は$T_4$ではないため）補有限位相を利用する方法ではうまくいかず、密着位相の存在意義（？）がより際立つことを強調しておきたい。
+\item 一方、$\mathcal{T} = \mathsf{Hausdorff}$のときは、これまでと同様にまず$A_i$にコンパクトかつハウスドルフな位相を導入し、次に孤立点$p$を付け加えて位相空間$X_i$を構成するという論法が通用\emph{しない}。
+実際、もしそれが可能であればハウスドルフ空間に関するチコノフの定理（つまり$\mathrm{T}(\mathsf{Hausdorff},\mathsf{Finite})$）から選択公理が導けることになるが、これは不可能であることが証明されている。
+そのため別の作戦を考える必要がある。
+ここでは、まず$A_i$に離散位相を導入し、次にその\textbf{【平成25年1月6日修正】}アレクサンドロフ拡張\textbf{【修正箇所終】}として$X_i$を構成することを考える。
+今の状況では、$X_i$における追加した点$p$の開近傍たちは、$A_i$の有限部分集合たちの$X_i$における補集合に他ならない。
+ここで問題となるのは、このままでは各$X_i$から（$X_i$自身と異なる）$p$の開近傍を一つずつ選び出すための手がかりが存在しないことである。
+そこで、公理$\mathrm{AMC}$を追加することにより、各$X_i$ごとに$A_i$の空でない有限部分集合$B_i$を一つずつ選び出し、それを用いて点$p$の所望の開近傍$U_i = X_i \smallsetminus B_i$を選び出すことにする。
+（$\mathrm{AMC}$は$\mathrm{ZF}^-$において選択公理より真に弱いことが知られていることを注意しておく。）
+というわけで、$\mathrm{AMC}$と$\mathrm{AC}(\mathcal{K})$と$\mathrm{T}(\mathsf{Hausdorff},\mathcal{K})$を組み合わせると$\mathrm{ZF}^-$において選択公理が導けることがわかる。
+特に、$\mathrm{AMC}$とハウスドルフ空間に関するチコノフの定理の組は選択公理を導き、また$\mathrm{AMC}$と可算選択公理と「コンパクトハウスドルフ空間の直積はリンデレーフの性質を持つ」の組も選択公理を導く。
+\end{itemize}
+
+さらに、上の議論における仮定をもう少しだけ弱めることを考える。
+そこでは以下の事実が鍵となる。
+\begin{lemma}
+\label{lem:product_of_equal_cardinality}
+空でない集合からなる族$\mathcal{A}$について、空でない集合$B$であって、各$A \in \mathcal{A}$について集合$A \times B$が互いに等しい濃度を持つようなものが存在する。
+\end{lemma}
+\begin{proof}
+$B := (\bigcup \mathcal{A})^{< \omega}$と定める（ここで$\omega$は最小の無限順序数）。
+$A \in \mathcal{A}$とする。
+$A \times B$の各元$\xi = (a,(x_0,x_1,\dots,x_n))$に対して、$f(\xi) = (x_0,x_1,\dots,x_n,a) \in B$と定める。
+この$f \colon A \times B \to B$が単射であることを示す。
+実際、もし$f((a,(x_0,\dots,x_n))) = f((a',(x'_0,\dots,x'_m)))$ならば、$(x_0,\dots,x_n,a) = (x'_0,\dots,x'_m,a')$であるので、$n = m$、$a = a'$かつ全ての$0 \leq i \leq n$について$x_i = x'_i$が成り立つ。
+これより$f$は単射なので$|A \times B| \leq |B|$となり、一方明らかに$|B| \leq |A \times B|$（$A$が空でないことに注意）である。
+よってカントール＝ベルンシュタイン＝シュレーダーの定理より$|A \times B| = |B|$が全ての$A \in \mathcal{A}$について成り立つ。
+\end{proof}
+補題\ref{lem:product_of_equal_cardinality}をもとに、上述の選択公理を導く証明を以下のように改良する。
+\begin{enumerate}
+\item 空でない集合からなる族$\mathcal{A} = (A_i)_{i \in \Lambda}$について、まず空でない集合$B$を、集合$A'_i := A_i \times B \neq \emptyset$たちが全ての$i \in \Lambda$について互いに等しい濃度を持つように（補題\ref{lem:product_of_equal_cardinality}を用いて）選ぶ。
+\item 次に、(*)と同様にしてコンパクトな$\mathcal{T}$-空間$X_i = A'_i \cup \{p\}$と$p$の開近傍$U_i \subsetneq X_i$たちを構成するが、このとき$X_i$たちが全ての$i \in \Lambda$について互いに同相となるようにする。
+\item $\mathrm{AC}(\mathcal{K})$もしくはその少し弱いバージョンを仮定して、$\mathcal{W} = (\widetilde{U}_i)_{i \in \Lambda}$の部分族$\mathcal{W}' = (\widetilde{U}_i)_{i \in \Lambda'}$であって、$\Lambda' \in \mathcal{K}$でありかつ$\mathcal{W}'$が$X$の開被覆となるものが存在しないことを示す。
+\item 最後に、$\mathrm{THomeo}(\mathcal{T},\mathcal{K})$を仮定して、$\mathcal{W}$が$X$の開被覆でないことを結論し、$\prod_{i \in \Lambda} A'_i$の元$f$を得る。
+この$f$をもとに、各$f(i)$（$i \in \Lambda$）の第1成分を抽出することによって$\prod_{i \in \Lambda} A_i$の元を得る。
+\end{enumerate}
+前述した特別な場合$\mathcal{T} = \mathsf{Top}$や$\mathcal{T} = \mathsf{T}_1$について、$X_i$たちの位相の定義より、各$i,j \in \Lambda$について、全単射$A'_i \to A'_j$と対応$p \mapsto p$を組み合わせた写像$X_i \to X_j$は同相写像となる。
+さらに、$U_i = \{p\}$より、直積集合$\prod_{i \in \Lambda'} (X_i \smallsetminus U_i) = \prod_{i \in \Lambda'} A'_i$の各成分は互いに等しい濃度を持つ。
+従って、これらの$\mathcal{T}$については、前述のものより弱い命題たち$\mathrm{ACEq}(\mathcal{K})$と$\mathrm{THomeo}(\mathcal{T},\mathcal{K})$の組もまた選択公理を導くことがわかる。
+特に、\emph{互いに同相な}$T_1$空間に関するチコノフの定理は選択公理を導く。
+
+一方、もう一つの特別な場合である$\mathcal{T} = \mathsf{Hausdorff}$の場合については、上記のように改良した議論によって$\mathrm{AMCEq}$と$\mathrm{AC}(\mathcal{K})$と$\mathrm{THomeo}(\mathsf{Hausdorff},\mathcal{K})$の組が選択公理を導くことは示されるが、より弱い$\mathrm{AMCEq}$と$\mathrm{ACEq}(\mathcal{K})$と$\mathrm{THomeo}(\mathsf{Hausdorff},\mathcal{K})$の組が選択公理を導くことは示せて\emph{いない}。
+なぜならば、$\mathrm{AMCEq}$によって得られる$A'_i$たちの有限部分集合$B_i$は必ずしも等しいサイズであるとは限らないため、上の議論に現れる直積集合$\prod_{i \in \Lambda'} (X_i \smallsetminus U_i)$が$\mathrm{ACEq}(\mathcal{K})$の前提を満たすとは限らないのである。
+もし$\mathrm{AMCEq}$をさらに強めて、直積集合の各成分の空でない有限部分集合を\emph{互いに等しいサイズとなるように}選べるようにしたならば、そのように強化した公理と二つの公理$\mathrm{ACEq}(\mathcal{K})$、$\mathrm{THomeo}(\mathsf{Hausdorff},\mathcal{K})$との組は選択公理を導くことがわかる。
+なお、$\mathrm{AMCEq}$と$\mathrm{ACEq}(\mathcal{K})$と$\mathrm{THomeo}(\mathsf{Hausdorff},\mathcal{K})$の組が$\mathrm{ZF}^-$において本当に選択公理を導けないのかどうかについては私にはわからない。
+
+\section*{おまけ：選択公理を用いたチコノフの定理の証明}
+
+ここでは、選択公理からチコノフの定理を導く標準的な証明の一つを記すことで、その証明が$\mathrm{ZF}^-$において成り立つことを明確にしておく。
+ここでの証明は\cite{AC_math}の第16節を参考にした。
+
+まず、選択公理と同値な命題の一つであるタッキーの補題を導入する。
+そのための用語を準備する。
+集合族$\mathcal{F}$が\emph{有限性の}集合族であるとは、集合$A$が$\mathcal{F}$の要素であることと、$A$の全ての有限部分集合が$\mathcal{F}$の要素であることが同値であることを意味するものとする。
+このとき以下の事実が知られている。
+\begin{theorem}
+[例えば{\cite[第I章演習問題11]{Kunen}}を参照]
+\label{thm:Tukey}
+$\mathrm{ZF}^-$において、選択公理は以下の\textbf{タッキーの補題}と同値である：有限性の集合族$\mathcal{F}$とその要素$A$に対して、$A$を含む$\mathcal{F}$の要素のうち包含関係に関する極大な要素が存在する。
+\end{theorem}
+
+チコノフの定理の証明に移る。
+$X = \prod_{i \in \Lambda} X_i$をコンパクト位相空間$X_i$たちの直積空間とする。
+このとき、$X$の部分集合からなる族$\mathcal{F}$で有限交叉性を持つものについて、族$\overline{\mathcal{F}} := \{\overline{A} \mid A \in \mathcal{F}\}$（ここで$\overline{A}$は$A$の閉包を表す）の交わりが空でないことを示せば充分である。
+まず、上記の条件を満たす$\mathcal{F}$たち全ての集合は有限性の集合族であり、従ってタッキーの補題により、与えられた集合族を含むような極大な集合族が存在する。
+そのため、初めから与えられた$\mathcal{F}$自体が極大であると仮定しても一般性を失わない。
+
+各添字$i \in \Lambda$について、射影$\pi_i \colon X \to X_i$による全ての$A \in \mathcal{F}$の像$\pi_i[A]$の$X_i$における閉包$\overline{\pi_i[A]}$からなる族を$\mathcal{F}_i$と置く。
+仮定より$\mathcal{F}$は有限交叉性を持つので、$\mathcal{F}_i$もまた有限交叉性を持つ（有限個の要素$A_k \in \mathcal{F}$たちについて$\pi_i[\bigcap_{k=1}^{n} A_k] \subset \bigcap_{k=1}^{n} \pi_i[A_k] \subset \bigcap_{k=1}^{n} \overline{\pi_i[A_k]}$となることに注意）。
+$X_i$はコンパクトなので$\bigcap \mathcal{F}_i \neq \emptyset$が成り立ち、従って（選択公理により）元$p_i \in \bigcap \mathcal{F}_i$を各$i \in \Lambda$ごとに選び出せる。
+このとき$X$の元$p = (p_i)_{i \in \Lambda}$が$\bigcap \overline{\mathcal{F}}$に属することを示す。
+これは$p$の$X$における任意の開近傍$U$が全ての$A \in \mathcal{F}$と交わることと同値である。
+さらに、$U$が$X$の開基の要素である、即ちある有限集合$\Lambda' \subset \Lambda$と各$i \in \Lambda'$ごとに$p_i$の$X_i$における開近傍$U_i$が存在して、$U$が各$i \in \Lambda'$に対する$U_i$たち並びに各$i \in \Lambda \smallsetminus \Lambda'$に対する$X_i$たちの直積である場合について示せば充分である。
+
+各$i \in \Lambda'$について、$W_i$を$U_i$および各$j \in \Lambda \smallsetminus \{i\}$に対する$X_j$たちの直積集合とする。
+このとき$U = \bigcap_{i \in \Lambda'} W_i$である。
+ここで各$A \in \mathcal{F}$について、$p$の選び方より$p_i \in U_i \cap \overline{\pi_i[A]}$であり、従って$U_i \cap \pi_i[A] \neq \emptyset$が成り立つ。
+$W_i$の定義より、これは各$A \in \mathcal{F}$について$W_i \cap A \neq \emptyset$であることを意味する。
+さて、$\mathcal{F}$は極大であるので、以下の性質が成り立つ。
+\begin{itemize}
+\item $\mathcal{F}$の有限個の要素$A_k$について、$\bigcap_k A_k \in \mathcal{F}$が成り立つ。
+なぜならば、$\mathcal{F}$の有限交叉性より$\mathcal{F} \cup \{\bigcap_k A_k\}$もまた有限交叉性を持つからである。
+\item 各$i \in \Lambda'$について、$\mathcal{F} \cup \{W_i\}$は有限交叉性を持つ。
+なぜならば、$\mathcal{F}$の有限個の要素$A_k$について、前項より$\bigcap_k A_k \in \mathcal{F}$であり、従って上の結果より$W_i \cap \bigcap_k A_k \neq \emptyset$となるからである。
+\end{itemize}
+すると、$\mathcal{F}$は極大であるから、各$i \in \Lambda'$について$W_i \in \mathcal{F}$が成り立つ。
+今、各$A \in \mathcal{F}$について、$\mathcal{F}$の有限交叉性より$\emptyset \neq A \cap \bigcap_{i \in \Lambda'} W_i = A \cap U$が成り立つ。
+つまり$U$は確かに全ての$A \in \mathcal{F}$と交わる。
+よって主張が示された。
+
+\begin{thebibliography}{9}
+
+\bibitem{AC_math}
+田中尚夫、
+『選択公理と数学　増補版』、
+遊星社、1999年
+
+\bibitem{Kunen}
+ケネス・キューネン（邦訳：藤田博司）、
+『集合論　独立性証明への案内』、
+日本評論社、2008年
+
+\end{thebibliography}
+
+\end{document}

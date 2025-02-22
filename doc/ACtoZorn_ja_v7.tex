@@ -1,0 +1,224 @@
+﻿\documentclass{ltjsarticle}
+\usepackage{amssymb,amsmath,amsthm,url}
+\usepackage{ruby}
+\theoremstyle{definition}
+\newtheorem{lemma}{補題}
+\newtheorem{theorem}{定理}
+\def\proofname{証明}
+\title{超限帰納法抜きで選択公理からZornの補題を証明してみた}
+\author{縫田 光司}
+\date{2011年11月13日（初版）、\today （第7版）}
+\begin{document}
+\maketitle
+\vspace*{-2em}
+
+\begin{abstract}
+    このノートでは、超限帰納法を使わずに選択公理からZornの補題を導く証明を与える（なお、このノートの初版での証明のアイデアは\cite[Theorem 4.19]{RubRub85}と同じであったが、現在の証明は\cite{Lewin91}の改良である）。
+    この証明の特徴として、\cite{Lewin91}の証明などで用いられていた整列順序の概念すら必要とせず、Zornの補題の主張が理解できる程度の半順序集合に関する知識（と、選択公理が何であるかの知識）があれば理解できる。
+\end{abstract}
+
+選択公理からZornの補題を（集合論のZermelo--Fraenkel公理系の下で）証明する際、「自然な」方針では通常は超限帰納法のお世話になるのだが、ここでは超限帰納法を使わない証明（筆者の論文\cite{Nuida24}）を紹介する。
+
+\subsubsection*{記号と用語の説明}
+
+このノートを通して、$(X,\leq)$を半順序集合とする。
+すなわち、$\leq$は集合$X$上の二項関係\footnote{$X$の元$x,y$が与えられると、「$x \leq y$」という関係が成り立つか否かが定まる状況にある、ということである。}であり、（I）どの$x \in X$についても$x \leq x$である、（II）どの$x,y \in X$についても、もし$x \leq y$かつ$y \leq x$であれば$x = y$でもある、（III）どの$x,y,z \in X$についても、もし$x \leq y$かつ$y \leq z$であれば$x \leq z$でもある、という三つの条件を満たす。
+「$x \leq y$かつ$x \neq y$」のことを$x < y$で表す。
+
+$X$の部分集合$C$が$X$の\ruby{\textbf{鎖}}{さ}であるとは、どの$x,y \in C$についても$x$と$y$が比較可能である（つまり、$x \leq y$もしくは$y \leq x$である）ことと定める。
+定義より、鎖$C$の部分集合$C'$もまた鎖である\footnote{$x,y \in C'$について、$C' \subseteq C$であることから$x,y \in C$でもあり、鎖$C$の定義より$x$と$y$は比較可能である。}。
+
+$x \in X$が鎖$C \subseteq X$の\textbf{上界}であるとは、どの$y \in C$についても$y \leq x$が成り立つことと定める。
+また、$x \in X$が鎖$C \subseteq X$の\textbf{真の上界}であるとは、どの$y \in C$についても$y < x$が成り立つことと定める。
+なお、後者の条件は「$x$が$C$の上界であり、かつ$x \not\in C$である」ことと同値である\footnote{$x$が$C$の真の上界であるとき、もし$x \in C$であるとすると、$y := x \in C$について条件$y < x$が成り立たず矛盾する。
+逆に「　」部の条件が成り立つとき、どの$y \in C$についても、$y \leq x$かつ$y \neq x$（$x \not\in C$であるので）、したがって$y < x$となる。}。
+
+半順序集合$(X,\leq)$が\textbf{帰納的}であるとは、$X$の鎖$C$はどれも$X$の中に上界をもつことと定める。
+（特にこのとき、空集合$C := \emptyset$が$X$の鎖であることから、$X$にはその上界が存在し、したがって$X$は空でないことを注意しておく。）
+
+$x \in X$が\textbf{極大}であるとは、$x < y$を満たす元$y \in X$は存在しないことと定める。
+また、鎖$C \subseteq X$の元$x \in C$が$C$の\textbf{最大元}である（この元を$\max C$で表す）とは、どの$y \in C$についても$y \leq x$である、言い換えると、$x$が$C$の上界であることと定める。
+
+これらの定義のもと、Zornの補題とは
+\begin{quote}
+    どの帰納的な半順序集合$(X,\leq)$も極大元をもつ
+\end{quote}
+という主張である。
+
+\subsubsection*{Zornの補題の証明}
+
+$X$の鎖全体の集合を$\mathcal{T}$で表す。
+また、鎖$C \in \mathcal{T}$について、
+\begin{equation*}
+  \overline{U}_C := \{ x \in X : \mbox{$x$は$C$の上界} \} \,,\,
+  U_C := \{ x \in X : \mbox{$x$は$C$の真の上界} \} = \overline{U}_C \setminus C
+\end{equation*}
+と定める。
+すると、$C$の最大元$\max C$が存在すれば$\overline{U}_C = U_C \cup \{\max C\}$であり、そうでなければ$\overline{U}_C = U_C$である\footnote{元$x$が$\overline{U}_C \setminus U_C$に属することは、$x$が$C$の上界でありかつ$x \in C$であること、すなわち$x = \max C$と同値である。}。
+このことから、
+\begin{equation}
+  \label{eq:U_is_upwards_closed}
+  \mbox{もし$x \in \overline{U}_C$と$y \in X$が$x < y$を満たせば、$y \in U_C$である}\footnote{どの$z \in C$についても$z \leq x < y$より$z \leq y$である。
+  一方、もし$y \in C$とすると$y \leq x$となるが、これは$x < y$と矛盾する。}\mbox{。}
+\end{equation}
+さらに、
+\begin{equation}
+  \label{eq:lemma_for_U}
+  \mbox{鎖$C_1,C_2 \in \mathcal{T}$について、$U_{C_1} \not\subseteq U_{C_2}$であれば$C_1 \cap \overline{U}_{C_2} = \emptyset$が成り立つ}\footnote{もし$x \in C_1 \cap \overline{U}_{C_2}$とすると、どの$y \in U_{C_1}$についても、$U_{C_1}$の定義より$x < y$となり、したがって性質\eqref{eq:U_is_upwards_closed}より$y \in U_{C_2}$となる。
+  これは$U_{C_1} \not\subseteq U_{C_2}$と矛盾する。}\mbox{。}
+\end{equation}
+さて、\underline{選択公理により}、$X$の空でない部分集合の族の選択関数$f_0$が存在する。
+すなわち、$X$の空でない部分集合$Y$について常に$f_0(Y) \in Y$が成り立つ。
+これを踏まえて、関数$f \colon \mathcal{T} \to X$を、鎖$C \in \mathcal{T}$について以下で定義する。
+\begin{equation*}
+  f(C) :=
+  \begin{cases}
+  f_0(U_C) \in U_C \subseteq X \setminus C & \mbox{ （$U_C \neq \emptyset$のとき）} \\
+  \max C \in C \cap \overline{U}_C & \mbox{（$U_C = \emptyset$のとき）}
+  \end{cases}
+\end{equation*}
+（$U_C = \emptyset$の場合には、$(X,\leq)$が帰納的という仮定から存在が保証される$C$の上界は実際には$C$の元でもあり、したがって$\max C$が存在する。）
+この構成より、
+\begin{equation}
+  \label{eq:choice_function}
+  \mbox{鎖$C_1,C_2 \in \mathcal{T}$について、$U_{C_1} = U_{C_2} \neq \emptyset$であれば$f(C_1) = f(C_2) \in U_{C_1}$ ($ = U_{C_2}$)が成り立つ。}
+\end{equation}
+
+$\mathcal{T}$の部分集合$\mathcal{C}_0$を、以下の条件 (i-$C$) を満たす鎖$C \in \mathcal{T}$全体の集合と定める。
+\begin{quote}
+  \textbf{(i-$C$)} $C$の部分集合$S$について、$U_S \not\subseteq U_C$であれば$f(S) \in C$が成り立つ。
+\end{quote}
+そして、$\mathcal{C}_0$の部分集合$\mathcal{C}$を、以下の条件 (ii-$C$) を満たす鎖$C \in \mathcal{C}_0$全体の集合と定める。
+\begin{quote}
+  \textbf{(ii-$C$)} どの$C' \in \mathcal{C}_0$についても$C \subseteq C' \cup U_{C'}$が成り立つ。
+\end{quote}
+
+$C^* := \bigcup \mathcal{C}$と定める。
+このとき$C^* \in \mathcal{C}$である。
+実際、以下のように$C^*$は$\mathcal{C}$の定義の各条件を満たす。
+\begin{description}
+  \item[(ii-$C^*$)：]
+  $C' \in \mathcal{C}_0$とする。
+  各$C \in \mathcal{C}$について条件 (ii-$C$) より$C \subseteq C' \cup U_{C'}$であり、したがって$C^* = \bigcup \mathcal{C} \subseteq C' \cup U_{C'}$である。
+  \item[$C^* \in \mathcal{T}$：]
+  $x,y \in C^*$とする。
+  $C^*$の定義より、ある$C,C' \in \mathcal{C}$について$x \in C$かつ$y \in C'$となる。
+  条件 (ii-$C$) より$C \subseteq C' \cup U_{C'}$であるので、$x,y \in C'$であるか（すると$C' \in \mathcal{T}$より$x,y$は比較可能である）、もしくは$x \in U_{C'}$である（すると$y < x$である）。
+  いずれにしても$x$と$y$は比較可能である。
+  \item[(i-$C^*$)：]
+  $S \subseteq C^*$かつ$U_S \not\subseteq U_{C^*} = \bigcap_{C \in \mathcal{C}} U_C$とする\footnote{後半の等号については、$C^*$が$C$たちの和集合であることから、「どの$y \in C^*$についても$y < x$」は「どの$C$についても『どの$y \in C$についても$y < x$』」と同値である。}。
+  このときある$C \in \mathcal{C}$について$U_S \not\subseteq U_C$である。
+  すると性質\eqref{eq:lemma_for_U}より$S \cap U_C = \emptyset$であり、一方で条件 (ii-$C^*$) を$C \in \mathcal{C}_0$に適用して$S \subseteq C^* \subseteq C \cup U_C$が得られる。
+  これらを合わせると$S \subseteq C$となる。
+  この$S$に条件 (i-$C$) を適用すると$f(S) \in C \subseteq C^*$となり、$f(S) \in C^*$が成り立つ。
+\end{description}
+
+さて、もし$U_{C^*} = \emptyset$であれば、$f(C^*) = \max C^*$は$X$の極大元であり（もし$\max C^* < y$を満たす元$y$があれば、性質\eqref{eq:U_is_upwards_closed}より$y \in U_{C^*}$となってしまうため）、主張が成り立つ。
+あとは$U_{C^*} \neq \emptyset$（したがって、$f(C^*) \in U_{C^*}$）と仮定して矛盾を導けばよい。
+$u := f(C^*) \in U_{C^*}$および$C^{**} := C^* \cup \{u\}$と定める。
+$u = \max C^{**} \not\in C^*$かつ$C^{**} \not\subseteq C^*$であり、$C^*$と同じく$C^{**}$も鎖である\footnote{$C^{**}$の元$x$と$y$が比較可能であることを示す際に、$x$か$y$の少なくとも一方が$u = \max C^{**}$であれば$\max C^{**}$の定義より$x$と$y$は確かに比較可能であり、そうでなければ$x,y \in C^*$となるので鎖$C^*$の性質より$x$と$y$はやはり比較可能である。}。
+さらに$C^{**} \in \mathcal{C}$である。
+実際、以下のように$C^{**}$は$\mathcal{C}$の定義の残る条件を満たす。
+\begin{description}
+  \item[(i-$C^{**}$)：]
+  $S \subseteq C^{**}$かつ$U_S \not\subseteq U_{C^{**}}$とする。
+  性質\eqref{eq:lemma_for_U}より$S \cap \overline{U}_{C^{**}} = \emptyset$であり、$u = \max C^{**} \in \overline{U}_{C^{**}}$より$u \not\in S$である。
+  よって$S \subseteq C^*$、したがって$U_{C^*} \subseteq U_S$となる\footnote{$S$の元はどれも$C^*$の元でもあるので、「どの$y \in C^*$についても$y < x$」であれば「どの$y \in S$についても$y < x$」でもある。}。
+  ここで、$U_S \subseteq U_{C^*}$の場合には$U_S = U_{C^*} \neq \emptyset$となるので性質\eqref{eq:choice_function}より$f(S) = f(C^*) = u \in C^{**}$となり、一方で$U_S \not\subseteq U_{C^*}$の場合には条件 (i-$C^*$) を$S \subseteq C^*$に適用して$f(S) \in C^* \subseteq C^{**}$となる。
+  いずれにしても$f(S) \in C^{**}$である。
+  \item[(ii-$C^{**}$)：]
+  $C' \in \mathcal{C}_0$とする。
+  条件 (ii-$C^*$) より$C^* \subseteq C' \cup U_{C'}$である。
+  あとは$u \in C' \cup U_{C'}$、言い換えると、もし$u \not\in U_{C'}$であれば$u \in C'$となることを示せばよい。
+  この状況では、$u \in U_{C^*}$より$U_{C^*} \not\subseteq U_{C'}$であるので、性質\eqref{eq:lemma_for_U}より$C^* \cap U_{C'} = \emptyset$となるが、一方で上記のように$C^* \subseteq C' \cup U_{C'}$であったから、$C^* \subseteq C'$となる。
+  よって、条件 (i-$C'$) を$C^* \subseteq C'$に適用して、$u = f(C^*) \in C'$となる。
+\end{description}
+しかし、この事実$C^{**} \in \mathcal{C}$は$C^{**} \not\subseteq C^* = \bigcup \mathcal{C}$であることと矛盾する。
+これで証明が完了した。\qed
+
+
+\section*{おまけ：超限帰納法を用いた証明}
+
+このおまけでは、比較のために、超限帰納法を用いて選択公理からZornの補題を導く証明を与える。
+最初に、超限再帰的定義に関する原理を述べておく（例えば\cite[第I章定理9.3]{Kunen}を参照）。
+
+\begin{theorem}
+    \label{thm:transfinite_induction}
+    $\varphi(x,y)$を（Zermelo--Fraenkel集合論における）式で自由変数$x$と$y$をもち、$\forall x \exists! y \varphi(x,y)$を満たすものとする。
+    このとき、自由変数$x$と$y$をもつ式$\Phi(x,y)$で以下の二つの条件を満たすものが存在する。
+    \begin{enumerate}
+        \item $\forall x ( (x \in \mathbf{ON} \to \exists! y \Phi(x,y)) \land (\neg x \in \mathbf{ON} \to \neg\exists y \varphi(x,y) ) )$
+        \item $\forall x ( x \in \mathbf{ON} \to \forall y,z ( y = \Phi\!\upharpoonright_x \land \varphi(y,z) \to \Phi(x,z) ) )$
+    \end{enumerate}
+    ただし、「$x \in \mathbf{ON}$」は「$x$は順序数」の略記とし、「$\Phi\!\upharpoonright_x$」は集合$\{\langle a,b \rangle \mid a \in x \land \Phi(a,b)\}$（$\langle a,b \rangle$は$a$と$b$の順序対）の略記とする。
+\end{theorem}
+
+この定理の直感的な意味は以下の通りである：順序数全体（これは集合をなさないのであるが）で定義される「関数」$\Phi$を得たいとき、順序数$\alpha$における値を$\alpha$より小さな順序数における値から定める方法を指定すれば、その条件を満たす「関数」$\Phi$が確かに存在する。
+この定理はZF集合論における定理であり、選択公理は用いていないことを注意しておく。
+
+定理\ref{thm:transfinite_induction}（と超限帰納法）を用いて、選択公理からZornの補題を証明する。
+$X \neq 0$（$= \emptyset$）を、Zornの補題の主張に現れる半順序集合とする。
+背理法の仮定として、$X$は極大元をもたないと仮定する。
+すると、$X$の空でない部分集合$C$のうち、ある順序数と同型な（特に全順序集合である）ものの各々について、\underline{選択公理を用いて}$C$の上界$b_C \in X \setminus C$を一つずつ選ぶことができる。
+
+定理\ref{thm:transfinite_induction}を適用すべく、まず$X$の元$a$を一つ固定しておき、式$\varphi(x,y)$を以下の要領で定義する。
+\begin{itemize}
+    \item $x = 0$のとき、$\varphi(x,y)$は$y = a$を意味するように定める。
+    \item $x$がある順序数$\alpha > 0$から$X$への関数であって像$\mathrm{Im}(x)$への（半順序集合としての）同型写像であるとき、$\varphi(x,y)$は$y = b_{\mathrm{Im}(x)}$を意味するように定める（$\mathrm{Im}(x)$は空でない順序数$\alpha$と同型なので、$b_{\mathrm{Im}(x)}$が確かに定義されることを注意しておく）。
+    \item それ以外のとき、$\varphi(x,y)$は$y = 0$を意味するように定める。
+\end{itemize}
+この式$\varphi(x,y)$は定理\ref{thm:transfinite_induction}の前提を満たすので、定理の主張にあるような式$\Phi(x,y)$が存在する。
+ここで以下の補題が成り立つ。
+
+\begin{lemma}
+    \label{lem:appendix_property_of_Phi}
+    $x$を順序数とし、$x'$を$\Phi(x,x')$が成り立つ唯一の元とする。
+    このとき、
+    \begin{enumerate}
+        \item $x' \in X$である。
+        \item $y < x$かつ$\Phi(y,y')$が成り立つならば、$X$において$y' < x'$である。
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    $x$に関する超限帰納法を用いて証明する。
+    まず、$x = 0$のときは、$\varphi$の定義より$x' = a$となるので、件の条件が成り立つ。
+    次に$x > 0$のときを考える。
+    超限帰納法の仮定より、定理\ref{thm:transfinite_induction}の主張に現れる集合$\Phi\!\upharpoonright_x$は$x$から$X$のある部分集合$C$への同型写像となる（$x$は全順序集合であることを注意しておく）。
+    このとき$\Phi$と$\varphi$の定義より$x' = b_C$となり、したがって件の条件は$x$に関しても成り立つ（二つ目の条件については、$b_C \in X \setminus C$が$C$の上界であることから導かれる）。
+    以上より主張が成り立つ。
+\end{proof}
+
+補題\ref{lem:appendix_property_of_Phi}の二つ目の性質より、各$v \in X$について、$\Phi(x,v)$を満たす順序数$x$は高々一つしか存在しない。
+$X$の部分集合$X'$を、ある（一意に定まる）順序数$x$について$\Phi(x,v)$が成り立つような$v \in X$全体の集合として定める。
+置換公理を集合$X'$と式$\Phi'(x,y) := \Phi(y,x)$に適用すると、順序数$y$のうち、$\Phi(y,y')$を満たす唯一の$y'$が$X'$に属するような$y$をすべて要素にもつ集合$Y$の存在が示される。
+ここで補題\ref{lem:appendix_property_of_Phi}の一つ目の性質より、この集合$Y$はすべての順序数を要素にもつことになる。
+しかし、これはBurali--Fortiの逆理（すなわち、すべての順序数を要素にもつ集合は存在しない、という定理）に矛盾する。
+したがって背理法により、$X$は極大元をもつ。
+以上でZornの補題が証明された。
+
+\begin{thebibliography}{9}
+
+    \bibitem{Kunen}
+    ケネス・キューネン（著）、藤田博司（訳）、
+    『集合論　独立性証明への案内』、
+    日本評論社、2008年
+
+    \bibitem{Lewin91}
+    J.~Lewin,
+    \lq\lq A Simple Proof of Zorn's Lemma\rq\rq,
+    Amer.\ Math.\ Monthly \textbf{98}(4) (1991),
+    353--354
+
+    \bibitem{Nuida24}
+    K.~Nuida,
+    \lq\lq A Simple and Elementary Proof of Zorn's Lemma\rq\rq,
+    Discrete Math.\ Lett.\ \textbf{13} (2024), 108--110
+
+    \bibitem{RubRub85}
+    H.~Rubin, J.~E.~Rubin, 
+    \lq\lq Equivalents of the Axiom of Choice, II\rq\rq, Second Edition, 
+    Studies in Logic and the Foundations of Mathematics vol.116, North-Holland, 1985
+
+\end{thebibliography}
+
+\end{document}

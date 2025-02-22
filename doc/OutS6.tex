@@ -1,0 +1,364 @@
+\documentclass[11pt]{article}
+\title{Note: The Outer Automorphism of $S_6$}
+\author{Koji Nuida}
+\date{\today}
+\usepackage{amsmath}	% required for `\split' (yatex added)
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+%\renewcommand{\proofname}{{\bf 証明}}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+In this note, we describe an explicit construction of the outer automorphism of the symmetric group $S_6$ on six letters.
+We also explain the fact that $S_n$ for $n \neq 6$ has no outer automorphisms.
+\end{abstract}
+
+\section{The Map}
+\label{sec:the_map}
+
+We briefly say (by postponing the detailed explanation) that, the group automorphism $F \colon S_6 \to S_6$ uniquely determined by the following conditions
+\begin{displaymath}
+\begin{split}
+F((12)) = (12)(34)(56) \\
+F((23)) = (16)(24)(35) \\
+F((34)) = (14)(23)(56) \\
+F((45)) = (16)(25)(34) \\
+F((56)) = (13)(24)(56)
+\end{split}
+\end{displaymath}
+is the outer automorphism of $S_6$ which is the subject of this note.
+See Section \ref{sec:out_S6} for some more properties of the map.
+
+\section{Preliminaries}
+\label{sec:preliminary}
+
+In this note, $n$ denotes a positive integer.
+The \emph{symmetric group of degree $n$}, denoted by $S_n$, is the set of permutations of integers from $1$ to $n$.
+This set is endowed with a binary operator defined by the composition of two permutations as maps.
+Then $S_n$ forms a group with respect to this operator.
+We use notations like $f \cdot g$ and $fg$ for the binary operator, rather than the notation $f \circ g$ for composite maps.
+
+Each element of $S_n$ can be visualized by using an \lq\lq Amida diagram'' (\lq\lq Amida-kuji'' in Japanese) with $n$ vertical axes (see Figure \ref{fig:amida} for example).
+Here, the vertical axes correspond to integers $1,\dots,n$ from left to right.
+To determine the image $f(i)$ of a number $i$ by a given Amida diagram, we start from the top of $i$-th vertical axis and follow the line downward, where if we meet an endpoint of a horizontal edge joining the current vertical axis with one of the adjacent vertical axes, we move to the opposite vertical axis (by crossing the horizontal edge) and then continue to go downward.%
+\footnote{We should not draw two horizontal edges from the same point in an Amida diagram, because the choice of an edge to follow becomes ambiguous.
+We also suppose the total number of horizontal edges to be finite.}
+Then we determine $f(i) = j$, if we finally reach to the bottom of $j$-th vertical axis.
+By the definition, distinct numbers are mapped to different numbers, therefore $f$ is a permutation; $f \in S_n$.%
+\footnote{A rigorous proof can be given by a recursive argument with respect to the total number of horizontal edges.}
+When $f,g \in S_n$ are determined by Amida diagrams as above, we can construct another Amida diagram by concatenating the two Amida diagrams, with the one for $f$ combined at the bottom of the one for $g$; the resulting Amida diagram defines the product $f \cdot g \in S_n$.
+On the other hand, we can construct another Amida diagram by turning the Amida diagram for $f$ upside down, which corresponds to the inverse $f^{-1}$ of $f$.
+
+\begin{figure}
+\centering
+\begin{picture}(110,110)(0,-110)
+\multiput(10,-20)(30,0){4}{\line(0,-1){80}}
+\put(10,-15){\hbox to0pt{\hss$1$\hss}}
+\put(40,-15){\hbox to0pt{\hss$2$\hss}}
+\put(70,-15){\hbox to0pt{\hss$3$\hss}}
+\put(100,-15){\hbox to0pt{\hss$4$\hss}}
+\put(10,-40){\line(1,0){30}}
+\put(40,-50){\line(1,0){30}}
+\put(70,-60){\line(1,0){30}}
+\put(10,-70){\line(1,0){30}}
+\put(40,-80){\line(1,0){30}}
+\put(10,-110){\hbox to0pt{\hss$f(3)$\hss}}
+\put(40,-110){\hbox to0pt{\hss$f(4)$\hss}}
+\put(70,-110){\hbox to0pt{\hss$f(2)$\hss}}
+\put(100,-110){\hbox to0pt{\hss$f(1)$\hss}}
+\end{picture}
+\caption{Amida diagram representing the permutation $f \in S_4$ defined by $f(1) = 4$, $f(2) = 3$, $f(3) = 1$ and $f(4) = 2$}
+\label{fig:amida}
+\end{figure}
+%
+Conversely, given an element $f$ of $S_n$, we can construct an Amida diagram which determines the $f$ as follows.
+First, for the number (say, $i$) which is mapped by $f$ to $n$, we join $i$-th and $(i+1)$-th vertical axes by a horizontal edge, join $(i+1)$-th and $(i+2)$-th vertical axes by a horizontal edge, and so on, and join $(n-1)$-th and $n$-th vertical axes by a horizontal edge.
+These edges let the number $i$ go to $n$-th vertical axis correctly.
+Secondly, we let the number mapped by $f$ to $n-1$ go to $(n-1)$-th vertical axis correctly, by joining vertical axes \emph{except for $n$-th vertical axis} by horizontal edges in a similar way.
+Now these two numbers have correctly moved to $(n-1)$-th and $n$-th vertical axes, respectively.
+Iterating this process recursively, we finally obtain the desired Amida diagram corresponding to $f$.
+
+Instead of drawing such Amida diagrams, we usually use the following notations for specifying elements of $S_n$.
+For distinct numbers $a_1,\dots,a_k$ in $\{1,\dots,n\}$, let $(a_1\,a_2\,\dots\,a_k)$ denote the element of $S_n$ which maps $a_1$ to $a_2$, $a_2$ to $a_3$,..., $a_{k-1}$ to $a_k$, and $a_k$ to $a_1$, and fixes any other number.
+Such an element of $S_n$ is called a \emph{cyclic permutation} (or simply a \emph{cycle}), and $k$ is called the \emph{length} of the cycle.
+We note that, for an index $i$ with $1 \leq i \leq k$, the cyclic permutation $(a_i\,a_{i+1}\,\dots\,a_k\,a_1\,a_2\,\dots\,a_{i-1})$ is equal to $(a_1\,a_2\,\dots\,a_k)$.
+By observing the orbits generated by applying an element $f$ of $S_n$ to each number repeatedly, the following well-known fact is derived:
+
+\begin{proposition}
+\label{prop:disjoint_product_of_cyclic_permutation}
+Any element of $S_n$ can be expressed as a product of cyclic permutations $(a_1a_2 \dots a_k)$ for which the sets $\{a_1,a_2,\dots,a_k\}$ are disjoint to each other.
+\end{proposition}
+
+For an element $f$ of $S_n$, if an expression of $f$ as a product of disjoint cycles as in Proposition \ref{prop:disjoint_product_of_cyclic_permutation} involves $m_i$ cycles of length $i$ for each $i$, we say that $f$ has \emph{cycle type} $(1^{m_1}2^{m_2} \dots)$.
+Here, by supplying cycles $(j)$ of length one (i.e., identity permutation) for numbers $j$ fixed by $f$ if necessary, we may assume without loss of generality that an expression of $f$ as a product of disjoint cycles always involves every number from $1$ to $n$, each of which appears exactly once.
+Namely, we assume that $\sum_{j \geq 1} m_j \cdot j = n$ holds for the type of an element of $S_n$.
+This requirement makes the type of $f \in S_n$ uniquely determined, independent of such an expression of $f$ as a product of disjoint cycles.%
+\footnote{In fact, such an expression of $f$ is essentially unique.}
+Moreover, the following property is well-known:
+
+\begin{proposition}
+\label{prop:type_of_conjugate_permutations}
+For elements $f,g$ of $S_n$, $f$ and $g$ are conjugate (i.e., $g = h f h^{-1}$ for some $h \in S_n$) if and only if $f$ and $g$ have the same cycle type.
+\end{proposition}
+
+A cyclic permutation $(a_1\,a_2)$ of length two is called a \emph{transposition}, and such a transposition with $a_2 = a_1 + 1$ is called an \emph{adjacent transposition}.
+For example, the permutation $f \in S_4$ given in Figure \ref{fig:amida} is a cyclic permutation $f = (1423)$, and it can be written as $f = (23)(12)(34)(23)(12)$ by a product of adjacent transpositions.
+By the correspondence between permutations and Amida diagrams mentioned above, adjacent transpositions correspond to Amida diagrams with only one horizontal edge.
+By combining this fact with the above-mentioned construction of an Amida diagram for a given permutation, we have the following well-known result:
+
+\begin{proposition}
+\label{prop:generated_by_adjacent_transpositions}
+Any element of $S_n$ can be expressed as a product of adjacent transpositions.
+\end{proposition}
+
+We note, however, that the way of expressing an element of $S_n$ as a product of adjacent transpositions is not necessarily unique (even if we do not use obviously redundant adjacent transpositions like $(12)(12)$).
+For example, the transposition $(13)$ can be expressed as $(12)(23)(12)$ and also as $(23)(12)(23)$.
+More generally, adjacent transpositions satisfy the following relations.
+Here, $\mathsf{id}$ denotes the identity permutation (i.e., the element of $S_n$ that fixes every number), and the adjacent transposition $(i\ i+1)$ is denoted by $s_i$.
+\begin{equation}
+\label{eq:relation_each_generator}
+\mbox{For } 1 \leq i \leq n-1\,: s_i s_i = \mathsf{id} \enspace.
+\end{equation}
+\begin{equation}
+\label{eq:relation_adjacent_generators}
+\mbox{For } 2 \leq i \leq n-1\,: s_{i-1} s_i s_{i-1} s_i s_{i-1} s_i = \mathsf{id} \enspace.
+\end{equation}
+\begin{equation}
+\label{eq:relation_non-adjacent_generators}
+\mbox{For } 1 \leq i \leq n-1,\,1 \leq j \leq n-1 \mbox{ with } |i-j| \geq 2\,: s_i s_j s_i s_j = \mathsf{id} \enspace.
+\end{equation}
+Moreover, it is remarkable and well-known that, if an element of $S_n$ can be expressed as a product of adjacent transpositions in two different ways, then the difference of the expressions is deduced from the three kinds of relations above (a rigorous explanation of this fact is omitted here).%
+\footnote{Namely, by choosing the set of all adjacent transpositions as a generating set of $S_n$, the above-mentioned three kinds of relations form the fundamental relations for $S_n$.}
+
+If a bijection $F \colon S_n \to S_n$ from the group $S_n$ to itself satisfies that $F(f \cdot g) = F(f) \cdot F(g)$ for any $f,g \in S_n$, we call the $F$ an \emph{automorphism} of $S_n$.
+The set $\mathrm{Aut}(S_n)$ of all automorphisms of $S_n$ also forms a group with respect to composition of maps, which is called the \emph{automorphism group} of $S_n$.
+For example, for each element $f$ of $S_n$, the map that maps an element $g \in S_n$ to $f g f^{-1} \in S_n$ is an automorphism of $S_n$.
+Such an automorphism is called an \emph{inner automorphism}; and the other automorphisms are called \emph{outer automorphisms}.
+The following property of inner automorphisms is derived from Proposition \ref{prop:type_of_conjugate_permutations}:
+
+\begin{proposition}
+\label{prop:type_and_inner_automorphism}
+For any inner automorphism $F$ of $S_n$, any element of $S_n$ and its image by $F$ have the same cycle type.
+\end{proposition}
+
+
+\section{No Outer Automorphisms Exist Except for $S_6$}
+
+In this section, we show that, for $n \neq 6$, every automorphism of $S_n$ is an inner automorphism.
+We note that, the results in this section are also valid for $n = 6$ unless we explicitly specify that $n \neq 6$.
+
+\begin{lemma}
+\label{lem:inner_automorphism_from_type}
+If an automorphism $F$ of $S_n$ maps every transposition to a transposition, then $F$ is an inner automorphism.
+\end{lemma}
+\begin{proof}
+It is sufficient to show that, for some distinct numbers $a_1,a_2,\dots,a_n \in \{1,2,\dots,n\}$, we have $F(\,(i\ i+1)\,) = (a_i\ a_{i+1})$ for every index $i$ with $1 \leq i \leq n-1$.
+Indeed, in this case, by choosing the element $f \in S_n$ satisfying $f(j) = a_j$ for each $j \in \{1,2,\dots,n\}$, we have $F(s_i) = f s_i f^{-1}$ for each adjacent transposition $s_i = (i\ i+1)$, while Proposition \ref{prop:generated_by_adjacent_transpositions} implies that every $g \in S_n$ can be written as a product of the elements $s_i$, therefore we have $F(g) = f g f^{-1}$.
+
+From now, we verify the above-mentioned property.
+We consider the case $n \geq 2$, since the case $n = 1$ is trivial.
+First, by the assumption of this lemma, $F(\,(12)\,)$ is a transposition, which can be written as $F(\,(12)\,) = (a_1 a_2)$.
+This proves the claim when $n = 2$; we consider the case $n \geq 3$ from now on.
+Secondly, by the assumption of this lemma, we have $F(\,(23)\,) = (b_1 b_2)$ for some $b_1$ and $b_2$.
+Then $F(\,(12)(23)\,) = F(\,(12)\,)F(\,(23)\,) = (a_1a_2)(b_1b_2)$.
+Now if two sets $\{a_1,a_2\}$ and $\{b_1,b_2\}$ are disjoint, then we have $((a_1a_2)(b_1b_2))^3 \neq \mathsf{id}$, while $((12)(23))^3 = \mathsf{id}$; this is a contradiction.
+Therefore, $\{a_1,a_2\}$ and $\{b_1,b_2\}$ have a common element, say (by symmetry) $a_2 = b_1$.
+We rewrite $b_2$ as $a_3$.
+This proves the claim when $n = 3$; we consider the case $n \geq 4$ from now on.
+By the assumption of this lemma, we have $F(\,(34)\,) = (c_1 c_2)$ for some $c_1$ and $c_2$.
+Now, owing to the fact $((23)(34))^3 = \mathsf{id}$, a similar argument implies that $\{a_2,a_3\}$ and $\{c_1,c_2\}$ have a common element, while the fact $((12)(34))^2 = \mathsf{id}$ implies that $\{a_1,a_2\}$ and $\{c_1,c_2\}$ should be disjoint.
+Therefore, we have $a_3 \in \{c_1,c_2\}$, and $(c_1c_2)$ can be written as $(c_1c_2) = (a_3a_4)$ for some $a_4$.
+By iterating this argument, we finally have the above-mentioned property.
+Hence, this lemma holds.
+\end{proof}
+
+By combining Proposition \ref{prop:type_and_inner_automorphism} with Lemma \ref{lem:inner_automorphism_from_type}, we have the following property:
+
+\begin{corollary}
+For an automorphism $F$ of $S_n$, $F$ is an inner automorphism if and only if a transposition in $S_n$ is always mapped by $F$ to a transposition.
+\end{corollary}
+
+\begin{lemma}
+\label{lem:type_of_image_is_function_of_type}
+For an automorphism $F$ of $S_n$ and any possible cycle type of elements of $S_n$, the cycle type of $F(f)$ for any element $f \in S_n$ of the fixed cycle type is uniquely determined, regardless of the choice of such an element $f$.
+\end{lemma}
+\begin{proof}
+Let $g \in S_n$ be any element with the same cycle type as $f$.
+By Proposition \ref{prop:type_of_conjugate_permutations}, $f$ and $g$ are conjugate, namely $g = hfh^{-1}$ for some $h \in S_n$.
+Now we have $F(g) = F(hfh^{-1}) = F(h)F(f)F(h)^{-1}$, therefore $F(f)$ and $F(g)$ are conjugate to each other as well.
+By Proposition \ref{prop:type_of_conjugate_permutations}, this implies that $F(f)$ and $F(g)$ have the same cycle type.
+Hence, this lemma holds.
+\end{proof}
+
+\begin{lemma}
+\label{lem:number_of_permutation_with_type}
+For any integer $a$ with $0 \leq a \leq n/2$, the number of elements of $S_n$ having cycle type $(1^{n-2a}2^a)$ is $n(n-1) \cdots (n-2a+1) / (a! \cdot 2^a)$.
+\end{lemma}
+\begin{proof}
+Let $Z$ be the set of elements of $S_n$ with cycle type $(1^{n-2a}2^a)$, let $X$ be the set of sequences $[b_1,\dots,b_{2a}]$ of $2a$ distinct numbers in $\{1,\dots,n\}$, and let $Y$ be the set of sequences $[B_1,\dots,B_a]$ of $a$ disjoint subsets $B_1,\dots,B_a \subset \{1,\dots,n\}$ of size two.
+We define maps $F \colon X \to Y$ and $G \colon Y \to Z$ by
+\begin{displaymath}
+F([b_1,\dots,b_{2a}]) = [\{b_1,b_2\},\{b_3,b_4\},\dots,\{b_{2a-1},b_{2a}\}] \enspace,
+\end{displaymath}
+\begin{displaymath}
+G([\{b_1,b_2\},\{b_3,b_4\},\dots,\{b_{2a-1},b_{2a}\}]) = (b_1\,b_2)(b_3\,b_4) \cdots (b_{2a-1}\,b_{2a}) \enspace.
+\end{displaymath}
+(For the definition of $G$, note that $(x\,y) = (y\,x)$ as transpositions.)
+Then, the elements of $X$ mapped by $F$ to a given $[B_1,B_2,\dots,B_a] \in Y$ are nothing but the sequences obtained by first arranging the two elements of $B_1$, secondly arranging the two elements of $B_2$, and so on, and finally arranging the two elements of $B_a$.
+Since there are two ways of ordering the elements of each $B_i$, the total number of such sequences is $2^a$.
+Therefore $|Y| = |X| / 2^a$ holds.
+On the other hand, the elements of $Y$ mapped by $G$ to a given $(b_1\,b_2)(b_3\,b_4) \cdots (b_{2a-1}\,b_{2a}) \in Z$ are nothing but the sequences obtained by rearranging the $a$ subsets in the sequence $[\{b_1,b_2\},\{b_3,b_4\},\dots,\{b_{2a-1},b_{2a}\}]$.
+The total number of such sequences is $a!$, therefore $|Z| = |Y| / a!$ holds.
+Moreover, we have $|X| = n(n-1) \cdots (n-2a+1)$.
+This implies that
+\begin{displaymath}
+|Z| = |X| / (a! \cdot 2^a) = n(n-1) \cdots (n-2a+1) / (a! \cdot 2^a) \enspace.
+\end{displaymath}
+Hence, this lemma holds.
+\end{proof}
+
+For an automorphism $F$ of $S_n$, the square of the image of any transposition by $F$ is the identity permutation (since the transposition has the same property), therefore its cycle type can be written as $(1^{n-2a}2^a)$ (where $a$ is an integer with $1 \leq a \leq n/2$).
+Owing to Lemma \ref{lem:type_of_image_is_function_of_type}, the cycle type does not depend on the choice of the original transposition.
+By applying Lemma \ref{lem:type_of_image_is_function_of_type} to $F^{-1}$ as well, it follows that every element of $S_n$ with cycle type $(1^{n-2a}2^a)$ is the image by $F$ of some transposition.
+This implies that the transpositions in $S_n$ are in one-to-one correspondence via $F$ to the elements of $S_n$ with cycle type $(1^{n-2a}2^a)$.
+Therefore, the number of transpositions in $S_n$ is equal to the number of elements of $S_n$ with cycle type $(1^{n-2a}2^a)$.
+By this and Lemma \ref{lem:number_of_permutation_with_type}, we have the following equality:
+\begin{equation}
+\label{eq:condition_for_type_of_image}
+\frac{ n(n-1) }{ 2 } = \frac{ n(n-1) \cdots (n-2a+1) }{ a! \cdot 2^a } \enspace.
+\end{equation}
+
+\begin{lemma}
+\label{lem:equation_for_type_of_image}
+For integers $n,a$ with $2 \leq a \leq n/2$, the condition \eqref{eq:condition_for_type_of_image} holds if and only if $(n,a) = (6,3)$.
+\end{lemma}
+\begin{proof}
+Let $f_a(n) = (n-2)(n-3) \cdots (n-2a+1)$.
+Then the condition \eqref{eq:condition_for_type_of_image} is equivalent to the condition $f_a(n) = a! \cdot 2^{a-1}$.
+Now for each fixed $a$, the function $f_a(n)$ is monotonically increasing in $n$.
+When $a = 2$, we have $a! \cdot 2^{a-1} = 4$, $f_2(4) = 2$ and $f_2(5) = 6$, therefore the above-mentioned monotonicity of $f_a(n)$ implies that the condition \eqref{eq:condition_for_type_of_image} does not hold.
+From now on, we consider the case $a \geq 3$.
+Now we have
+\begin{displaymath}
+\begin{split}
+f_a(2a) &= (2a-2)(2a-3) \cdots 2 \cdot 1 \\
+&= 2^{a-1} (a-1)! \cdot (2a-3)(2a-5) \cdots 3 \cdot 1 \\
+&\geq 2^{a-1} (a-1)! \cdot a
+= 2^{a-1} \cdot a! \enspace,
+\end{split}
+\end{displaymath}
+where the equality holds if and only if $a = 3$.
+Therefore, by the monotonicity of $f_a(n)$, the condition \eqref{eq:condition_for_type_of_image} does not hold for $a \geq 4$; while, for the case $a = 3$, the condition \eqref{eq:condition_for_type_of_image} holds if and only if $n = 2a = 6$.
+Hence, this lemma holds.
+\end{proof}
+
+\begin{theorem}
+\label{thm:no_outer_auto_for_n_not_6}
+For $n \neq 6$, every automorphism of $S_n$ is an inner automorphism.
+\end{theorem}
+\begin{proof}
+By Lemma \ref{lem:equation_for_type_of_image} and the argument just before the lemma, if $n \neq 6$, then for any automorphism $F$ of $S_n$, the image by $F$ of any transposition in $S_n$ has cycle type $(1^{n-2}2^1)$, i.e., it is a transposition as well.
+Therefore, $F$ is an inner automorphism by Lemma \ref{lem:inner_automorphism_from_type}.
+Hence, this theorem holds.
+\end{proof}
+
+\section{The Outer Automorphism of $S_6$}
+\label{sec:out_S6}
+
+In this section, we show that an outer automorphism of $S_6$ exists, and it is \lq\lq essentially'' unique.
+Here, the \lq\lq essentially'' means that the outer automorphism of $S_6$ is uniquely determined except the difference of inner automorphisms; more precisely, we have the following result:
+
+\begin{theorem}
+\label{thm:unique_outer_auto_for_S6}
+If $F$ and $G$ are outer automorphisms of $S_6$, then we have $G = F \circ I$ for some inner automorphism $I$.
+\end{theorem}
+\begin{proof}
+First, in a way similar to the proof of Theorem \ref{thm:no_outer_auto_for_n_not_6}, Lemma \ref{lem:equation_for_type_of_image} and the argument just before the lemma imply that the images by $F$ and by $G$ of a transposition have cycle type $(1^4 2^1)$ (i.e., it is a transposition) or $(1^0 2^3)$.
+Now in the first case, Lemma \ref{lem:inner_automorphism_from_type} implies that either $F$ or $G$ is an inner automorphism, contradicting the assumption of the theorem.
+Hence, the images of any transposition by $F$ and by $G$ have cycle type $(1^0 2^3)$.
+Moreover, by the argument just before Lemma \ref{lem:equation_for_type_of_image}, the transpositions in $S_6$ are in one-to-one correspondence with the elements of $S_6$ with cycle type $(1^0 2^3)$ via both $F$ and $G$.
+Now the automorphism $F^{-1} \circ G$ of $S_6$ maps any transposition to a transposition, therefore $F^{-1} \circ G$ is an inner automorphism by Lemma \ref{lem:inner_automorphism_from_type}.
+By writing the $F^{-1} \circ G$ as $I$, we have $F \circ I = G$, therefore this theorem holds.
+\end{proof}
+
+From now on, we show that the automorphism $F$ mentioned in Section \ref{sec:the_map} indeed exists.
+Once it is done, the $F$ is an outer automorphism by definition, and Theorem \ref{thm:unique_outer_auto_for_S6} implies that this is the unique outer automorphism except the difference of inner automorphisms.
+Now we note that, if such an $F$ exists, then the property of the automorphism $F$ implies the following:
+\begin{description}
+\item[(*)]
+For any $f \in S_6$, if $f = t_1 t_2 \cdots t_k$ with adjacent transpositions $t_i$, then $F(f) = F(t_1)F(t_2) \cdots F(t_k)$ holds, where each $F(t_i)$ is the element of $S_6$ specified in Section \ref{sec:the_map}.
+\end{description}
+We are going to define the desired map $F$ by the condition (*).
+Owing to Proposition \ref{prop:generated_by_adjacent_transpositions}, such an element $f \in S_6$ can be written as $f = t_1 t_2 \cdots t_k$ as in the condition (*).
+The remaining task is to verify that, for any other expression $f = t'_1 t'_2 \cdots t'_{k'}$ as above, the resulting images of $f$ defined by the two expressions of $f$ coincide with each other.
+As mentioned in Section \ref{sec:preliminary}, the difference of the two expressions of $f$ is deduced from combinations of the three kinds of relations \eqref{eq:relation_each_generator}, \eqref{eq:relation_adjacent_generators} and \eqref{eq:relation_non-adjacent_generators}.
+On the other hand, a straightforward calculation using the precise values of $F(s_i)$ specified in the definition of $F$ implies that, the left-hand sides of these relations are all mapped by the $F$ to the identity permutation $\mathsf{id}$.
+Namely,
+\begin{eqnarray*}
+&&\mbox{for \eqref{eq:relation_each_generator}: } F(s_i)F(s_i) = \mathsf{id} \enspace, \\
+&&\mbox{for \eqref{eq:relation_adjacent_generators}: } F(s_{i-1})F(s_i)F(s_{i-1})F(s_i)F(s_{i-1})F(s_i) = \mathsf{id} \enspace, \\
+&&\mbox{for \eqref{eq:relation_non-adjacent_generators}: } F(s_i)F(s_j)F(s_i)F(s_j) = \mathsf{id} \enspace.
+\end{eqnarray*}
+Then, the difference of the two expressions of $f$ vanishes when these are mapped by $F$, therefore we have
+\begin{displaymath}
+F(t_1)F(t_2) \cdots F(t_k) = F(t'_1) F(t'_2) \cdots F(t'_{k'}) \enspace.
+\end{displaymath}
+Hence, it follows that the automorphism $F$ specified in Section \ref{sec:the_map} indeed exists.%
+\footnote{This argument can of course be formalized by using terminology of group theory, but we omit it here for the sake of simplicity.}
+The argument above has derived the following theorem:
+
+\begin{theorem}
+\label{thm:out_S6_exists_uniquely}
+An outer automorphism of $S_6$ exists, and it is essentially unique in the sense as in Theorem {\rm \ref{thm:unique_outer_auto_for_S6}}.
+\end{theorem}
+
+From now, we give some calculation results about the outer automorphism $F$.
+We quote the definition of $F$ here for the sake of convenience (where we abbreviate the relation $F(x) = y$ to $x \mapsto y$):
+\begin{displaymath}
+\begin{split}
+(12) \mapsto (12)(34)(56) \\
+(23) \mapsto (16)(24)(35) \\
+(34) \mapsto (14)(23)(56) \\
+(45) \mapsto (16)(25)(34) \\
+(56) \mapsto (13)(24)(56)
+\end{split}
+\end{displaymath}
+First, we calculate the images by $F$ of the other transpositions:
+\begin{displaymath}
+\begin{split}
+(13) = (12)(23)(12) \mapsto (12)(34)(56) \cdot (16)(24)(35) \cdot (12)(34)(56) = (13)(25)(46) \\
+(24) = (23)(34)(23) \mapsto (16)(24)(35) \cdot (14)(23)(56) \cdot (16)(24)(35) = (13)(26)(45) \\
+(35) = (34)(45)(34) \mapsto (14)(23)(56) \cdot (16)(25)(34) \cdot (14)(23)(56) = (12)(36)(45) \\
+(46) = (45)(56)(45) \mapsto (16)(25)(34) \cdot (13)(24)(56) \cdot (16)(25)(34) = (12)(35)(46) \\
+(14) = (12)(24)(12) \mapsto (12)(34)(56) \cdot (13)(26)(45) \cdot (12)(34)(56) = (15)(24)(36) \\
+(25) = (23)(35)(23) \mapsto (16)(24)(35) \cdot (12)(36)(45) \cdot (16)(24)(35) = (15)(23)(46) \\
+(36) = (34)(46)(34) \mapsto (14)(23)(56) \cdot (12)(35)(46) \cdot (14)(23)(56) = (15)(26)(34) \\
+(15) = (12)(25)(12) \mapsto (12)(34)(56) \cdot (15)(23)(46) \cdot (12)(34)(56) = (14)(26)(35) \\
+(26) = (23)(36)(23) \mapsto (16)(24)(35) \cdot (15)(26)(34) \cdot (16)(24)(35) = (14)(25)(36) \\
+(16) = (12)(26)(12) \mapsto (12)(34)(56) \cdot (14)(25)(36) \cdot (12)(34)(56) = (16)(23)(45)
+\end{split}
+\end{displaymath}
+Secondly, for each possible cycle type of elements of $S_6$, we calculate the image by $F$ of an element of $S_6$ having the cycle type:
+\begin{displaymath}
+\begin{split}
+&(12)(34) = (12) \cdot (34) \mapsto (12)(34)(56) \cdot (14)(23)(56) = (13)(24) \\
+&(12)(34)(56) = (12)(34) \cdot (56) \mapsto (13)(24) \cdot (13)(24)(56) = (56) \\
+&(123) = (12) \cdot (23) \mapsto (12)(34)(56) \cdot (16)(24)(35) = (154)(236) \\
+&(123)(45) = (123) \cdot (45) \mapsto (154)(236) \cdot (16)(25)(34) = (124653) \\
+&(123)(456) = (123)(45) \cdot (56) \mapsto (124653) \cdot (13)(24)(56) = (263) \\
+&(1234) = (123) \cdot (34) \mapsto (154)(236) \cdot (14)(23)(56) = (2645) \\
+&(1234)(56) = (1234) \cdot (56) \mapsto (2645) \cdot (13)(24)(56) = (13)(2546) \\
+&(12345) = (1234) \cdot (45) \mapsto (2645) \cdot (16)(25)(34) = (14356) \\
+&(123456) = (12345) \cdot (56) \mapsto (14356) \cdot (13)(24)(56) = (15)(234)
+\end{split}
+\end{displaymath}
+By these results and Lemma \ref{lem:type_of_image_is_function_of_type}, the cycle types of elements of $S_6$ are changed by applying the map $F$ as follows: Types $(1^4 2^1)$ and $(2^3)$ are exchanged; types $(1^3 3^1)$ and $(3^2)$ are exchanged; types $(1^1 2^1 3^1)$ and $(6^1)$ are exchanged; and any other type is not changed.
+
+\paragraph{Acknowledgements.}
+This note is motivated by a calculation during a discussion with Dr.~Yasuhide Numata at Shinshu University (I remember that the explicit calculation to derive the outer automorphism was fairly complicated), so I would like to thank him.
+
+\end{document}

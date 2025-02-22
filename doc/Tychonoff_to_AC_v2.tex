@@ -1,0 +1,191 @@
+\documentclass{article}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{theorem}{Theorem}
+\title{A note on Tychonoff's Theorem and Axiom of Choice}
+\author{Koji Nuida}
+\date{Published: January 22, 2012\medskip \\ Last Update: \today}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The aim of this note is to give some observation on a standard proof to deduce Axiom of Choice from Tychonoff's Theorem.
+\end{abstract}
+
+In this note, we basically deal with the axioms $\mathrm{ZF}^-$ of set theory, which means the Zermelo--Fraenkel set theory $\mathrm{ZF}$ except the Axiom of Foundation
+\begin{displaymath}
+\forall x (\exists y (y \in x) \to \exists y (y \in x \land \exists z (z \in x \land z \in y))) \enspace.
+\end{displaymath}
+
+In this note, we say that a class $\mathcal{K}$ of sets is \emph{downward closed} if, for any set $A \in \mathcal{K}$ and any set $B$ for which there exists an injective map $B \hookrightarrow A$, it follows that $B \in \mathcal{K}$.
+Intuitively, this means that $\mathcal{K}$ is a class of cardinal numbers with the property that $|X| \leq |Y| \in \mathcal{K}$ implies $|X| \in \mathcal{K}$.
+For example, the classes $\mathsf{Set}$ of all sets, $\mathsf{Finite}$ of all finite sets, and $\mathsf{Countable}$ of all countable sets (i.e., sets $A$ for which $|A| \leq \aleph_0$) are downward closed classes of sets.
+
+On the other hand, we say that a class $\mathcal{T}$ of topological spaces is a \emph{topological property} if, for any $X \in \mathcal{T}$ and any topological space $Y$ which is homeomorphic to $X$, it follows that $Y \in \mathcal{T}$.
+Namely, we identify a topological property (in usual sense) with the class of all topological spaces having the property.
+For example, the classes $\mathsf{Top}$ of all topological spaces, $\mathsf{T}_1$ of all $T_1$-spaces, and $\mathsf{Hausdorff}$ of all Hausdorff spaces are topological properties.
+A member of a topological property $\mathcal{T}$ is said to be a \emph{$\mathcal{T}$-space}.
+
+In what follows, we assume that $\mathcal{K}$ is a downward closed class of sets and $\mathcal{T}$ is a topological property.
+We define the following propositions:
+\begin{description}
+\item[$\mathrm{AC}(\mathcal{K})$]
+Let $\mathcal{A}$ be a family of non-empty sets with $\mathcal{A} \in \mathcal{K}$.
+Then there exists a choice function for $\mathcal{A}$, i.e., a map $f \colon \mathcal{A} \to \bigcup \mathcal{A}$ satisfying that $f(A) \in A$ for every $A \in \mathcal{A}$.
+\item[$\mathrm{ACEq}(\mathcal{K})$]
+The same as $\mathrm{AC}(\mathcal{K})$, except that all members of $\mathcal{A}$ are supposed to have equal cardinality.
+\item[$\mathrm{AMC}$]
+Let $\mathcal{A}$ be a family of non-empty sets.
+Then there exists a \lq\lq multiple choice function'' for $\mathcal{A}$, i.e., a map $f \colon \mathcal{A} \to 2^{\bigcup \mathcal{A}}$ satisfying that for each $A \in \mathcal{A}$, $f(A)$ is a finite non-empty subset of $A$.
+\item[$\mathrm{AMCEq}$]
+The same as $\mathrm{AMC}$, except that all members of $\mathcal{A}$ are supposed to have equal cardinality.
+\item[$\mathrm{T}(\mathcal{T},\mathcal{K})$]
+Let $\mathcal{A}$ be a family of compact $\mathcal{T}$-spaces.
+Then any open cover $\mathcal{W}$ of the product topological space $\prod \mathcal{A}$ has a subcover $\mathcal{W}'$ with $\mathcal{W}' \in \mathcal{K}$.
+\item[$\mathrm{THomeo}(\mathcal{T},\mathcal{K})$]
+The same as $\mathrm{T}(\mathcal{T},\mathcal{K})$, except that all members of $\mathcal{A}$ are supposed to be homeomorphic to each other.
+\end{description}
+For example, $\mathrm{AC}(\mathsf{Set})$ is the Axiom of Choice (AC), $\mathrm{AC}(\mathsf{Countable})$ is the Axiom of Countable Choice (ACC), $\mathrm{AMC}$ is the Axiom of Multiple Choice (AMC), and $\mathrm{T}(\mathsf{Top},\mathsf{Finite})$ is the Tychonoff's Theorem.
+Note that $\mathrm{AC}(\mathsf{Finite})$ is a theorem of $\mathrm{ZF}^-$ (so is $\mathrm{ACEq}(\mathsf{Finite})$); roughly speaking, a finite number of selections can be unconditionally done simultaneously.
+Note also that all the above propositions are consequences of AC in $\mathrm{ZF}^-$, since Tychonoff's Theorem can be proven in $\mathrm{ZF}^- + \mathrm{AC}$ (see Appendix below).
+
+Now we describe a \lq\lq pattern'' of a proof (in $\mathrm{ZF}^-$) to deduce AC from \lq\lq Tychonoff-like'' axioms, which is a slight modification of the standard proof to deduce AC from the original Tychonoff's Theorem:
+\begin{quotation}
+Let $\mathcal{A} = (A_i)_{i \in \Lambda}$ be a family of non-empty sets.
+First, choose a set $p$ which does not belong to any $A_i$ (by Russell's Paradox, the union $\bigcup_{i \in \Lambda} A_i$ does not contain all sets).
+Now we assume the following:
+\begin{description}
+\item[(*)] There exists a map which associates to each $i \in \Lambda$ a topological structure on $X_i := A_i \cup \{p\}$ with the property that (I) each $X_i$ becomes a compact $\mathcal{T}$-space, and (II) there exists a map which associates to each $i \in \Lambda$ an open neighborhood $U_i$ of $p$ in $X_i$ with $U_i \neq X_i$.
+\end{description}
+We introduce a topological structure on each $X_i$ as above.
+Now for each $i \in \Lambda$, let $\widetilde{U}_i$ denote the direct product of $U_i$ and all $X_j$ for $j \in \Lambda \smallsetminus \{i\}$.
+Then $\mathcal{W} := (\widetilde{U}_i)_{i \in \Lambda}$ is a family of open subsets of $X := \prod_{i \in \Lambda} X_i$.
+
+Assuming the proposition $\mathrm{AC}(\mathcal{K})$, it follows that $\mathcal{W}$ does not have a subfamily $\mathcal{W}' = (\widetilde{U}_i)_{i \in \Lambda'}$ with the property that $\Lambda' \in \mathcal{K}$ and $\mathcal{W}'$ is an open cover of $X$.
+Indeed, for such a subfamily $\mathcal{W}'$, $\mathrm{AC}(\mathcal{K})$ implies that there exists an element $g \in \prod_{i \in \Lambda'} (X_i \smallsetminus U_i)$, and now the element $f \in X$ defined by $f(i) = g(i)$ for $i \in \Lambda'$ and $f(i) = p$ for $i \in \Lambda \smallsetminus \Lambda'$ does not belong to any member of $\mathcal{W}'$, a contradiction.
+
+By the above argument, assuming the proposition $\mathrm{T}(\mathcal{T},\mathcal{K})$ further, it follows that $\mathcal{W}$ is not an open cover of $X$.
+Namely, there exists an element $f \in X$ that does not belong to any $\widetilde{U}_i$ with $i \in \Lambda$.
+This means that we have $f(i) \not\in U_i$, hence $f(i) \neq p$, for each $i \in \Lambda$; therefore $f$ is an element of $\prod_{i \in \Lambda} A_i$.
+Hence AC holds.
+\end{quotation}
+By this argument, the combination of $\mathrm{AC}(\mathcal{K})$, $\mathrm{T}(\mathcal{T},\mathcal{K})$ and a certain condition ensuring the property (*) (if necessary) implies AC in $\mathrm{ZF}^-$.
+We consider some special cases:
+\begin{itemize}
+\item When $\mathcal{T} = \mathsf{Top}$, to ensure (*) it suffices to define the open sets of each $X_i$ as $\emptyset$, $X_i$ and $\{p\}$.
+Indeed, the condition (I) is satisfied, while the condition (II) is also satisfied by defining $U_i = \{p\}$.
+As a result, $\mathrm{AC}(\mathcal{K})$ and $\mathrm{T}(\mathsf{Top},\mathcal{K})$ imply AC.
+In particular, $\mathrm{T}(\mathsf{Top},\mathsf{Finite})$ (i.e., Tychonoff's Theorem) implies AC; and $\mathrm{AC}(\mathsf{Countable})$ (i.e., ACC) and $\mathrm{T}(\mathsf{Top},\mathsf{Countable})$ (\lq\lq the product of compact spaces is a Lindel\"{o}f space'') also imply AC.
+Note also that this argument proves stronger results such as that Tychonoff's Theorem for topological spaces \emph{with precisely three open sets} implies AC.
+\item When $\mathcal{T} = \mathsf{T}_1$, to ensure (*) it suffices to first introduce the cofinite topology on each $A_i$ and then attach to $A_i$ a point $p$ as an isolated point.
+Indeed, the cofinite topology is a compact $T_1$ topology, therefore the condition (*) is satisfied by choosing $U_i = \{p\}$ for (II) again.
+As a result, $\mathrm{AC}(\mathcal{K})$ and $\mathrm{T}(\mathsf{T}_1,\mathcal{K})$ imply AC.
+In particular, $\mathrm{T}(\mathsf{T}_1,\mathsf{Finite})$ (i.e., Tychonoff's Theorem for $T_1$-spaces) implies AC; and $\mathrm{AC}(\mathsf{Countable})$ (i.e., ACC) and $\mathrm{T}(\mathsf{T}_1,\mathsf{Countable})$ (\lq\lq the product of compact $T_1$-spaces is a Lindel\"{o}f space'') also imply AC.
+We emphasize that this definition of topology on $X_i$ is adopted for a proof of AC from Tychonoff's Theorem in several books, but in fact the argument shows a stronger property that Tychonoff's Theorem \emph{for $T_1$-spaces} implies AC (and, as mentioned above, a simpler choice of trivial (or indiscrete) topology on $A_i$ instead of cofinite topology is enough to prove that Tychonoff's Theorem implies AC).
+\item \textbf{[Added: January 6, 2013]}
+When $\mathcal{T} = \mathsf{T}_4$ (The class of all $T_4$-spaces), in the same way as the above case $\mathcal{T} = \mathsf{Top}$, it suffices to define the open sets of each $X_i$ as $\emptyset$, $X_i$ and $\{p\}$ (note that this $X_i$ has no pairs of non-empty and disjoint closed subsets, therefore the condition for $T_4$-spaces is automatically satisfied).
+Here I would like to emphasize that, in contrast to the case $\mathcal{T} = \mathsf{Top}$ where the cofinite topology is also applicable in the same way as the case $\mathcal{T} = \mathsf{T}_1$, for the present case $\mathcal{T} = \mathsf{T}_4$, the cofinite topology is not applicable (since it is not $T_4$), which would clarify the significance of the discrete topology.
+\item On the other hand, when $\mathcal{T} = \mathsf{Hausdorff}$, a similar strategy to first introduce a compact Hausdorff topology on each $A_i$ and then attach an isolated point $p$ \emph{cannot succeed}.
+Indeed, if it is possible, then Tychonoff's Theorem for Hausdorff spaces (i.e., $\mathrm{T}(\mathsf{Hausdorff},\mathsf{Finite})$) could imply AC, but this has been proven as impossible.
+For an alternative strategy, here we introduce the discrete topology on each $A_i$, and then define $X_i$ to be the \textbf{[Revised: January 6, 2013]} Alexandroff extension \textbf{[End of revision]} of $A_i$.
+In this case, the open neighborhoods of $p$ in $X_i$ are complements in $X_i$ of finite subsets of $A_i$.
+The problem is that there is yet no clue to choose a distinguished open neighborhood of $p$ in each $X_i$ (except $X_i$ itself).
+Now we introduce an additional axiom $\mathrm{AMC}$, which enables us to choose a distinguished finite non-empty subset $B_i$ of each $A_i$, hence an open neighborhood $U_i = X_i \smallsetminus B_i$ of $p$ in each $X_i$, as desired.
+(Note that $\mathrm{AMC}$ is known to be strictly weaker than $\mathrm{AC}$ in $\mathrm{ZF}^-$.)
+As a result, the combination of $\mathrm{AMC}$, $\mathrm{AC}(\mathcal{K})$ and $\mathrm{T}(\mathsf{Hausdorff},\mathcal{K})$ implies AC in $\mathrm{ZF}^-$.
+In particular, $\mathrm{AMC}$ and Tychonoff's Theorem for Hausdorff spaces imply AC; and $\mathrm{AMC}$, $\mathrm{ACC}$ and \lq\lq the product of compact Hausdorff spaces is a Lindel\"{o}f space'' also imply AC.
+\end{itemize}
+
+Moreover, we consider further relaxation of the assumptions in the above argument.
+The key fact is the following:
+\begin{lemma}
+\label{lem:product_of_equal_cardinality}
+Let $\mathcal{A}$ be a family of non-empty sets.
+Then there exists a non-empty set $B$ satisfying that the sets $A \times B$ for $A \in \mathcal{A}$ have equal cardinality.
+\end{lemma}
+\begin{proof}
+We define $B := (\bigcup \mathcal{A})^{< \omega}$ ($\omega$ denoting the least infinite ordinal number).
+Let $A \in \mathcal{A}$.
+Then for each element $\xi = (a,(x_0,x_1,\dots,x_n))$ of $A \times B$, define $f(\xi) = (x_0,x_1,\dots,x_n,a) \in B$.
+We show that $f \colon A \times B \to B$ is injective.
+If $f((a,(x_0,\dots,x_n))) = f((a',(x'_0,\dots,x'_m)))$, then we have $(x_0,\dots,x_n,a) = (x'_0,\dots,x'_m,a')$, therefore $n = m$, $a = a'$ and $x_i = x'_i$ for every $0 \leq i \leq n$.
+Hence $f$ is injective, therefore $|A \times B| \leq |B|$, while obviously $|B| \leq |A \times B|$ (since $A$ is non-empty).
+Now Cantor--Bernstein--Schroeder Theorem implies that $|A \times B| = |B|$ for every $A \in \mathcal{A}$.
+\end{proof}
+By using Lemma \ref{lem:product_of_equal_cardinality}, we modify the above pattern of a proof to deduce AC in the following manner:
+\begin{enumerate}
+\item For a family $\mathcal{A} = (A_i)_{i \in \Lambda}$ of non-empty sets, first choose a non-empty set $B$ with the property that the sets $A'_i := A_i \times B \neq \emptyset$ for $i \in \Lambda$ have equal cardinality (by using Lemma \ref{lem:product_of_equal_cardinality}).
+\item Secondly, construct compact $\mathcal{T}$-spaces $X_i = A'_i \cup \{p\}$ and open neighborhoods $U_i \subsetneq X_i$ of $p$ in the same way as (*), with an additional requirement that the $X_i$ for $i \in \Lambda$ are homeomorphic to each other.
+\item By assuming $\mathrm{AC}(\mathcal{K})$ or some weakened variant, prove that $\mathcal{W} = (\widetilde{U}_i)_{i \in \Lambda}$ does not have a subfamily $\mathcal{W}' = (\widetilde{U}_i)_{i \in \Lambda'}$ with the property that $\Lambda' \in \mathcal{K}$ and $\mathcal{W}'$ is an open cover of $X$.
+\item Finally, by assuming $\mathrm{THomeo}(\mathcal{T},\mathcal{K})$, deduce that $\mathcal{W}$ is not an open cover of $X$, yielding an element $f$ of $\prod_{i \in \Lambda} A'_i$.
+Then we obtain an element of $\prod_{i \in \Lambda} A_i$ by taking the first component of each $f(i)$, $i \in \Lambda$.
+\end{enumerate}
+In the special cases that $\mathcal{T} = \mathsf{Top}$ and $\mathcal{T} = \mathsf{T}_1$ discussed above, the definitions of topology on each $X_i$ satisfy that, for each $i,j \in \Lambda$, the extension of a bijection $A'_i \to A'_j$ to a map $X_i \to X_j$ defined by $p \mapsto p$ gives a homeomorphism $X_i \to X_j$.
+Moreover, since now $U_i = \{p\}$, the components of the direct product $\prod_{i \in \Lambda'} (X_i \smallsetminus U_i) = \prod_{i \in \Lambda'} A'_i$ have equal cardinality.
+Hence, for the choice of $\mathcal{T}$, the combination of weakened propositions $\mathrm{ACEq}(\mathcal{K})$ and $\mathrm{THomeo}(\mathcal{T},\mathcal{K})$ also implies AC.
+In particular, Tychonoff's Theorem for \emph{homeomorphic} $T_1$ spaces implies AC.
+
+In contrast, for the other special case that $\mathcal{T} = \mathsf{Hausdorff}$, the modified argument proves that $\mathrm{AMCEq}$, $\mathrm{AC}(\mathcal{K})$ and $\mathrm{THomeo}(\mathsf{Hausdorff},\mathcal{K})$ imply AC, but \emph{not} that $\mathrm{AMCEq}$, $\mathrm{ACEq}(\mathcal{K})$ and $\mathrm{THomeo}(\mathsf{Hausdorff},\mathcal{K})$ imply AC.
+This is because the finite subsets $B_i$ of the sets $A'_i$ obtained by applying $\mathrm{AMCEq}$ are not necessarily of the same size, therefore the direct product $\prod_{i \in \Lambda'} (X_i \smallsetminus U_i)$ in the argument does not necessarily satisfy the hypothesis of $\mathrm{ACEq}(\mathcal{K})$.
+If $\mathrm{AMCEq}$ is strengthened in such a way that each component of the direct product will have a finite non-empty distinguished subset \emph{of equal size}, then the strengthened variant of $\mathrm{AMCEq}$ and two axioms $\mathrm{ACEq}(\mathcal{K})$ and $\mathrm{THomeo}(\mathsf{Hausdorff},\mathcal{K})$ imply AC.
+I do not know whether or not the combination of $\mathrm{AMCEq}$, $\mathrm{ACEq}(\mathcal{K})$ and $\mathrm{THomeo}(\mathsf{Hausdorff},\mathcal{K})$ can imply AC in $\mathrm{ZF}^-$.
+
+\section*{Appendix: Proof of Tychonoff's Theorem from Axiom of Choice}
+
+In this appendix, we show one of the standard proofs of Tychonoff's Theorem from Axiom of Choice, for the sake of clarifying that the proof indeed works in $\mathrm{ZF}^-$.
+The proof is taken from Section 16 of \cite{AC_math}.
+
+First, we notice the following equivalent form of Axiom of Choice, called Tukey's Lemma.
+We prepare a terminology.
+We say that a family $\mathcal{F}$ of sets is of \emph{finite character} if, for any set $A$, we have $A \in \mathcal{F}$ if and only if every finite subset of $A$ belongs to $\mathcal{F}$.
+Then the following fact is known:
+\begin{theorem}
+[see e.g., {\cite[Exercise 11 in Chapter I]{Kunen}}]
+\label{thm:Tukey}
+In $\mathrm{ZF}^-$, $\mathrm{AC}$ is equivalent to the following proposition (\emph{Tukey's Lemma}): For any family $\mathcal{F}$ of finite character and any $A \in \mathcal{F}$, there exists a maximal member (with respect to inclusion) of $\mathcal{F}$ containing $A$.
+\end{theorem}
+
+We start the proof of Tychonoff's Theorem.
+Let $X = \prod_{i \in \Lambda} X_i$ be the product space of compact topological spaces $X_i$.
+It suffices to show that, for any family $\mathcal{F}$ of subsets of $X$ having finite intersection property, the intersection of the family $\overline{\mathcal{F}} := \{\overline{A} \mid A \in \mathcal{F}\}$ is non-empty (where $\overline{A}$ denotes the closure of $A$).
+First, note that the collection of the families $\mathcal{F}$ satisfying the above condition is of finite character, therefore by using Tukey's Lemma, there exists a maximal family subject to this condition that contains a given family.
+Hence we may assume without loss of generality that a given family $\mathcal{F}$ itself is maximal.
+
+For each $i \in \Lambda$, let $\mathcal{F}_i$ be the collection of the closures $\overline{\pi_i[A]}$ in $X_i$ of the images $\pi_i[A]$ of all $A \in \mathcal{F}$ by the projection $\pi_i \colon X \to X_i$.
+Since $\mathcal{F}$ has finite intersection property, $\mathcal{F}_i$ also has finite intersection property (note that $\pi_i[\bigcap_{k=1}^{n} A_k] \subset \bigcap_{k=1}^{n} \pi_i[A_k] \subset \bigcap_{k=1}^{n} \overline{\pi_i[A_k]}$ for a finite number of $A_k \in \mathcal{F}$).
+Since $X_i$ is compact, we have $\bigcap \mathcal{F}_i \neq \emptyset$; choose (by using $\mathrm{AC}$) an element $p_i \in \bigcap \mathcal{F}_i$ for each $i \in \Lambda$.
+We show that the element $p = (p_i)_{i \in \Lambda}$ of $X$ belongs to $\bigcap \overline{\mathcal{F}}$.
+This is equivalent to that each open neighborhood $U$ of $p$ in $X$ intersects with every $A \in \mathcal{F}$.
+Moreover, it suffices to prove the claim for the case that $U$ belongs to the open basis of $X$, namely there exist a finite subset $\Lambda'$ of $\Lambda$ and an open neighborhood $U_i$ of $p_i$ in $X_i$ for each $i \in \Lambda'$ with the property that $U$ is the direct product of the $U_i$ for $i \in \Lambda'$ and $X_i$ for $i \in \Lambda \smallsetminus \Lambda'$.
+
+For each $i \in \Lambda'$, let $W_i$ denote the direct product of $U_i$ and all $X_j$ for $j \in \Lambda \smallsetminus \{i\}$.
+Then we have $U = \bigcap_{i \in \Lambda'} W_i$.
+Now for each $A \in \mathcal{F}$, we have $p_i \in U_i \cap \overline{\pi_i[A]}$ by the choice of $p$, therefore $U_i \cap \pi_i[A] \neq \emptyset$.
+By the definition of $W_i$, this implies that $W_i \cap A \neq \emptyset$ for every $A \in \mathcal{F}$.
+Now, since $\mathcal{F}$ is maximal, we have the following properties:
+\begin{itemize}
+\item For a finite number of members $A_k$ of $\mathcal{F}$, we have $\bigcap_k A_k \in \mathcal{F}$; this is because $\mathcal{F} \cup \{\bigcap_k A_k\}$ has finite intersection property as well as $\mathcal{F}$.
+\item For each $i \in \Lambda'$, $\mathcal{F} \cup \{W_i\}$ has finite intersection property; this is because, for a finite number of members $A_k$ of $\mathcal{F}$, we have $\bigcap_k A_k \in \mathcal{F}$ by the above argument, therefore $W_i \cap \bigcap_k A_k \neq \emptyset$ as shown above.
+\end{itemize}
+Hence, since $\mathcal{F}$ is maximal, it follows that $W_i \in \mathcal{F}$ for every $i \in \Lambda'$.
+Now for each $A \in \mathcal{F}$, we have $\emptyset \neq A \cap \bigcap_{i \in \Lambda'} W_i = A \cap U$ by the finite intersection property of $\mathcal{F}$.
+Hence $U$ intersects with every $A \in \mathcal{F}$, as desired.
+This completes the proof.
+
+\begin{thebibliography}{9}
+
+\bibitem{AC_math}
+H.~Tanaka,
+\lq\lq Axiom of Choice and Mathematics,'' Enlarged Edition (in Japanese),
+Yuseisha, 1999.
+
+\bibitem{Kunen}
+K.~Kunen,
+\lq\lq SET THEORY, An introduction to independence proofs,''
+Elsevier, 1980.
+
+\end{thebibliography}
+
+\end{document}

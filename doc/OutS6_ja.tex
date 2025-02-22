@@ -1,0 +1,371 @@
+\documentclass[11pt]{jarticle}
+\title{ノート：$6$次対称群$S_6$の外部自己同型写像}
+\author{縫田 光司}
+\date{\today}
+\usepackage{amsmath}	% required for `\split' (yatex added)
+\usepackage{amsthm}
+\newtheorem{theorem}{定理}
+\newtheorem{proposition}{命題}
+\newtheorem{lemma}{補題}
+\newtheorem{corollary}{系}
+\renewcommand{\proofname}{{\bf 証明}}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+本稿では、$S_6$の外部自己同型写像の具体的な記述を与える。
+また、それ以外の$S_n$は外部自己同型写像を持たない事実を紹介する。
+\end{abstract}
+
+\section{写像の定義}
+\label{sec:the_map}
+
+細かい説明を後回しにして要点だけ先に述べると、以下の条件
+\begin{displaymath}
+\begin{split}
+F((12)) = (12)(34)(56) \\
+F((23)) = (16)(24)(35) \\
+F((34)) = (14)(23)(56) \\
+F((45)) = (16)(25)(34) \\
+F((56)) = (13)(24)(56)
+\end{split}
+\end{displaymath}
+によって一意に定まる群凖同型写像$F \colon S_6 \to S_6$が、求める$S_6$の外部自己同型写像である。
+この写像の性質の一部については\ref{sec:out_S6}節を参照されたい。
+
+\section{予備知識}
+\label{sec:preliminary}
+
+以下、$n$を正の整数とする。
+\underline{$n$次対称群}$S_n$は、集合としては$1$から$n$までの整数の並べ替え（置換）全体のなす集合である。
+この集合の要素の間には、「二つの置換を立て続けに行う」という操作（つまり写像の合成）によって演算を定義できる。
+$S_n$はこの演算に関して群をなす。
+そこで、この演算について、合成写像の記法$f \circ g$の代わりに、通常の群演算のように$f \cdot g$あるいは$fg$などとも記す。
+
+対称群$S_n$の要素は、縦線が$n$本ある「あみだくじ」（図\ref{fig:amida}を参照）を用いて視覚的に記述できる。
+縦線はそれぞれ$1$から$n$までの整数に対応している。
+与えられたあみだくじを用いて数字$i$の並べ替え先$f(i)$を決めるには、$i$番めの縦線の上端から出発して下向きに線を辿っていき、隣り合う縦線が横線によって結ばれている箇所でその相手の縦線に乗り移って引き続き下向きに進んでいく。%
+\footnote{同じ地点から両側の縦線に向けた横線が出ているとどちらに進むべきかわからないので、そのような横線は引かないようにしておく。
+また、横線の本数は有限とする。}
+そうして、例えば$j$番めの縦線の下端に到達したら、数字$i$の並べ替え先を$f(i) = j$と定める。
+このように定義すると、異なる数字の行き先は異なる数字となるため、$f$は確かに置換となり$S_n$に属する。%
+\footnote{厳密に証明したいときは、横線の本数に関して再帰的に議論すればよい。}
+$f,g \in S_n$がこのようにあみだくじを用いて定められているとき、$g$を定めるあみだくじの下に$f$を定めるあみだくじを繋げることで新たなあみだくじを作れるが、このあみだくじで定義される$S_n$の要素が積$f \cdot g$である。
+また、$f$を定めるあみだくじを上下反転させたものもあみだくじであるが、このあみだくじで定義される$S_n$の要素が$f$の逆元$f^{-1}$である。
+
+\begin{figure}
+\centering
+\begin{picture}(110,110)(0,-110)
+\multiput(10,-20)(30,0){4}{\line(0,-1){80}}
+\put(10,-15){\hbox to0pt{\hss$1$\hss}}
+\put(40,-15){\hbox to0pt{\hss$2$\hss}}
+\put(70,-15){\hbox to0pt{\hss$3$\hss}}
+\put(100,-15){\hbox to0pt{\hss$4$\hss}}
+\put(10,-40){\line(1,0){30}}
+\put(40,-50){\line(1,0){30}}
+\put(70,-60){\line(1,0){30}}
+\put(10,-70){\line(1,0){30}}
+\put(40,-80){\line(1,0){30}}
+\put(10,-110){\hbox to0pt{\hss$f(3)$\hss}}
+\put(40,-110){\hbox to0pt{\hss$f(4)$\hss}}
+\put(70,-110){\hbox to0pt{\hss$f(2)$\hss}}
+\put(100,-110){\hbox to0pt{\hss$f(1)$\hss}}
+\end{picture}
+\caption{$f(1) = 4$、$f(2) = 3$、$f(3) = 1$、$f(4) = 2$という置換$f \in S_4$のあみだくじによる表示（の一例）}
+\label{fig:amida}
+\end{figure}
+%
+上記と逆に、$S_n$の要素$f$が何か与えられたとき、$f$を定めるあみだくじを実際に構成することができる。
+一つの方法は、まず、行き先が$n$である数字（例えば$i$とする）について、$i$番めと$i+1$番めの縦線を横線で結び、次に$i+1$番めと$i+2$番めの縦線を横線で結び、という要領で、$i$番めの縦線から$n$番めの縦線へと移動させておく。
+これで行き先が$n$である数字については正しく移動できたので、次は同様の要領で、行き先が$n-1$である数字を$n-1$番めの縦線へと移動させる。
+その際、既に移動が済んでいる$n$番めの縦線には横線を引かないように注意する。
+こうして、行き先が$n-1$または$n$である数字については正しく移動できた。
+以下同様に（再帰的に）繰り返せば、求めるあみだくじの構成が完了する。
+
+あみだくじを描く代わりに、$S_n$の要素を指定する以下のような記法が知られている。
+$a_1,\dots,a_k$を$1$から$n$までの異なる数字とするとき、$a_1$を$a_2$に、$a_2$を$a_3$に、…、$a_{k-1}$を$a_k$に、$a_k$を$a_1$にそれぞれ移し、これら以外の数字は移動させないような$S_n$の要素を$(a_1\,a_2\,\dots\,a_k)$で表す。
+このような対称群の要素を\underline{巡回置換}と呼び、$k$をその巡回置換の\underline{長さ}と呼ぶ。
+整数$1 \leq i \leq k$について、巡回置換$(a_i\,a_{i+1}\,\dots\,a_k\,a_1\,a_2\,\dots\,a_{i-1})$は$(a_1\,a_2\,\dots\,a_k)$と等しいことに注意されたい。
+対称群の要素$f$について、各々の数字に$f$を繰り返し作用させたときに描かれる軌道を分析すると、以下のよく知られた性質を導くことができる。
+
+\begin{proposition}
+\label{prop:disjoint_product_of_cyclic_permutation}
+対称群$S_n$のあらゆる要素は、集合$\{a_1,a_2,\dots,a_k\}$たちが共通部分を持たないような巡回置換$(a_1a_2 \dots a_k)$たちの積として表せる。
+\end{proposition}
+
+$f \in S_n$を命題\ref{prop:disjoint_product_of_cyclic_permutation}のように共通の数字を含まない巡回置換の積で表した際、長さ$i$の巡回置換が$m_i$個現れたならば、$(1^{m_1}2^{m_2} \dots)$を$f$の\underline{型}と呼ぶ。
+ここで、$f$によって動かない数字$j$については長さ$1$の巡回置換$(j)$（これは何も動かさない恒等置換である）を補うことで、上記の巡回置換の積による$f$の表示には$1$から$n$までのすべての数字が一度ずつ現れるものと考える。
+つまり、型の定義において$\sum_{j \geq 1} m_j \cdot j = n$を仮定する。
+この条件を課すと、$f \in S_n$の型は、上記の条件を満たす巡回置換の積による表示の選び方によらずただ一通りに定まる。%
+\footnote{というよりも、そうした巡回置換の積による表示は本質的には一つしか存在しない。}
+また、以下の性質がよく知られている。
+
+\begin{proposition}
+\label{prop:type_of_conjugate_permutations}
+$S_n$の要素$f,g$について、$f$と$g$が互いに共役である（すなわち、ある$h \in S_n$をとれば$g = h f h^{-1}$が成り立つ）必要充分条件は、$f$と$g$が同じ型を持つことである。
+\end{proposition}
+
+長さ$2$の巡回置換$(a_1\,a_2)$を\underline{互換}と呼び、その中で$a_2 = a_1 + 1$であるものを\underline{隣接互換}と呼ぶ。
+例えば、図\ref{fig:amida}の置換$f \in S_4$は、$f = (1423)$という巡回置換であり、また$f = (23)(12)(34)(23)(12)$と隣接互換の積で表すこともできる。
+前述した置換とあみだくじの対応関係より、隣接互換は横棒が$1$本のみのあみだくじと対応する。
+このことと、前述した置換に対応するあみだくじの具体的構成法を合わせれば、以下の性質が得られる。
+
+\begin{proposition}
+\label{prop:generated_by_adjacent_transpositions}
+対称群$S_n$のあらゆる要素は隣接互換の積として表せる。
+\end{proposition}
+
+ただし、$S_n$の要素を隣接互換の積として表す方法は（$(12)(12)$のように、あからさまに余分な隣接互換の積を使わないとしても）一通りとは限らない。
+例えば、互換$(13)$は$(12)(23)(12)$とも$(23)(12)(23)$とも表せる。
+より一般には、隣接互換の間に以下の関係式が成り立つ。
+ここで、どの数字も動かさない$S_n$の要素、すなわち恒等置換を$\mathsf{id}$と記している。
+また、互換$(i\ i+1)$を$s_i$と記している。
+\begin{equation}
+\label{eq:relation_each_generator}
+1 \leq i \leq n-1 \mbox{ のとき } s_i s_i = \mathsf{id}
+\end{equation}
+\begin{equation}
+\label{eq:relation_adjacent_generators}
+2 \leq i \leq n-1 \mbox{ のとき } s_{i-1} s_i s_{i-1} s_i s_{i-1} s_i = \mathsf{id}
+\end{equation}
+\begin{equation}
+\label{eq:relation_non-adjacent_generators}
+1 \leq i \leq n-1,\,1 \leq j \leq n-1,\,|i-j| \geq 2 \mbox{ のとき } s_i s_j s_i s_j = \mathsf{id}
+\end{equation}
+さらに、厳密な説明は割愛するが、$S_n$のある要素を隣接互換の積として表す方法が複数存在する場合、それらの表し方の違いは全て上記三種の関係式に由来する、という顕著な性質が知られている。%
+\footnote{すなわち、$S_n$の生成系として隣接互換すべての集合を選んだとき、これら三種類の関係式が$S_n$の基本関係を与えている。}
+
+対称群$S_n$からそれ自身への全単射$F \colon S_n \to S_n$が、$S_n$のどの要素の組$f,g$についても$F(f \cdot g) = F(f) \cdot F(g)$を満たすとき、$F$を$S_n$の\underline{自己同型写像}と呼ぶ。
+$S_n$の自己同型写像全体の集合$\mathrm{Aut}(S_n)$も、写像の合成を演算として群をなし、これは$S_n$の\underline{自己同型群}と呼ばれる。
+例えば、$S_n$の要素$f$を一つ選んだとき、$S_n$の要素$g$の各々に要素$f g f^{-1}$を対応させる写像は$S_n$の自己同型写像である。
+このようにして得られる種類の自己同型写像を\underline{内部自己同型写像}と呼ぶ。
+一方、それ以外の自己同型写像は\underline{外部自己同型写像}と呼ばれる。
+命題\ref{prop:type_of_conjugate_permutations}により、内部自己同型写像について以下の性質が成り立つ。
+
+\begin{proposition}
+\label{prop:type_and_inner_automorphism}
+$S_n$の内部自己同型写像$F$について、$S_n$の要素とその$F$による像は常に同じ型を持つ。
+\end{proposition}
+
+
+\section{$S_6$以外には外部自己同型写像が無いこと}
+
+この節では、$n \neq 6$のとき$S_n$の自己同型写像は全て内部自己同型写像であることを示す。
+ただし、この節で示す内容は、$n \neq 6$と明記されていない場合には$n = 6$についても成り立つことを注意しておく。
+
+\begin{lemma}
+\label{lem:inner_automorphism_from_type}
+$S_n$の自己同型写像$F$が、$S_n$の互換を常に互換へと写すならば、$F$は内部自己同型写像である。
+\end{lemma}
+\begin{proof}
+ある異なる整数$a_1,a_2,\dots,a_n \in \{1,2,\dots,n\}$をとると、$1 \leq i \leq n-1$の範囲にある添字$i$の各々について$F(\,(i\ i+1)\,) = (a_i\ a_{i+1})$が成り立つ、ということを示せば充分である。
+なぜなら、この場合、各数字$j \in \{1,2,\dots,n\}$について$f(j) = a_j$が成り立つような$S_n$の要素$f$をとると、隣接互換$s_i = (i\ i+1)$については$F(s_i) = f s_i f^{-1}$が成り立ち、一方で命題\ref{prop:generated_by_adjacent_transpositions}よりいかなる$g \in S_n$も$s_i$たちの積で表せるため、$F(g) = f g f^{-1}$が成り立つからである。
+
+以下、冒頭の性質を示す。
+$n = 1$のときは自明な主張であるから、$n \geq 2$の場合を考える。
+この補題の前提より$F(\,(12)\,)$は互換なので、$F(\,(12)\,) = (a_1 a_2)$となる$a_1$と$a_2$がとれる。
+すると$n = 2$のときは主張が示されたことになるため、ここからは$n \geq 3$の場合を考える。
+次に、この補題の前提より$F(\,(23)\,) = (b_1 b_2)$となる$b_1$と$b_2$がとれる。
+このとき$F(\,(12)(23)\,) = F(\,(12)\,)F(\,(23)\,) = (a_1a_2)(b_1b_2)$である。
+もし$\{a_1,a_2\}$と$\{b_1,b_2\}$が共通の要素を持たないとすると$((a_1a_2)(b_1b_2))^3 \neq \mathsf{id}$が成り立つが、一方で$((12)(23))^3 = \mathsf{id}$なので矛盾である。
+よって$\{a_1,a_2\}$と$\{b_1,b_2\}$は共通の要素を持つ。
+それを（対称性を考慮して）$a_2 = b_1$とする。
+そして$b_2$を$a_3$と書き直す。
+すると$n = 3$のときは主張が示されたことになるため、ここからは$n \geq 4$の場合を考える。
+補題の前提より$F(\,(34)\,) = (c_1 c_2)$となる$c_1$と$c_2$がとれる。
+このとき、先程の議論と同様に、$((23)(34))^3 = \mathsf{id}$により$\{a_2,a_3\}$と$\{c_1,c_2\}$は共通の要素を持つ必要があるが、一方で$((12)(34))^2 = \mathsf{id}$により$\{a_1,a_2\}$と$\{c_1,c_2\}$は共通の要素を持たない必要がある。
+従って、$a_3 \in \{c_1,c_2\}$であり、$(c_1c_2) = (a_3a_4)$と表すことができる。
+この議論を繰り返すことで冒頭の性質が導かれる。
+よってこの補題が成り立つ。
+\end{proof}
+
+命題\ref{prop:type_and_inner_automorphism}と補題\ref{lem:inner_automorphism_from_type}を組み合わせると下記の性質が導かれる。
+
+\begin{corollary}
+$S_n$の自己同型写像$F$について、$F$が内部自己同型写像である必要充分条件は、$S_n$の互換の$F$による像が常に互換となることである。
+\end{corollary}
+
+\begin{lemma}
+\label{lem:type_of_image_is_function_of_type}
+$S_n$の自己同型写像$F$について、ある特定の型を持つ$f \in S_n$の$F$による像$F(f)$の型は、そのような$f$の選び方によらず一通りに定まる。
+\end{lemma}
+\begin{proof}
+主張に現れる$f \in S_n$と同じ型を持つ$g \in S_n$をとる。
+命題\ref{prop:type_of_conjugate_permutations}により、$f$と$g$は互いに共役であり、ある$h \in S_n$を用いて$g = hfh^{-1}$と表せる。
+すると$F(g) = F(hfh^{-1}) = F(h)F(f)F(h)^{-1}$が成り立ち、$F(f)$と$F(g)$も互いに共役であるので、命題\ref{prop:type_of_conjugate_permutations}により$F(f)$と$F(g)$も同じ型を持つ。
+このことからこの補題が成り立つ。
+\end{proof}
+
+\begin{lemma}
+\label{lem:number_of_permutation_with_type}
+$0 \leq a \leq n/2$を満たす整数$a$について、型$(1^{n-2a}2^a)$を持つ$S_n$の要素の個数は$n(n-1) \cdots (n-2a+1) / (a! \cdot 2^a)$である。
+\end{lemma}
+\begin{proof}
+型$(1^{n-2a}2^a)$を持つ$S_n$の要素すべての集合を$Z$、$1$から$n$までの互いに異なる整数$2a$個の列$[b_1,\dots,b_{2a}]$すべての集合を$X$、$2$個の要素からなる$\{1,\dots,n\}$の部分集合$a$個の列$[B_1,\dots,B_a]$であって$B_1,\dots,B_a$が互いに共通要素を持たないものすべての集合を$Y$と記す。
+写像$F \colon X \to Y$と$G \colon Y \to Z$を、
+\begin{displaymath}
+F([b_1,\dots,b_{2a}]) = [\{b_1,b_2\},\{b_3,b_4\},\dots,\{b_{2a-1},b_{2a}\}]
+\end{displaymath}
+\begin{displaymath}
+G([\{b_1,b_2\},\{b_3,b_4\},\dots,\{b_{2a-1},b_{2a}\}]) = (b_1\,b_2)(b_3\,b_4) \cdots (b_{2a-1}\,b_{2a})
+\end{displaymath}
+で定義する。
+（写像$G$の定義においては、互換として$(x\,y) = (y\,x)$であることに注意されたい。）
+このとき、$[B_1,B_2,\dots,B_a] \in Y$へと写像$F$によって写される$X$の要素とは、まず$B_1$の$2$要素を並べ、次に$B_2$の$2$要素を並べ、…、最後に$B_a$の$2$要素を並べる、として作られる列にほかならない。
+各$B_i$の要素の並べ方が$2$通りあるので、このような列の総数は$2^a$である。
+従って$|Y| = |X| / 2^a$が成り立つ。
+また、$(b_1\,b_2)(b_3\,b_4) \cdots (b_{2a-1}\,b_{2a}) \in Z$へと写像$G$によって写される$Y$の要素とは、列$[\{b_1,b_2\},\{b_3,b_4\},\dots,\{b_{2a-1},b_{2a}\}]$に現れる$a$個の部分集合の順番を並び替えてできる列にほかならない。
+このような列の総数は$a!$であるので、$|Z| = |Y| / a!$が成り立つ。
+そして、$|X| = n(n-1) \cdots (n-2a+1)$であるから、
+\begin{displaymath}
+|Z| = |X| / (a! \cdot 2^a) = n(n-1) \cdots (n-2a+1) / (a! \cdot 2^a)
+\end{displaymath}
+となり、この補題が成り立つ。
+\end{proof}
+
+$S_n$の自己同型写像$F$について、互換の$F$による像は（互換がそうであるように）$2$乗すると恒等置換となるので、その型は$(1^{n-2a}2^a)$（ただし$a$は$1 \leq a \leq n/2$を満たす整数）と表せる。
+補題\ref{lem:type_of_image_is_function_of_type}よりこれはもとの互換の選び方によらないことに注意されたい。
+さらに補題\ref{lem:type_of_image_is_function_of_type}を$F^{-1}$にも適用することで、型$(1^{n-2a}2^a)$をもつ$S_n$の要素はすべて$F$によるある互換の像であることがわかる。
+従って、$S_n$の互換全体の集合と、型$(1^{n-2a}2^a)$を持つ$S_n$の要素全体の集合とが$F$によって一対一に対応することが導かれる。
+すなわち、$S_n$の互換の個数と、型$(1^{n-2a}2^a)$を持つ$S_n$の要素の個数は等しい。
+このことと補題\ref{lem:number_of_permutation_with_type}より、等式
+\begin{equation}
+\label{eq:condition_for_type_of_image}
+\frac{ n(n-1) }{ 2 } = \frac{ n(n-1) \cdots (n-2a+1) }{ a! \cdot 2^a }
+\end{equation}
+が導かれる。
+
+\begin{lemma}
+\label{lem:equation_for_type_of_image}
+$2 \leq a \leq n/2$を満たす整数$n$と$a$について、式\eqref{eq:condition_for_type_of_image}は$(n,a) = (6,3)$と同値である。
+\end{lemma}
+\begin{proof}
+$f_a(n) = (n-2)(n-3) \cdots (n-2a+1)$と定めると、式\eqref{eq:condition_for_type_of_image}は$f_a(n) = a! \cdot 2^{a-1}$と同値である。
+ここで、$a$を固定すると$f_a(n)$は$n$に関して単調増加である。
+$a = 2$のときは、$a! \cdot 2^{a-1} = 4$、$f_2(4) = 2$、$f_2(5) = 6$であるので、上述した$f_a(n)$の単調性より式\eqref{eq:condition_for_type_of_image}は成り立たない。
+以下、$a \geq 3$のときを考える。
+すると、
+\begin{displaymath}
+\begin{split}
+f_a(2a) &= (2a-2)(2a-3) \cdots 2 \cdot 1 \\
+&= 2^{a-1} (a-1)! \cdot (2a-3)(2a-5) \cdots 3 \cdot 1 \\
+&\geq 2^{a-1} (a-1)! \cdot a
+= 2^{a-1} \cdot a!
+\end{split}
+\end{displaymath}
+であり、上式の等号は$a = 3$のときのみ成立する。
+従って、$f_a(n)$の単調性より、式\eqref{eq:condition_for_type_of_image}は$a \geq 4$では成立せず、また$a = 3$のとき、式\eqref{eq:condition_for_type_of_image}が成立するのは$n = 2a = 6$のときに限られる。
+以上よりこの補題が成り立つ。
+\end{proof}
+
+\begin{theorem}
+\label{thm:no_outer_auto_for_n_not_6}
+$n \neq 6$のとき、$S_n$のあらゆる自己同型写像は内部自己同型写像である。
+\end{theorem}
+\begin{proof}
+補題\ref{lem:equation_for_type_of_image}およびその直前の議論により、$n \neq 6$ならば、$S_n$の自己同型写像$F$による互換の像は型$(1^{n-2}2^1)$をもち、すなわち互換である。
+従って、補題\ref{lem:inner_automorphism_from_type}より$F$は内部自己同型写像である。
+よってこの定理が成り立つ。
+\end{proof}
+
+\section{$S_6$の外部自己同型写像}
+\label{sec:out_S6}
+
+この節では、$S_6$には外部自己同型写像が存在し、しかもそれは「実質的に」一つしかないことを示す。
+この「実質的に」の意味は、$S_6$の外部自己同型写像は内部自己同型写像の差を除いて一つに定まるということであり、より詳しくは以下の定理の通りである。
+
+\begin{theorem}
+\label{thm:unique_outer_auto_for_S6}
+$F$と$G$を$S_6$の外部自己同型写像とすると、ある内部自己同型写像$I$について$G = F \circ I$が成り立つ。
+\end{theorem}
+\begin{proof}
+まず、定理\ref{thm:no_outer_auto_for_n_not_6}の証明と同様に、補題\ref{lem:equation_for_type_of_image}およびその直前の議論により$F$および$G$による互換の像は型$(1^4 2^1)$をもつ（すなわち互換である）か型$(2^3)$をもつが、前者の場合は補題\ref{lem:inner_automorphism_from_type}より$F$または$G$が内部自己同型写像となってしまい前提に反するため、$F$および$G$による互換の像はともに型$(2^3)$をもつ。
+特に、補題\ref{lem:equation_for_type_of_image}の直前の議論により、$F$と$G$はともに$S_6$の互換すべての集合から型$(2^3)$をもつ要素すべての集合への全単射を与える。
+すると$S_6$の自己同型写像$F^{-1} \circ G$は互換を互換へと写すので、補題\ref{lem:inner_automorphism_from_type}により$F^{-1} \circ G$は内部自己同型写像である。
+これを$I$と記すと$I = F^{-1} \circ G$より$F \circ I = G$が成り立つため、この定理が成り立つ。
+\end{proof}
+
+以下、\ref{sec:the_map}節に記した自己同型写像$F$が確かに存在することを示す。
+そうすれば、定義より$F$は外部自己同型写像であり、定理\ref{thm:unique_outer_auto_for_S6}によりそれは内部自己同型写像の差を除いてただ一つの外部自己同型写像であることがわかる。
+このような$F$が存在するとしたら、$F$が自己同型写像であることから、
+\begin{description}
+\item[(*)]
+$S_6$の要素$f$について、$f = t_1 t_2 \cdots t_k$と隣接互換$t_i$たちの積として表したとき、$F(f) = F(t_1)F(t_2) \cdots F(t_k)$、ただし各$F(t_i)$は\ref{sec:the_map}節で与えられた$S_6$の要素を表す
+\end{description}
+となるはずである。
+そこで、条件(*)によって所望の写像$F$を定義したい。
+命題\ref{prop:generated_by_adjacent_transpositions}により、$f \in S_6$を条件(*)にあるように$f = t_1 t_2 \cdots t_k$と表すことはできる。
+あとは、$f$の別の表示$f = t'_1 t'_2 \cdots t'_{k'}$から出発したとしても最終的に得られる要素が同じになることを確かめればよい。
+\ref{sec:preliminary}節で触れたように、これら二つの表示の差は$3$種類の関係式\eqref{eq:relation_each_generator}、\eqref{eq:relation_adjacent_generators}、\eqref{eq:relation_non-adjacent_generators}の組み合わせによって与えられる。
+一方、これらの関係式の左辺に現れる要素はすべて$F$によって恒等置換$\mathsf{id}$へと写される。
+すなわち、
+\begin{eqnarray*}
+&&\mbox{\eqref{eq:relation_each_generator}式については} F(s_i)F(s_i) = \mathsf{id} \\
+&&\mbox{\eqref{eq:relation_adjacent_generators}式については} F(s_{i-1})F(s_i)F(s_{i-1})F(s_i)F(s_{i-1})F(s_i) = \mathsf{id} \\
+&&\mbox{\eqref{eq:relation_non-adjacent_generators}式については} F(s_i)F(s_j)F(s_i)F(s_j) = \mathsf{id}
+\end{eqnarray*}
+であることを、$F(s_i)$たちの具体的な値を用いた直接計算によって確かめられる。
+すると、$f$に関する二つの表示の差は、$F$による像に写した時点で解消され、
+\begin{displaymath}
+F(t_1)F(t_2) \cdots F(t_k) = F(t'_1) F(t'_2) \cdots F(t'_{k'})
+\end{displaymath}
+が成り立つ。
+こうして、\ref{sec:the_map}節に記した自己同型写像$F$が確かに存在することがわかる。%
+\footnote{もちろん、ここでの議論を群論の言葉によって定式化することも可能ではあるが、堅苦しくなりすぎるので本稿では割愛する。}
+以上の議論により、以下の定理が得られた。
+
+\begin{theorem}
+\label{thm:out_S6_exists_uniquely}
+$S_6$には外部自己同型写像が存在し、しかもそれは定理{\rm \ref{thm:unique_outer_auto_for_S6}}の意味で本質的にただ一つしか存在しない。
+\end{theorem}
+
+以下、この外部自己同型写像$F$についていくつかの計算結果を記しておく。
+参照しやすいよう$F$の定義を再掲しておく（$F(x) = y$であることを$x \mapsto y$と略記する）。
+\begin{displaymath}
+\begin{split}
+(12) \mapsto (12)(34)(56) \\
+(23) \mapsto (16)(24)(35) \\
+(34) \mapsto (14)(23)(56) \\
+(45) \mapsto (16)(25)(34) \\
+(56) \mapsto (13)(24)(56)
+\end{split}
+\end{displaymath}
+まず、上記以外の互換の$F$による像を計算する。
+\begin{displaymath}
+\begin{split}
+(13) = (12)(23)(12) \mapsto (12)(34)(56) \cdot (16)(24)(35) \cdot (12)(34)(56) = (13)(25)(46) \\
+(24) = (23)(34)(23) \mapsto (16)(24)(35) \cdot (14)(23)(56) \cdot (16)(24)(35) = (13)(26)(45) \\
+(35) = (34)(45)(34) \mapsto (14)(23)(56) \cdot (16)(25)(34) \cdot (14)(23)(56) = (12)(36)(45) \\
+(46) = (45)(56)(45) \mapsto (16)(25)(34) \cdot (13)(24)(56) \cdot (16)(25)(34) = (12)(35)(46) \\
+(14) = (12)(24)(12) \mapsto (12)(34)(56) \cdot (13)(26)(45) \cdot (12)(34)(56) = (15)(24)(36)% \\
+\end{split}
+\end{displaymath}
+\begin{displaymath}
+\begin{split}
+(25) = (23)(35)(23) \mapsto (16)(24)(35) \cdot (12)(36)(45) \cdot (16)(24)(35) = (15)(23)(46) \\
+(36) = (34)(46)(34) \mapsto (14)(23)(56) \cdot (12)(35)(46) \cdot (14)(23)(56) = (15)(26)(34) \\
+(15) = (12)(25)(12) \mapsto (12)(34)(56) \cdot (15)(23)(46) \cdot (12)(34)(56) = (14)(26)(35) \\
+(26) = (23)(36)(23) \mapsto (16)(24)(35) \cdot (15)(26)(34) \cdot (16)(24)(35) = (14)(25)(36) \\
+(16) = (12)(26)(12) \mapsto (12)(34)(56) \cdot (14)(25)(36) \cdot (12)(34)(56) = (16)(23)(45)
+\end{split}
+\end{displaymath}
+次に、$S_6$の要素がもち得る型の各々について、その型をもつ$S_6$の要素の$F$による像を計算する。
+\begin{displaymath}
+\begin{split}
+&(12)(34) = (12) \cdot (34) \mapsto (12)(34)(56) \cdot (14)(23)(56) = (13)(24) \\
+&(12)(34)(56) = (12)(34) \cdot (56) \mapsto (13)(24) \cdot (13)(24)(56) = (56) \\
+&(123) = (12) \cdot (23) \mapsto (12)(34)(56) \cdot (16)(24)(35) = (154)(236) \\
+&(123)(45) = (123) \cdot (45) \mapsto (154)(236) \cdot (16)(25)(34) = (124653) \\
+&(123)(456) = (123)(45) \cdot (56) \mapsto (124653) \cdot (13)(24)(56) = (263) \\
+&(1234) = (123) \cdot (34) \mapsto (154)(236) \cdot (14)(23)(56) = (2645) \\
+&(1234)(56) = (1234) \cdot (56) \mapsto (2645) \cdot (13)(24)(56) = (13)(2546) \\
+&(12345) = (1234) \cdot (45) \mapsto (2645) \cdot (16)(25)(34) = (14356) \\
+&(123456) = (12345) \cdot (56) \mapsto (14356) \cdot (13)(24)(56) = (15)(234)
+\end{split}
+\end{displaymath}
+これらの結果と補題\ref{lem:type_of_image_is_function_of_type}より、$S_6$の要素を$F$で写した際の型の変化は、型$(1^4 2^1)$と型$(2^3)$を入れ替え、型$(1^33^1)$と型$(3^2)$を入れ替え、型$(1^1 2^1 3^1)$と型$(6^1)$を入れ替え、それ以外の型は変化しないことがわかる。
+
+\paragraph{謝辞}
+本稿の執筆のきっかけとなったのは、信州大学の沼田泰英氏との議論の最中に行った計算である（この外部自己同型写像を具体的に求めるのが思いのほか面倒だった）ため、同氏に感謝する。
+
+\end{document}
