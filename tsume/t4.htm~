@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+ "http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="ja">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="author" content="Koji Nuida">
+<title>詰将棋の話（４） (Koji Nuida's webpage)</title>
+<link rel=stylesheet type="text/css" href="../../style.css">
+</head>
+
+<body>
+
+<h1>詰将棋の話（４）</h1>
+
+<div class="center">
+（2011年7月2日）
+</div>
+
+<div class="right">
+<a href="index.htm">詰将棋の小部屋へ戻る</a>&nbsp;
+<a href="../../index.htm">目次ページへ</a>
+</div>
+
+<p class="center">
+<img src="t4_1.jpg" alt="将棋盤面/攻方24銀44角16桂27銀38金19香69飛/受方12桂33歩43歩14成桂25玉37と18成桂/持駒なし"><br>
+（<a href="http://twitter.com/MarriageTheorem/status/74462425549770752">http://twitter.com/MarriageTheorem/status/74462425549770752</a>にて、2011年5月28日）
+</p>
+
+<p class="left">
+前作と同じく、「地点Xに利かせるため、地点Yに合駒（飛角香）を打つ。ただし、その瞬間には、地点XとYを結ぶ線上に別の駒（攻方でも受方でも可）がいて、直接には地点Xに利いていない。９手以下。双玉のピンは除外。」という課題作です。<br>
+前作が（作品の狙い上必然なのですが）双玉だったため、その単玉バージョンの気持ちで作りました。とはいえ合駒の意味付けは当然変えなければならず、その他細かい変化手順処理の仕方も変わっています。まぁ、解くだけならどうでもいいことかもしれませんが。<br>
+</p>
+
+<div class="right">
+<a href="t3.htm">前へ</a><!-- &nbsp;
+<a href="t5.htm">次へ</a> --><br>
+<a href="index.htm">詰将棋の小部屋へ戻る</a>&nbsp;
+<a href="../../index.htm">目次ページへ</a>
+</div>
+
+<hr>
+
+<div class="right">
+縫田 光司（ぬいだ こうじ）&nbsp;
+jpnuida[at]mwa[dot]biglobe[dot]ne[dot]<br>
+（先頭２文字を末尾に移動させて下さい）<br>
+最終更新：2011年7月2日
+</div>
+
+<p class="center">
+(c) Koji NUIDA 2011- All Rights Reserved.
+</p>
+
+</body>
+</html>

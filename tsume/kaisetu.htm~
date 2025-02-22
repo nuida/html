@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+ "http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="ja">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="author" content="Koji Nuida">
+<title>詰将棋『最後の審判』解説 (Koji Nuida)</title>
+<link rel=stylesheet type="text/css" href="../../style.css">
+<link rel="CONTENTS" href="../index.htm">
+<link rel="PREV" href="sakui.htm">
+<link rev="MADE" href="mailto:nuida@mwa.biglobe.ne.jp">
+</head>
+
+<body>
+
+<h1>『最後の審判』解説</h1>
+
+<div class="center">
+（2004年3月更新）
+</div>
+
+<p class="left">
+<span class="block"><a href="syokei.htm">問題図</a></span><!-- 
+--> <span class="block"><a href="sakui.htm">作意手順</a></span>
+</p>
+
+<p class="left">
+<span class="block"><a href="../index.htm">「趣味の小部屋」トップへ</a></span><!-- 
+--> <span class="block"><a href="../../index.htm">トップページへ</a></span>
+</p>
+
+<h2>何故こんなことに</h2>
+
+<p class="left">
+<span class="indent">要約すると、「禁手（今回の場合、連続王手の千日手）でしか王手を外せない局面は『詰み』なのかどうか」が将棋のルールにおいて定まっていなかったこと、つまり将棋のルールの不備が大きな原因の一つです。
+（この点については、<a href="http://kofu.cool.ne.jp/mozuyama/">もずさんのページ</a>にわかりやすい解説がありますので、そちらもご覧下さい。）</span><br>
+<span class="indent">そして、詰将棋のルールでは「詰み」の定義などに関して、「その他は将棋のルールに準じる」として将棋のルールを参照しているため、将棋のルールの不備の影響をもろに受けてしまった、というわけです。</span>
+</p>
+
+<p class="left">
+<span class="indent">などとあっさり書いていますが、このような「『最後の審判』が詰むか詰まないかは現在のルールでは決定不能」という説が主流になるまでに、詰将棋愛好家の間で多くの議論が繰り広げられてきました（現在も？）。</span>
+</p>
+
+<h2>では、どうすれば</h2>
+
+<p class="left">
+<span class="indent">最も望ましいことは、『最後の審判』の詰、不詰が決定可能になるように、日本将棋連盟がルール改定を行うことです。</span><br>
+<span class="indent">それが望めないならば、将棋のルールを参照しない形での独自の詰将棋ルール（もちろん『最後の審判』の詰、不詰を決定できるように）を、全日本詰将棋連盟を初めとする詰将棋界で制定するのも良いでしょう。
+これは、詰将棋を「将棋修行法の一つ」に留まらない「文化」として捉えるためにも大切なことだと思われるのですが。</span><br>
+</p>
+
+<p class="left">
+<span class="indent">それが大変だとしても、とりあえず『最後の審判』の詰、不詰に関してだけでも、早くどちらかに決まりませんかねぇ。
+もちろん、現行ルールに不備があることを正しく認識した上で、ですが。</span><br>
+<span class="indent">最近、無駄合問題との絡みもあって、詰将棋ルールの整備に関心を持っている方や、実際に新しい詰将棋ルールを試作されている方も増えているようです（というか、私自身も以前はそっち側の人間だったのですが…）。
+早くそれらが実を結ぶよう期待しております。</span>
+</p>
+
+<p class="left">
+<span class="indent">（2004年3月15日追記）2003年11月に、『将棋ガイドブック』という本が日本将棋連盟より発行されたようです。
+これには将棋のルール（日本将棋連盟が発行しているのだから、公式ルールということになるのでしょう）も記載されているとのことですが、そこでは「詰み」や「禁手」についてどう定義されているのか、興味深いところです。
+まだ内容を確認できておりませんが。</span>
+</p>
+
+<hr>
+
+<div class="right">
+製作者　縫田 光司（ぬいだ こうじ）　
+<a href="../../syokai.htm#address">連絡先はこちら</a>
+</div>
+
+<p class="center">
+(c) Koji NUIDA 1998-2004: All rights are reserved.
+</p>
+
+</body>
+</html>

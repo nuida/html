@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+ "http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="ja">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="author" content="Koji Nuida">
+<title>詰将棋の話（３） (Koji Nuida's webpage)</title>
+<link rel=stylesheet type="text/css" href="../../style.css">
+</head>
+
+<body>
+
+<h1>詰将棋の話（３）</h1>
+
+<div class="center">
+（2011年7月2日）
+</div>
+
+<div class="right">
+<a href="index.htm">詰将棋の小部屋へ戻る</a>&nbsp;
+<a href="../../index.htm">目次ページへ</a>
+</div>
+
+<p class="center">
+<img src="t3_1.jpg" alt="将棋盤面/攻方26香36王56桂37龍38香68飛/受方41馬33歩43香34玉55歩27桂/持駒なし"><br>
+（<a href="http://twitter.com/MarriageTheorem/status/74462023567671297">http://twitter.com/MarriageTheorem/status/74462023567671297</a>にて、2011年5月28日）
+</p>
+
+<p class="left">
+引き続き、Twitter上での課題作コンテストのようなものに出してみた作品です（もう一月以上前の話ですが…）。お題は「地点Xに利かせるため、地点Yに合駒（飛角香）を打つ。ただし、その瞬間には、地点XとYを結ぶ線上に別の駒（攻方でも受方でも可）がいて、直接には地点Xに利いていない。９手以下。双玉のピンは除外。」<br>
+「双玉のピン」というのを、「地点Xに攻方の王がいる状況で、地点Xと地点Yの間にいる駒が動くと王が素抜かれる」の意味と解釈した上で、「双玉のピン」以外での王の移動制限を意味付けとする合駒が狙いです。
+なお、発表時に某氏からもコメントをいただいた通り、地点Yへ打つ合駒は結果的に逆王手になるものの、王の現在地への利き自体には意味がありません（もし、王を通り越して地点Xにだけ利きを生じさせる駒が存在するならば、受方はその駒を合駒に打つ方が有利になります）。この点もちょっと奇妙で気に入っています。
+</p>
+
+<p class="left">
+証明したわけではありませんが、多分この課題の最短手数作品だと思います。
+</p>
+
+<div class="right">
+<a href="t2.htm">前へ</a><!-- &nbsp;
+<a href="t4.htm">次へ</a> --><br>
+<a href="index.htm">詰将棋の小部屋へ戻る</a>&nbsp;
+<a href="../../index.htm">目次ページへ</a>
+</div>
+
+<hr>
+
+<div class="right">
+縫田 光司（ぬいだ こうじ）&nbsp;
+jpnuida[at]mwa[dot]biglobe[dot]ne[dot]<br>
+（先頭２文字を末尾に移動させて下さい）<br>
+最終更新：2011年7月2日
+</div>
+
+<p class="center">
+(c) Koji NUIDA 2011- All Rights Reserved.
+</p>
+
+</body>
+</html>

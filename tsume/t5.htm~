@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+ "http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="ja">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="author" content="Koji Nuida">
+<title>詰将棋の話（５） (Koji Nuida's webpage)</title>
+<link rel=stylesheet type="text/css" href="../../style.css">
+</head>
+
+<body>
+
+<h1>詰将棋の話（５）</h1>
+
+<div class="center">
+（2011年7月2日）
+</div>
+
+<div class="right">
+<a href="index.htm">詰将棋の小部屋へ戻る</a>&nbsp;
+<a href="../../index.htm">目次ページへ</a>
+</div>
+
+<p class="center">
+<img src="t5_1.jpg" alt="将棋盤面/攻方32銀43銀15飛45香36歩46歩47香67香19馬29馬/受方31と12桂13と53と24桂64成香55玉56桂27桂/持駒なし"><br>
+（<a href="http://twitter.com/MarriageTheorem/status/75234812079775744">http://twitter.com/MarriageTheorem/status/75234812079775744</a>にて、2011年5月31日）
+</p>
+
+<p class="left">
+前作や前々作と同じく、「地点Xに利かせるため、地点Yに合駒（飛角香）を打つ。ただし、その瞬間には、地点XとYを結ぶ線上に別の駒（攻方でも受方でも可）がいて、直接には地点Xに利いていない。９手以下。双玉のピンは除外。」という課題作です。<br>
+ただ、今回は事前に別の方による「どなたか「中合＋挟まってる駒が玉方」を７手でお願いします」というつぶやきを目にしていたので、「中合＋挟まってる駒が玉方」を５手で実現してみることにしました。<br>
+合駒制限の配置（一応、他の種類の合駒を打つ余地は残っています）や余詰消しのと金など気になる点もありますが、やりたいことはとりあえずできたのでまぁ良しとすることにしました。
+</p>
+
+<p class="left">
+なお、さすがにこれは（「挟まっている駒が受方」という追加条件を加味すると）最短手数作だろうと思います。
+</p>
+
+<div class="right">
+<a href="t4.htm">前へ</a><!-- &nbsp;
+<a href="t6.htm">次へ</a> --><br>
+<a href="index.htm">詰将棋の小部屋へ戻る</a>&nbsp;
+<a href="../../index.htm">目次ページへ</a>
+</div>
+
+<hr>
+
+<div class="right">
+縫田 光司（ぬいだ こうじ）&nbsp;
+jpnuida[at]mwa[dot]biglobe[dot]ne[dot]<br>
+（先頭２文字を末尾に移動させて下さい）<br>
+最終更新：2011年7月2日
+</div>
+
+<p class="center">
+(c) Koji NUIDA 2011- All Rights Reserved.
+</p>
+
+</body>
+</html>
