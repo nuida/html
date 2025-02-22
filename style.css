@@ -1,0 +1,75 @@
+.mildcolor {color:#7090c0}
+.notice {color:maroon; font-weight:bold}
+.warning {color:red; font-weight:bolder; font-style:italic}
+.updated {color:green; font-weight:bold; font-style:italic}
+.nonupdated {color:black}
+.topic {color:green; font-style:italic}
+.center {text-align:center}
+.right {text-align:right}
+.left {text-align:left}
+.block {margin-left:10pt; margin-right:10pt}
+.indent {margin-left:12pt}
+body {
+color:black;
+background-color:#eeeeee;
+margin-left:20pt;
+margin-right:20pt;
+margin-top:10pt;
+line-height:130%
+}
+
+h1 {
+  color: navy;
+  text-align: center
+}
+
+h2 {
+  color: navy;
+  text-align: center
+}
+
+h3 {
+  color: navy;
+  text-align: left
+}
+
+hr {
+  margin-left: -10pt;
+  margin-right: -10pt;
+  background-color: olive
+}
+
+dl dt {
+  color: green
+}
+
+#link-mid {
+  text-align: right
+}
+
+#link-menu {
+  padding: 10px
+}
+
+#topic {
+  color: green;
+  font-style: italic
+}
+
+#page-end {
+  text-align: right
+}
+
+#counter {
+  padding: 5px
+}
+
+#copyright {
+  text-align: center;
+  margin: 10px
+}
+
+#logo-center {
+  text-align: center
+}
+

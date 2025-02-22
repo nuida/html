@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+<meta http-equiv="content-type" content="text/html">
+<meta http-equiv="content-language" content="ja">
+<meta name="author" content="Koji NUIDA">
+<title>数学などに関する覚書</title>
+<link rel="stylesheet" href="./style.css">
+<link rel="START" href="./index.htm">
+
+</head>
+
+
+
+<body>
+
+<!--
+<nav id="link-mid">
+<a href="works_e.htm">English version</a>
+</nav>
+-->
+
+<h1><a name="top">数学などに関する覚書</a></h1>
+
+<nav id="link-mid">
+<a href="./index.htm">目次ページへ</a>
+</nav>
+  
+<p>
+たまに話のネタにしたくなるけれども色々と忘れがちな題材を自分用に（雑に）メモしておきます。
+</p>
+
+<nav>
+<span id="link-menu"><a href="#Goodstein_sequence">グッドスタイン数列</a></span>
+<span id="link-menu"><a href="#CH_and_iterated_integral">連続体仮説と累次積分</a></span>
+<span id="link-menu"><a href="#Different_Konig's">あのK&ouml;nigとあのKőnigは別人</a></span>
+<span id="link-menu"><a href="#Bertrand's_Postulate">ベルトランの仮説</a></span>
+<span id="link-menu"><a href="#primality_test_memo">素数判定まわりについてのメモ</a></span>
+<span id="link-menu"><a href="#trace_of_product_of_size-2_Hermitian">2次エルミート行列の積のトレース</a></span>
+<span id="link-menu"><a href="#finite_sequence_of_pi">円周率の有限部分列</a></span>
+<span id="link-menu"><a href="#single_person's_name">複数人ではなく一人の名前</a></span>
+<span id="link-menu"><a href="#Russell_and_Burali-Forti">ラッセルとヒルベルトとブラリ・フォルティ</a></span>
+</nav>
+
+<section>
+
+<h2><a name="Goodstein_sequence">グッドスタイン数列 (Goodstein sequence)</a></h2>
+
+<p>
+出だしからもの凄い勢いで増加を始めるくせに、どんなパラメータを選んでもある項から先が常に零となり（グッドスタインの定理）、しかも「どんなパラメータを選んでもある項から先が常に零となる」ことがペアノ算術で証明できないというあの数列。
+よく名前を忘れて検索に難儀するのでメモ。
+（<a href="http://ja.googology.wikia.com/wiki/%E3%82%B0%E3%83%83%E3%83%89%E3%82%B9%E3%82%BF%E3%82%A4%E3%83%B3%E6%95%B0%E5%88%97">参考リンク</a>）
+</p>
+
+<footer>
+<nav id="link-mid">
+<a href="#top">このページの先頭へ</a>
+</nav>
+</footer>
+
+</section>
+
+
+
+<section>
+
+<h2><a name="CH_and_iterated_integral">連続体仮説と累次積分</a></h2>
+
+<p>
+連続体仮説を仮定すると、閉区間I = [0,1]上の2変数関数f : I \times I \to Iであって、どちらの変数を先にしてfの累次積分を考えても値が存在するが、変数の順番を交換すると累次積分の値が変化するものが存在する、という話。
+シェルピンスキー（Sierpinski）が1920年に証明したらしい。
+（<a href="http://researchmap.jp/mumjksfma-1782995/#_1782995">参考リンク</a>）
+</p>
+
+<footer>
+<nav id="link-mid">
+<a href="#top">このページの先頭へ</a>
+</nav>
+</footer>
+
+</section>
+
+
+
+<section>
+
+<h2><a name="Different_Konig's">あのK&ouml;nigとあのKőnigは別人</a></h2>
+
+<p>
+集合論のK&ouml;nigの補題（K&ouml;nigの定理とも呼ばれる）「無限基数&kappa;について2<sup>&kappa;</sup>の共終数は&kappa;より大きい」のK&ouml;nig氏と、グラフ理論のKőnigの補題「各頂点の次数が有限である木が無限個の頂点を持てば、無限の長さの道を持つ」のKőnig氏は別人とのこと（後者は前者の子）。
+私が知った情報源は<a href="https://www.jstage.jst.go.jp/article/sugaku/62/4/62_0624453/_article/-char/ja/">こちらの概説記事</a>の脚注。
+</p>
+
+<p>
+（2023年4月2日追記）そもそも集合論の方の氏は&quot;K&ouml;nig&quot;（oの上が丸い点二つ）、グラフ理論の方の氏は&quot;Kőnig&quot;（oの上が斜め点二つ）で、表記からして別という情報を目にした。
+ただ、上記のように親子関係だというのにどういうわけだろう、と思って少し（Wikipediaで）調べてみたところ、集合論の方の氏も本来は&quot;Kőnig&quot;（斜め点）表記であるところ、（主にドイツ語の）論文上では&quot;K&ouml;nig&quot;（丸い点）表記が使われていた、という状況のようである。
+</p>
+
+<footer>
+<nav id="link-mid">
+<a href="#top">このページの先頭へ</a>
+</nav>
+</footer>
+
+</section>
+
+
+
+<section>
+
+<h2><a name="Bertrand's_Postulate">ベルトランの仮説 (Bertrand's Postulate)</a></h2>
+
+<p>
+「nが2以上の整数ならば、n &lt; p &lt; 2nを満たす素数pが常に存在する」という命題。
+Bertrandが1845年に予想を与え、Chebyshevにより1850年に証明されたとのことである。
+証明を与えたChebyshevではなく予想したBertrandの名前が冠されているのには、Chebyshevの定理と呼ばれる結果が他にも存在するので紛らわしいという理由があるかもしれない。
+もちろんこの命題を「Chebyshevの定理」と呼ぶことも間違いではなく、単に個々人の趣味の問題であろう。
+（あの命題を「Fermat予想」と呼ぶか「Taylor-Wilesの定理」と呼ぶかの違い、と似たようなものかもしれない。）
+（参考：<a href="http://mathworld.wolfram.com/BertrandsPostulate.html">&quot;Bertrand's Postulate&quot; from Wolfram MathWorld</a>）
+</p>
+
+<footer>
+<nav id="link-mid">
+<a href="#top">このページの先頭へ</a>
+</nav>
+</footer>
+
+</section>
+
+
+
+<section>
+
+<h2><a name="primality_test_memo">素数判定まわりについてのメモ</a></h2>
+
+<p>
+<ul>
+<li>
+リュカ・レーマーテスト（Lucas-Lehmer Test）：メルセンヌ数が素数であるかどうか判定する方法。
+参考：<a href="http://mathworld.wolfram.com/Lucas-LehmerTest.html">&quot;Lucas-Lehmer Test&quot; from Wolfram MathWorld</a>、<a href="https://ja.wikipedia.org/wiki/%E3%83%AA%E3%83%A5%E3%82%AB%E2%80%93%E3%83%AC%E3%83%BC%E3%83%9E%E3%83%BC%E3%83%BB%E3%83%86%E3%82%B9%E3%83%88%E3%81%AE%E8%A8%BC%E6%98%8E">「リュカ?レーマー・テストの証明」（Wikipedia）</a>
+</li>
+<li>
+Pratt certificate：ある数が素数であることのwitnessの一種。
+オイラーの定理（フェルマーの小定理を一般化したアレのこと）を基にしていて理解しやすい。
+参考：<a href="http://mathworld.wolfram.com/PrattCertificate.html">&quot;Pratt Certificate&quot; from Wolfram Mathworld</a>
+</li>
+<li>
+Atkin-Goldwasser-Kilian-Morain certificate：ある数が素数であることのwitnessの一種。
+楕円曲線の性質を基にしている。
+大きな数に対してはPratt certificateよりも効率的っぽいのだが仕組みはPratt certificateよりも難しいようである。
+参考：<a href="http://mathworld.wolfram.com/Atkin-Goldwasser-Kilian-MorainCertificate.html">&quot;Atkin-Goldwasser-Kilian-Morain Certificate&quot; from Wolfram Mathworld</a>
+</li>
+</ul>
+</p>
+
+<footer>
+<nav id="link-mid">
+<a href="#top">このページの先頭へ</a>
+</nav>
+</footer>
+
+</section>
+
+
+
+<section>
+
+<h2><a name="trace_of_product_of_size-2_Hermitian">2次エルミート行列の積のトレース</a></h2>
+
+<p>
+「AとBを2次のエルミート行列とするとき、AとBをどの順番で何個（有限個）掛けてもその積のトレースは常に実数となる」という面白い事実を<a href="https://twitter.com/yujitach/status/1124600641190367232">Twitter経由で知った</a>のでメモ。
+どうやら<a href="https://twitter.com/yujitach/status/1124600642041868289">物理学的な意味合いも持っている性質</a>らしい。
+なお証明は、ABについてはトレースとその複素共役を比較すればよく、一般の場合についてはケーリー・ハミルトンの定理を用いて積の個数が少ない場合に帰着させればよい。
+</p>
+
+<footer>
+<nav id="link-mid">
+<a href="#top">このページの先頭へ</a>
+</nav>
+</footer>
+
+</section>
+
+
+
+<section>
+
+<h2><a name="finite_sequence_of_pi">円周率の有限部分列</a>（未完）</h2>
+
+<p>
+「0～9からなるどの有限文字列も、円周率の10進法表示の一部として現れる」という言明がインターネット上に定期的に表れる気がするものの、それはまだ予想の段階であり証明はされていない…と思うのだが、いざその裏付けを探そうとすると信憑性の高い情報源が中々見つからないものである。
+とりあえず<a href="https://math.stackexchange.com/questions/2826520/can-we-find-every-finite-sequence-of-pi-within-pi" target="_blank">StackExchangeでそのような内容のコメントが付いた質問を見つけた</a>のでメモしておくけれども引き続き調査したい。
+（2022.3.31時点）
+</p>
+
+<footer>
+<nav id="link-mid">
+<a href="#top">このページの先頭へ</a>
+</nav>
+</footer>
+
+</section>
+
+
+
+<section>
+
+<h2><a name="single_person's_name">複数人ではなく一人の名前</a></h2>
+
+<p>
+「これは二人（以上）の名前ではなく単一の人物名」という案件で（個人的に）混乱しがちなものを随時メモしていく。
+  <ul>
+  <li>
+  Burali-Forti：&quot;Burali-Forti paradox&quot;のBurali-Forti氏（<a href="https://mathshistory.st-andrews.ac.uk/Biographies/Burali-Forti/" target="_blank">参考ページ</a>）
+  </li>
+  </ul>
+</p>
+
+<h2><a name="Russell_and_Burali-Forti">ラッセルとヒルベルトとブラリ・フォルティ</a></h2>
+
+<p>
+RussellのパラドックスとBurali-FortiのパラドックスといわゆるHilbertの23の問題の中ではRussellが時系列的に最初のものだと勝手に思い込んでいたのだが、実際には「Burali-Forti（1897） → Hilbert（1900） → Russell（1901～1902(?)、出版自体は1903）」の順だったことを知った。
+（よくよく考えてみれば、RussellのパラドックスとBurali-Fortiのパラドックスでは、主張の内容自体は（順序数の概念が関係している分だけ）後者の方が高度ではあるが、証明の方針自体は後者はある意味straightforwardな一方で前者はやや技巧的なので、後者が先に発見されるのも納得できるかもしれない。）
+</p>
+
+<footer>
+<nav id="link-mid">
+<a href="#top">このページの先頭へ</a>
+</nav>
+</footer>
+
+</section>
+
+<footer>
+
+<nav id="link-mid">
+<a href="./index.htm">目次ページへ</a>
+</nav>
+
+<hr>
+
+<div id="page-end">
+<address>縫田 光司（ぬいだ こうじ）&nbsp; <a href="./index.htm">連絡先はこちら</a></address>
+最終更新：2023年11月10日
+<br>
+（2015年12月28日より集計）<span id="counter"><iframe src="txday_math_memo/txtdayct.cgi" name="カウンター" height="25">訪問者数カウンター</iframe></span>
+</div>
+
+<div id="copyright">
+(c) Koji NUIDA 2015- All Rights Reserved.
+</div>
+
+</footer>
+
+</body>
+
+</html>
+
